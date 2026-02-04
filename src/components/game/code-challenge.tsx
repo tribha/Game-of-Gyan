@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useTransition } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useState, useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { AlertCircle, Lightbulb, Loader2, Terminal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -49,7 +49,7 @@ export function CodeChallenge({ challenge }: { challenge: Challenge }) {
   const [attempts, setAttempts] = useState(0);
 
   const initialState: HintState = { hint: undefined, error: undefined };
-  const [state, formAction] = useFormState(getHintAction, initialState);
+  const [state, formAction] = useActionState(getHintAction, initialState);
 
   const handleRunCode = () => {
     setOutput('Simulating code execution...\nOutput: [2, 1] (example)');
