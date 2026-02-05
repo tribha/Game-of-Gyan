@@ -14,14 +14,22 @@ import {
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { ThemeToggle } from '../theme-toggle';
 import Link from 'next/link';
-import { useUser, useDoc, useFirestore, useMemoFirebase } from '@/firebase';
-import { logout } from '@/app/auth/actions';
+import { useUser, useDoc, useFirestore, useMemoFirebase, useAuth } from '@/firebase';
+import { signOut } from 'firebase/auth';
 import { doc } from 'firebase/firestore';
+import { useRouter } from 'next/navigation';
 
 
 export function UserNav() {
   const { user } = useUser();
   const firestore = useFirestore();
+  const auth = useAuth();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    router.push('/');
+  };
 
   const userRef = useMemoFirebase(() => {
     if (!user) return null;
@@ -71,10 +79,8 @@ export function UserNav() {
           <ThemeToggle />
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <form action={logout}>
-            <button type="submit" className="w-full text-left">Log out</button>
-          </form>
+        <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
+          Log out
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

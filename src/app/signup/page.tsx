@@ -1,5 +1,8 @@
+'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -11,17 +14,85 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { CodeConquerorLogo } from '@/components/icons';
-import { signup } from '@/app/auth/actions';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, Loader2 } from 'lucide-react';
+import { useAuth, useFirestore } from '@/firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
+import { z } from 'zod';
 
+const SignupSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6, 'Password must be at least 6 characters long.'),
+  username: z.string().min(3, 'Username must be at least 3 characters long.'),
+});
 
-export default function SignupPage({
-  searchParams,
-}: {
-  searchParams?: { [key: string]: string | string[] | undefined };
-}) {
-  const error = searchParams?.error as string | undefined;
+export default function SignupPage() {
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const auth = useAuth();
+  const firestore = useFirestore();
+
+  const handleSignup = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const formData = new FormData(event.currentTarget);
+    const signupData = Object.fromEntries(formData);
+    
+    const result = SignupSchema.safeParse(signupData);
+
+    if (!result.success) {
+      const errorMessages = result.error.flatten().fieldErrors;
+      const firstError = Object.values(errorMessages).flat()[0] || 'Invalid input.';
+      setError(firstError);
+      setLoading(false);
+      return;
+    }
+    
+    const { email, password, username } = result.data;
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+
+      // Create user document in Firestore
+      const userRef = doc(firestore, 'users', user.uid);
+      await setDoc(userRef, {
+        id: user.uid,
+        email: user.email,
+        username: username,
+      });
+
+      // Create user profile document in Firestore
+      const profileRef = doc(firestore, 'userProfiles', user.uid);
+      await setDoc(profileRef, {
+        id: user.uid,
+        level: 1,
+        xp: 0,
+        badges: [],
+        skillLevel: 'beginner',
+        streak: 0,
+        completedCourses: [],
+      });
+      
+      router.push('/dashboard');
+
+    } catch (e: any) {
+      let errorMessage = 'Signup failed. Please try again.';
+      if (e.code === 'auth/email-already-in-use') {
+          errorMessage = 'This email is already in use. Please login or use a different email.';
+      }
+      setError(errorMessage);
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">
@@ -43,7 +114,7 @@ export default function SignupPage({
               <AlertDescription>{error}</AlertDescription>
             </Alert>
           )}
-          <form action={signup} className="grid gap-4">
+          <form onSubmit={handleSignup} className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="username">Username</Label>
               <Input id="username" name="username" required />
@@ -62,7 +133,8 @@ export default function SignupPage({
               <Label htmlFor="password">Password</Label>
               <Input id="password" type="password" name="password" required minLength={6} />
             </div>
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full" disabled={loading}>
+              {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Sign Up
             </Button>
           </form>
