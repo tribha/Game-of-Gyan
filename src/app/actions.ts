@@ -39,9 +39,22 @@ export async function getHintAction(
     }
 
     const result = await getSmartHint(validatedData.data);
-    return { hint: result.hint };
+    
+    if (result.hint) {
+        return { hint: result.hint };
+    } else {
+        // The model returns null if it thinks the user hasn't tried enough.
+        // We can provide a generic encouraging message.
+        const attempts = validatedData.data.attempts;
+        if (attempts < 2) {
+            return { hint: "Keep trying! You're on the right track. Give it another go before asking for a more specific hint." };
+        } else {
+            return { hint: "It looks like you're stuck. Double-check the problem description and see if you can spot any clues." };
+        }
+    }
 
   } catch (e) {
-    return { error: 'Failed to generate hint. Please try again.' };
+    console.error('Hint generation failed:', e);
+    return { error: 'Failed to generate hint. Please try again later.' };
   }
 }

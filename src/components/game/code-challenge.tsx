@@ -77,8 +77,19 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
   const { data: userProfile } = useDoc(profileRef);
 
   const handleRunCode = () => {
-    setOutput('Simulating code execution...\nOutput will appear here.');
-    // In a real scenario, you'd send the code to a backend service for execution
+    if (challenge.language.toLowerCase() !== 'javascript') {
+      setOutput(`Simulating execution for ${challenge.language}...\nOutput will appear here.`);
+      return;
+    }
+
+    try {
+      // This is not a real execution environment. It only checks for syntax errors.
+      // A real execution would require a sandboxed environment and test cases.
+      new Function(code);
+      setOutput('Code syntax is valid.\n\n(Note: This is a syntax check, not a full execution with test cases.)');
+    } catch (e: any) {
+      setOutput(`Error in your code:\n\n${e.name}: ${e.message}`);
+    }
   };
   
   const handleAttempt = (formData: FormData) => {
