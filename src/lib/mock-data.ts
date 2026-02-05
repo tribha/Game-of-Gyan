@@ -103,6 +103,36 @@ export const courses = [
                 },
               ],
             },
+            {
+                id: 'js-4',
+                levelNumber: 4,
+                title: 'Conditional Statements',
+                description: 'Make decisions in your code with if-else statements.',
+                games: [
+                  {
+                    language: 'javascript',
+                    level: 'intermediate' as const,
+                    title: 'Check if a number is even or odd',
+                    question: 'Write a function `isEvenOrOdd(num)` that takes a number and returns the string "even" if the number is even, and "odd" if it is odd.',
+                    initialCode: `function isEvenOrOdd(num) {\n  // Your code here\n}`,
+                  },
+                ],
+            },
+            {
+                id: 'js-5',
+                levelNumber: 5,
+                title: 'Loops',
+                description: 'Repeat actions with for and while loops.',
+                games: [
+                  {
+                    language: 'javascript',
+                    level: 'intermediate' as const,
+                    title: 'Sum an array',
+                    question: 'Write a function `sumArray(arr)` that takes an array of numbers and returns their sum.',
+                    initialCode: `function sumArray(arr) {\n  let sum = 0;\n  // Your code here\n\n  return sum;\n}`,
+                  },
+                ],
+            },
         ]
     },
     { 
@@ -140,6 +170,36 @@ export const courses = [
                   initialCode: `def create_var():\n  # Your code here`,
                 },
               ],
+            },
+            {
+                id: 'py-3',
+                levelNumber: 3,
+                title: 'Lists and Loops',
+                description: 'Work with ordered collections of data.',
+                games: [
+                  {
+                    language: 'python',
+                    level: 'beginner' as const,
+                    title: 'Find the largest number',
+                    question: 'Write a function `find_max(numbers)` that takes a list of numbers and returns the largest one.',
+                    initialCode: `def find_max(numbers):\n  # Your code here`,
+                  },
+                ],
+            },
+            {
+                id: 'py-4',
+                levelNumber: 4,
+                title: 'Dictionaries',
+                description: 'Understand key-value pairs for flexible data storage.',
+                games: [
+                  {
+                    language: 'python',
+                    level: 'intermediate' as const,
+                    title: 'Count word frequency',
+                    question: 'Write a function `word_count(text)` that takes a string and returns a dictionary with the frequency of each word.',
+                    initialCode: `def word_count(text):\n  # Your code here`,
+                  },
+                ],
             },
         ] 
     },
@@ -179,6 +239,36 @@ export const courses = [
                 },
               ],
             },
+            {
+                id: 'sql-3',
+                levelNumber: 3,
+                title: 'JOINs',
+                description: 'Combine rows from two or more tables.',
+                games: [
+                  {
+                    language: 'sql',
+                    level: 'intermediate' as const,
+                    title: 'Get Order Details',
+                    question: 'Write a SQL query to select the order ID and the customer name for each order by joining `orders` and `customers` tables on `customer_id`.',
+                    initialCode: `// Your SQL query here`,
+                  },
+                ],
+              },
+              {
+                id: 'sql-4',
+                levelNumber: 4,
+                title: 'Aggregate Functions',
+                description: 'Perform calculations on a set of values.',
+                games: [
+                  {
+                    language: 'sql',
+                    level: 'intermediate' as const,
+                    title: 'Count Total Customers',
+                    question: 'Write a SQL query to count the total number of customers in the `customers` table.',
+                    initialCode: `// Your SQL query here`,
+                  },
+                ],
+              },
         ] 
     },
     { 
@@ -217,6 +307,21 @@ export const courses = [
                 },
               ],
             },
+            {
+                id: 'java-3',
+                levelNumber: 3,
+                title: 'Control Flow',
+                description: 'Use loops and conditional statements.',
+                games: [
+                  {
+                    language: 'java',
+                    level: 'beginner' as const,
+                    title: 'FizzBuzz',
+                    question: 'Write a Java method `fizzBuzz(int n)` that returns "Fizz" for multiples of 3, "Buzz" for multiples of 5, "FizzBuzz" for multiples of both, and the number as a string otherwise.',
+                    initialCode: `class Solution {\n  public String fizzBuzz(int n) {\n    // Your code here\n  }\n}`,
+                  },
+                ],
+            },
         ] 
     },
     { 
@@ -240,6 +345,36 @@ export const courses = [
                 },
               ],
             },
+            {
+                id: 'cpp-2',
+                levelNumber: 2,
+                title: 'Variables and Types',
+                description: 'Learn about fundamental data types in C++.',
+                games: [
+                  {
+                    language: 'cplusplus',
+                    level: 'beginner' as const,
+                    title: 'Integer Sum',
+                    question: 'Write a C++ function `sum(int a, int b)` that returns the sum of two integers.',
+                    initialCode: `int sum(int a, int b) {\n  // Your code here\n}`,
+                  },
+                ],
+            },
+            {
+                id: 'cpp-3',
+                levelNumber: 3,
+                title: 'Basic I/O',
+                description: 'Learn to use cin and cout for input/output.',
+                games: [
+                  {
+                    language: 'cplusplus',
+                    level: 'beginner' as const,
+                    title: 'Echo Input',
+                    question: 'Write a C++ function `echo()` that reads an integer from standard input and prints it to standard output.',
+                    initialCode: `#include <iostream>\n\nvoid echo() {\n  // Your code here\n}`,
+                  },
+                ],
+            },
         ] 
     },
     { 
@@ -262,6 +397,36 @@ export const courses = [
                   initialCode: `function createHeading() {\n  // Return an HTML string\n}`,
                 },
               ],
+            },
+            {
+                id: 'css-1',
+                levelNumber: 2,
+                title: 'Basic CSS Styling',
+                description: 'Style your HTML elements with CSS.',
+                games: [
+                  {
+                    language: 'html',
+                    level: 'beginner' as const,
+                    title: 'Style a Paragraph',
+                    question: 'Write a function `styleParagraph()` that returns an HTML string for a paragraph with red text color. The text should be "This is a red paragraph."',
+                    initialCode: `function styleParagraph() {\n  // Return an HTML string with inline styles\n}`,
+                  },
+                ],
+            },
+            {
+                id: 'css-2',
+                levelNumber: 3,
+                title: 'The Box Model',
+                description: 'Understand margin, padding, and borders.',
+                games: [
+                  {
+                    language: 'html',
+                    level: 'intermediate' as const,
+                    title: 'Create a Padded Box',
+                    question: 'Write a function `createBox()` that returns a div with a 1px solid black border and 20px of padding. The content of the div should be "I am in a box".',
+                    initialCode: `function createBox() {\n  // Return an HTML string with a styled div\n}`,
+                  },
+                ],
             },
         ] 
     }
