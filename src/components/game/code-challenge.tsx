@@ -13,12 +13,11 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
-import { getHintAction, type HintState } from '@/app/actions';
+import { getHintAction, runCodeAction, type HintState, type RunCodeState } from '@/app/actions';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
 import { useToast } from '@/hooks/use-toast';
 import { doc, updateDoc, arrayUnion, increment } from 'firebase/firestore';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 
 type Challenge = {
@@ -35,7 +34,7 @@ type CodeChallengeProps = {
   levelId?: string;
 };
 
-function SubmitButton() {
+function HintSubmitButton() {
   const { pending } = useFormStatus();
   return (
     <Button type="submit" disabled={pending}>
@@ -54,10 +53,19 @@ function SubmitButton() {
   );
 }
 
+function RunCodeSubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" disabled={pending}>
+      {pending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+      Run Code
+    </Button>
+  );
+}
+
 
 export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengeProps) {
   const [code, setCode] = useState(challenge.initialCode);
-  const [output, setOutput] = useState('// Click "Run Code" to see the output');
   const [attempts, setAttempts] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -66,8 +74,11 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
   const router = useRouter();
   const { toast } = useToast();
 
-  const initialState: HintState = { hint: undefined, error: undefined };
-  const [state, formAction] = useActionState(getHintAction, initialState);
+  const initialHintState: HintState = { hint: undefined, error: undefined };
+  const [hintState, hintFormAction] = useActionState(getHintAction, initialHintState);
+  
+  const initialRunCodeState: RunCodeState = { stdout: undefined, stderr: undefined, error: undefined };
+  const [runCodeState, runCodeFormAction] = useActionState(runCodeAction, initialRunCodeState);
 
   const profileRef = useMemoFirebase(() => {
     if (!user) return null;
@@ -76,25 +87,9 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
 
   const { data: userProfile } = useDoc(profileRef);
   
-  const isJsChallenge = challenge.language.toLowerCase() === 'javascript';
-
-  const handleRunCode = () => {
-    if (isJsChallenge) {
-      try {
-        // This is a basic client-side check for JavaScript syntax.
-        // It doesn't execute the code in a sandbox or run test cases.
-        new Function(code);
-        setOutput('✅ JavaScript syntax is valid.\n\n(Note: This is a syntax check only. It does not run your code or check for correct logic.)');
-      } catch (e: any) {
-        setOutput(`❌ Error in your JavaScript code:\n\n${e.name}: ${e.message}`);
-      }
-    }
-    // For other languages, the button is disabled, so this function won't be called.
-  };
-  
-  const handleAttempt = (formData: FormData) => {
+  const handleHintAttempt = (formData: FormData) => {
     setAttempts(prev => prev + 1);
-    formAction(formData);
+    hintFormAction(formData);
   }
 
   const handleSubmit = async () => {
@@ -143,6 +138,14 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
       setIsSubmitting(false);
     } 
   };
+  
+  const consoleOutput = runCodeState.stderr
+    ? `❌ Error:\n\n${runCodeState.stderr}`
+    : runCodeState.stdout
+    ? `${runCodeState.stdout}`
+    : runCodeState.error
+    ? `🚨 System Error: ${runCodeState.error}`
+    : '// Click "Run Code" to see the output';
 
 
   return (
@@ -160,18 +163,18 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
           </CardContent>
         </Card>
         
-        {state.hint && (
+        {hintState.hint && (
           <Alert>
             <Lightbulb className="h-4 w-4" />
             <AlertTitle>Hint</AlertTitle>
-            <AlertDescription>{state.hint}</AlertDescription>
+            <AlertDescription>{hintState.hint}</AlertDescription>
           </Alert>
         )}
-        {state.error && (
+        {hintState.error && (
             <Alert variant="destructive">
             <AlertCircle className="h-4 w-4" />
             <AlertTitle>Error</AlertTitle>
-            <AlertDescription>{state.error}</AlertDescription>
+            <AlertDescription>{hintState.error}</AlertDescription>
             </Alert>
         )}
       </div>
@@ -189,30 +192,21 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
               placeholder="Write your code here..."
             />
             <div className="flex flex-wrap gap-2">
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    {/* This wrapper div is necessary to make tooltips work on disabled buttons */}
-                    <div className="inline-block">
-                       <Button onClick={handleRunCode} disabled={!isJsChallenge}>Run Code</Button>
-                    </div>
-                  </TooltipTrigger>
-                  {!isJsChallenge && (
-                    <TooltipContent>
-                      <p>In-browser code execution is only available for JavaScript.</p>
-                    </TooltipContent>
-                  )}
-                </Tooltip>
-              </TooltipProvider>
+              <form action={runCodeFormAction}>
+                <input type="hidden" name="language" value={challenge.language} />
+                <input type="hidden" name="question" value={challenge.question} />
+                <input type="hidden" name="studentCode" value={code} />
+                <RunCodeSubmitButton />
+              </form>
 
-              <form action={handleAttempt}>
+              <form action={handleHintAttempt}>
                 <input type="hidden" name="language" value={challenge.language} />
                 <input type="hidden" name="level" value={challenge.level} />
                 <input type="hidden" name="question" value={challenge.question} />
                 <input type="hidden" name="attempts" value={attempts} />
                 <input type="hidden" name="studentCode" value={code} />
                 <input type="hidden" name="initialCode" value={challenge.initialCode} />
-                <SubmitButton />
+                <HintSubmitButton />
               </form>
                <Button variant="secondary" onClick={handleSubmit} disabled={isSubmitting}>
                  {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
@@ -227,7 +221,7 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
                </CardHeader>
                <CardContent className="p-4 pt-0">
                 <pre className="bg-muted p-4 rounded-md text-sm text-muted-foreground whitespace-pre-wrap">
-                  <code>{output}</code>
+                  <code>{consoleOutput}</code>
                 </pre>
                </CardContent>
              </Card>

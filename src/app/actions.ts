@@ -2,6 +2,7 @@
 'use server';
 
 import { getSmartHint, type SmartHintInput } from '@/ai/flows/smart-hint-system';
+import { runCode } from '@/ai/flows/run-code';
 import { z } from 'zod';
 import { redirect } from 'next/navigation';
 
@@ -62,5 +63,41 @@ export async function getHintAction(
   } catch (e) {
     console.error('Hint generation failed:', e);
     return { error: 'Failed to generate hint. Please try again later.' };
+  }
+}
+
+const RunCodeActionSchema = z.object({
+  language: z.string(),
+  question: z.string(),
+  studentCode: z.string(),
+});
+
+export type RunCodeState = {
+  stdout?: string;
+  stderr?: string;
+  error?: string;
+};
+
+export async function runCodeAction(
+  prevState: RunCodeState,
+  formData: FormData
+): Promise<RunCodeState> {
+  try {
+    const validatedDataResult = RunCodeActionSchema.safeParse({
+      language: formData.get('language'),
+      question: formData.get('question'),
+      studentCode: formData.get('studentCode'),
+    });
+
+    if (!validatedDataResult.success) {
+      return { error: 'Invalid input for code execution.' };
+    }
+
+    const result = await runCode(validatedDataResult.data);
+
+    return { stdout: result.stdout, stderr: result.stderr };
+  } catch (e) {
+    console.error('Code execution simulation failed:', e);
+    return { error: 'Failed to run code. Please try again later.' };
   }
 }
