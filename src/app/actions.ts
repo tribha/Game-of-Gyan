@@ -93,7 +93,13 @@ export async function runCodeAction(
       return { error: 'Invalid input for code execution.' };
     }
 
-    const result = await runCode(validatedDataResult.data);
+    const { language, question, studentCode } = validatedDataResult.data;
+
+    const result = await runCode({
+      language,
+      question,
+      code: studentCode,
+    });
 
     return { stdout: result.stdout, stderr: result.stderr };
   } catch (e) {

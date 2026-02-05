@@ -11,14 +11,14 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-export const RunCodeInputSchema = z.object({
+const RunCodeInputSchema = z.object({
   language: z.string().describe('The programming language of the code.'),
   code: z.string().describe('The code to execute.'),
   question: z.string().describe('The context or question the code is trying to solve.'),
 });
 export type RunCodeInput = z.infer<typeof RunCodeInputSchema>;
 
-export const RunCodeOutputSchema = z.object({
+const RunCodeOutputSchema = z.object({
   stdout: z.string().describe('The simulated standard output of the code. If there are errors, this might be empty.'),
   stderr: z.string().describe('The simulated standard error output. If the code runs successfully, this should be empty.'),
 });
