@@ -25,6 +25,14 @@ service cloud.firestore {
       match /certificates/{certificateId} {
         allow read, write: if isOwner(userId);
       }
+
+      // XP history is a sub-collection of a user's profile
+      match /xpHistory/{xpEntryId} {
+        allow read, list: if isOwner(userId);
+        // Users can only create their own xp entries. Updates and deletes are disallowed to prevent tampering.
+        allow create: if isOwner(userId);
+        allow update, delete: if false;
+      }
     }
 
     // Publicly readable course content

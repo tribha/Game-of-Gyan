@@ -1,18 +1,26 @@
 'use client';
 
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
+import { Skeleton } from '@/components/ui/skeleton';
 
-const data = [
-  { name: 'Sun', total: Math.floor(Math.random() * 200) + 50 },
-  { name: 'Mon', total: Math.floor(Math.random() * 200) + 50 },
-  { name: 'Tue', total: Math.floor(Math.random() * 200) + 50 },
-  { name: 'Wed', total: Math.floor(Math.random() * 200) + 50 },
-  { name: 'Thu', total: Math.floor(Math.random() * 200) + 50 },
-  { name: 'Fri', total: Math.floor(Math.random() * 200) + 50 },
-  { name: 'Sat', total: Math.floor(Math.random() * 200) + 50 },
-];
+type ChartData = {
+  name: string;
+  total: number;
+};
 
-export function OverviewChart() {
+type OverviewChartProps = {
+  data: ChartData[];
+  isLoading: boolean;
+};
+
+export function OverviewChart({ data, isLoading }: OverviewChartProps) {
+  if (isLoading) {
+    return (
+      <div className="h-[350px] w-full p-4 pl-2">
+        <Skeleton className="h-full w-full" />
+      </div>
+    );
+  }
   return (
     <ResponsiveContainer width="100%" height={350}>
       <BarChart data={data}>

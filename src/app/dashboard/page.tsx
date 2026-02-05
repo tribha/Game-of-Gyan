@@ -1,6 +1,6 @@
 
 'use client';
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   Card,
   CardContent,
@@ -15,8 +15,8 @@ import { OverviewChart } from '@/components/dashboard/overview-chart';
 import { courses as allCourses, achievements } from '@/lib/mock-data';
 import { Activity, BarChart, CheckCircle, Clock } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
-import { useUser, useDoc, useMemoFirebase, useFirestore } from '@/firebase';
-import { doc } from 'firebase/firestore';
+import { useUser, useDoc, useMemoFirebase, useFirestore, useCollection } from '@/firebase';
+import { doc, query, collection, where, orderBy, Timestamp } from 'firebase/firestore';
 import { Skeleton } from '@/components/ui/skeleton';
 
 
@@ -36,6 +36,52 @@ export default function DashboardPage() {
 
   const { data: userData } = useDoc(userRef);
   const { data: userProfile, isLoading: isProfileLoading } = useDoc(profileRef);
+
+  const sevenDaysAgo = useMemo(() => {
+    const d = new Date();
+    d.setDate(d.getDate() - 7);
+    d.setHours(0, 0, 0, 0);
+    return d;
+  }, []);
+
+  const xpHistoryQuery = useMemoFirebase(() => {
+      if (!user) return null;
+      return query(
+        collection(firestore, 'userProfiles', user.uid, 'xpHistory'),
+        where('timestamp', '>=', sevenDaysAgo)
+      );
+  }, [firestore, user, sevenDaysAgo]);
+
+  const { data: xpHistory, isLoading: isXpHistoryLoading } = useCollection(xpHistoryQuery);
+
+  const overviewChartData = useMemo(() => {
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const dailyTotals: { [key: string]: number } = {};
+
+    if (xpHistory) {
+        for (const entry of xpHistory) {
+            const timestamp = entry.timestamp as Timestamp;
+            if (timestamp) {
+                const date = timestamp.toDate();
+                const dateKey = date.toISOString().split('T')[0]; // YYYY-MM-DD
+                if (!dailyTotals[dateKey]) {
+                    dailyTotals[dateKey] = 0;
+                }
+                dailyTotals[dateKey] += entry.amount;
+            }
+        }
+    }
+
+    return Array.from({ length: 7 }, (_, i) => {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const dateKey = d.toISOString().split('T')[0];
+        return {
+            name: days[d.getDay()],
+            total: dailyTotals[dateKey] || 0
+        };
+    }).reverse();
+  }, [xpHistory]);
 
 
   const totalXP = 1000;
@@ -111,7 +157,7 @@ export default function DashboardPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="pl-2">
-            <OverviewChart />
+            <OverviewChart data={overviewChartData} isLoading={isXpHistoryLoading} />
           </CardContent>
         </Card>
         <div className="lg:col-span-2 space-y-6">

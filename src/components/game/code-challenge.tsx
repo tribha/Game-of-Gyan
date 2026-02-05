@@ -3,7 +3,7 @@
 import React, { useState, useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { useRouter } from 'next/navigation';
-import { AlertCircle, Lightbulb, Loader2, Terminal } from 'lucide-react';
+import { AlertCircle, Lightbulb, Loader2, Terminal, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -15,9 +15,10 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { getHintAction, runCodeAction, type HintState, type RunCodeState } from '@/app/actions';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
+import { useUser, useFirestore, useMemoFirebase } from '@/firebase';
 import { useToast } from '@/hooks/use-toast';
-import { doc, updateDoc, arrayUnion, increment } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion, increment, collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 
 
 type Challenge = {
@@ -107,20 +108,37 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
         title: 'Already Completed',
         description: 'You have already earned XP for this level.',
       });
+       // Navigate back to the course page after a short delay
+      setTimeout(() => {
+        router.push(`/dashboard/courses/${courseId}`);
+      }, 1500);
       return;
     }
 
     setIsSubmitting(true);
     try {
+      const xpAmount = 50;
       // In a real app, you'd validate the code here. We'll simulate success.
-      await updateDoc(profileRef!, {
-        xp: increment(50),
+      const profileUpdatePromise = updateDoc(profileRef!, {
+        xp: increment(xpAmount),
         completedLevels: arrayUnion(levelId),
       });
 
+      const xpHistoryRef = collection(firestore, 'userProfiles', user.uid, 'xpHistory');
+      const xpHistoryAddPromise = addDoc(xpHistoryRef, {
+        userId: user.uid,
+        amount: xpAmount,
+        timestamp: serverTimestamp(),
+        reason: `Completed ${levelId}`,
+        courseId: courseId,
+        levelId: levelId
+      });
+      
+      await Promise.all([profileUpdatePromise, xpHistoryAddPromise]);
+
       toast({
         title: 'Success!',
-        description: 'You completed the challenge and earned 50 XP!',
+        description: `You completed the challenge and earned ${xpAmount} XP!`,
       });
 
       // Navigate back to the course page after a short delay
@@ -192,12 +210,12 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
               placeholder="Write your code here..."
             />
             <div className="flex flex-wrap gap-2">
-              <form action={runCodeFormAction}>
-                <input type="hidden" name="language" value={challenge.language} />
-                <input type="hidden" name="question" value={challenge.question} />
-                <input type="hidden" name="studentCode" value={code} />
-                <RunCodeSubmitButton />
-              </form>
+                <form action={runCodeFormAction}>
+                    <input type="hidden" name="language" value={challenge.language} />
+                    <input type="hidden" name="question" value={challenge.question} />
+                    <input type="hidden" name="studentCode" value={code} />
+                    <RunCodeSubmitButton />
+                </form>
 
               <form action={handleHintAttempt}>
                 <input type="hidden" name="language" value={challenge.language} />
