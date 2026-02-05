@@ -37,6 +37,34 @@
           "type": "string",
           "description": "Unique identifier for the user profile, same as user ID."
         },
+        "name": {
+          "type": "string",
+          "description": "User's full name."
+        },
+        "school": {
+          "type": "string",
+          "description": "User's school or college name."
+        },
+        "city": {
+          "type": "string",
+          "description": "User's city."
+        },
+        "phone": {
+          "type": "string",
+          "description": "User's phone number."
+        },
+        "skills": {
+          "type": "array",
+          "description": "Array of user's skills.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "avatarUrl": {
+          "type": "string",
+          "description": "URL of the user's avatar image.",
+          "format": "uri"
+        },
         "level": {
           "type": "number",
           "description": "Current level of the user."
@@ -51,10 +79,6 @@
           "items": {
             "type": "string"
           }
-        },
-        "skillLevel": {
-          "type": "string",
-          "description": "User's skill level (beginner/intermediate/advanced)."
         },
         "streak": {
           "type": "number",
@@ -73,7 +97,6 @@
         "level",
         "xp",
         "badges",
-        "skillLevel",
         "streak",
         "completedCourses"
       ]

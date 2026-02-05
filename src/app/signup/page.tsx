@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -77,9 +78,14 @@ export default function SignupPage() {
         level: 1,
         xp: 0,
         badges: [],
-        skillLevel: 'beginner',
         streak: 0,
         completedCourses: [],
+        name: '',
+        school: '',
+        city: '',
+        phone: '',
+        skills: [],
+        avatarUrl: '',
       });
       
       router.push('/dashboard');

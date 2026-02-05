@@ -1,3 +1,4 @@
+
 export const userProfile = {
   name: 'Alex Doe',
   email: 'alex.doe@example.com',
@@ -51,12 +52,12 @@ export const dailyChallenge = {
 };
 
 export const courses = [
-    { name: 'JavaScript', icon: 'SiJavascript', levels: 15, description: 'Master the language of the web, from basics to advanced concepts.' },
-    { name: 'Python', icon: 'SiPython', levels: 20, description: 'Learn a versatile language used in web dev, data science, and more.' },
-    { name: 'SQL', icon: 'Database', levels: 10, description: 'Become proficient in managing and querying relational databases.' },
-    { name: 'Java', icon: 'SiJava', levels: 25, description: 'Build robust, enterprise-scale applications with Java.' },
-    { name: 'C++', icon: 'SiCplusplus', levels: 30, description: 'Dive deep into system programming and game development with C++.' },
-    { name: 'HTML/CSS', icon: 'SiHtml5', levels: 12, description: 'Create beautiful and responsive web pages from scratch.' }
+    { id: 'javascript', name: 'JavaScript', icon: 'SiJavascript', levels: 15, description: 'Master the language of the web, from basics to advanced concepts.' },
+    { id: 'python', name: 'Python', icon: 'SiPython', levels: 20, description: 'Learn a versatile language used in web dev, data science, and more.' },
+    { id: 'sql', name: 'SQL', icon: 'Database', levels: 10, description: 'Become proficient in managing and querying relational databases.' },
+    { id: 'java', name: 'Java', icon: 'SiJava', levels: 25, description: 'Build robust, enterprise-scale applications with Java.' },
+    { id: 'cplusplus', name: 'C++', icon: 'SiCplusplus', levels: 30, description: 'Dive deep into system programming and game development with C++.' },
+    { id: 'html-css', name: 'HTML/CSS', icon: 'SiHtml5', levels: 12, description: 'Create beautiful and responsive web pages from scratch.' }
 ];
 
 export const mockData = {
