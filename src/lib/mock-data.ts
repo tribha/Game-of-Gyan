@@ -59,7 +59,7 @@ export const courses = [
         description: 'Master the language of the web, from basics to advanced concepts.',
         levels: [
             {
-              id: '1',
+              id: 'js-1',
               levelNumber: 1,
               title: 'Variables and Data Types',
               description: 'Learn the basics of storing and using data in JavaScript.',
@@ -74,7 +74,7 @@ export const courses = [
               ],
             },
             {
-              id: '2',
+              id: 'js-2',
               levelNumber: 2,
               title: 'Operators',
               description: 'Understand how to perform operations on variables.',
@@ -88,13 +88,183 @@ export const courses = [
                 },
               ],
             },
+            {
+              id: 'js-3',
+              levelNumber: 3,
+              title: 'Functions',
+              description: 'Learn to write reusable blocks of code.',
+              games: [
+                {
+                  language: 'javascript',
+                  level: 'beginner' as const,
+                  title: 'Create a "Hello" Function',
+                  question: 'Write a function named `sayHello` that takes a `name` as an argument and returns a string "Hello, [name]!".',
+                  initialCode: `function sayHello(name) {\n  // Your code here\n}`,
+                },
+              ],
+            },
         ]
     },
-    { id: 'python', name: 'Python', icon: 'SiPython', description: 'Learn a versatile language used in web dev, data science, and more.', levels: [] },
-    { id: 'sql', name: 'SQL', icon: 'Database', description: 'Become proficient in managing and querying relational databases.', levels: [] },
-    { id: 'java', name: 'Java', icon: 'SiJava', description: 'Build robust, enterprise-scale applications with Java.', levels: [] },
-    { id: 'cplusplus', name: 'C++', icon: 'SiCplusplus', description: 'Dive deep into system programming and game development with C++.', levels: [] },
-    { id: 'html-css', name: 'HTML/CSS', icon: 'SiHtml5', description: 'Create beautiful and responsive web pages from scratch.', levels: [] }
+    { 
+        id: 'python', 
+        name: 'Python', 
+        icon: 'SiPython', 
+        description: 'Learn a versatile language used in web dev, data science, and more.', 
+        levels: [
+            {
+              id: 'py-1',
+              levelNumber: 1,
+              title: 'Hello, Python!',
+              description: 'Get started with Python by printing to the console.',
+              games: [
+                {
+                  language: 'python',
+                  level: 'beginner' as const,
+                  title: 'Print "Hello, World!"',
+                  question: 'Write a Python function `hello()` that prints "Hello, World!" to the console. Note: The testing environment will capture print output, you don\'t need to return anything.',
+                  initialCode: `def hello():\n  # Your code here`,
+                },
+              ],
+            },
+            {
+              id: 'py-2',
+              levelNumber: 2,
+              title: 'Python Variables',
+              description: 'Learn how to store data in Python.',
+              games: [
+                {
+                  language: 'python',
+                  level: 'beginner' as const,
+                  title: 'Create a Variable',
+                  question: 'Create a function `create_var()` that declares a variable `my_message` with the value "I love Python" and returns it.',
+                  initialCode: `def create_var():\n  # Your code here`,
+                },
+              ],
+            },
+        ] 
+    },
+    { 
+        id: 'sql', 
+        name: 'SQL', 
+        icon: 'Database', 
+        description: 'Become proficient in managing and querying relational databases.', 
+        levels: [
+            {
+              id: 'sql-1',
+              levelNumber: 1,
+              title: 'SELECT statements',
+              description: 'Learn how to retrieve data from a database.',
+              games: [
+                {
+                  language: 'sql',
+                  level: 'beginner' as const,
+                  title: 'Select All Customers',
+                  question: 'Write a SQL query to select all columns from the `customers` table.',
+                  initialCode: `// Your SQL query here`,
+                },
+              ],
+            },
+             {
+              id: 'sql-2',
+              levelNumber: 2,
+              title: 'WHERE clause',
+              description: 'Learn how to filter data.',
+              games: [
+                {
+                  language: 'sql',
+                  level: 'beginner' as const,
+                  title: 'Select Customers from London',
+                  question: 'Write a SQL query to select all customers who are from the city "London".',
+                  initialCode: `// Your SQL query here`,
+                },
+              ],
+            },
+        ] 
+    },
+    { 
+        id: 'java', 
+        name: 'Java', 
+        icon: 'SiJava', 
+        description: 'Build robust, enterprise-scale applications with Java.', 
+        levels: [
+            {
+              id: 'java-1',
+              levelNumber: 1,
+              title: 'Hello, Java!',
+              description: 'Your first steps into the world of Java.',
+              games: [
+                {
+                  language: 'java',
+                  level: 'beginner' as const,
+                  title: 'Hello, World!',
+                  question: 'Write a Java method `hello()` that returns the string "Hello, World!".',
+                  initialCode: `class Solution {\n  public String hello() {\n    // Your code here\n  }\n}`,
+                },
+              ],
+            },
+             {
+              id: 'java-2',
+              levelNumber: 2,
+              title: 'Java Methods',
+              description: 'Learn to create and use methods.',
+              games: [
+                {
+                  language: 'java',
+                  level: 'beginner' as const,
+                  title: 'Add two integers',
+                  question: 'Write a Java method `add(int a, int b)` that returns the sum of two integers.',
+                  initialCode: `class Solution {\n  public int add(int a, int b) {\n    // Your code here\n  }\n}`,
+                },
+              ],
+            },
+        ] 
+    },
+    { 
+        id: 'cplusplus', 
+        name: 'C++', 
+        icon: 'SiCplusplus', 
+        description: 'Dive deep into system programming and game development with C++.', 
+        levels: [
+            {
+              id: 'cpp-1',
+              levelNumber: 1,
+              title: 'Your First C++ Program',
+              description: 'Start your C++ journey.',
+              games: [
+                {
+                  language: 'cplusplus',
+                  level: 'beginner' as const,
+                  title: 'Return a string',
+                  question: 'Write a C++ function `hello()` that returns a `std::string` with the value "Hello, World!".',
+                  initialCode: `#include <string>\n\nstd::string hello() {\n  // Your code here\n}`,
+                },
+              ],
+            },
+        ] 
+    },
+    { 
+        id: 'html-css', 
+        name: 'HTML/CSS', 
+        icon: 'SiHtml5', 
+        description: 'Create beautiful and responsive web pages from scratch.', 
+        levels: [
+            {
+              id: 'html-1',
+              levelNumber: 1,
+              title: 'HTML Basics',
+              description: 'Learn the fundamental tags of HTML.',
+              games: [
+                {
+                  language: 'html',
+                  level: 'beginner' as const,
+                  title: 'Create a Heading',
+                  question: 'Write a function `createHeading()` that returns an HTML string for a top-level heading (h1) with the text "My First Web Page".',
+                  initialCode: `function createHeading() {\n  // Return an HTML string\n}`,
+                },
+              ],
+            },
+        ] 
+    }
 ];
 
 export const mockData = {
