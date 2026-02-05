@@ -1,0 +1,150 @@
+/**
+ * Core Philosophy: This ruleset enforces a strict user-ownership model for all
+ * user-generated content, combined with public read-only access for shared
+ * application data like courses. The primary security goal is to ensure that
+ * users can only access and modify their own data, preventing any cross-user
+ * data exposure or unauthorized modification.
+ *
+ * Data Structure: Data is segregated into two main categories:
+ * 1. User-Specific Data: All data belonging to a user, such as their core
+ *    account, profile, and certificates, is nested under `/users/{userId}`.
+ *    This structure makes ownership-based security rules simple and performant.
+ * 2. Public Content: Educational content, such as courses, levels, and games,
+ *    is stored in a top-level `/courses` collection. This allows any user,
+ *    including anonymous ones, to browse the available content.
+ *
+ * Key Security Decisions:
+ * - User Enumeration is Disabled: Listing the top-level `/users` collection is
+ *   explicitly forbidden to protect user privacy.
+ * - Strict Ownership: A user has full control over their document and all
+ *   subcollections within `/users/{userId}`. No other user can read or write
+ *   this data.
+ * - Public Content is Read-Only: The `/courses` collection and its
+ *   subcollections are publicly readable by anyone but are not writable by any
+ *   client. This assumes course content is managed by administrators using the
+ *   Admin SDK or the Firebase Console, which is a secure pattern for curated
+ *   content.
+ * - Self-Service Account Creation: Users are permitted to create their own
+ *   user document (`/users/{userId}`) upon signup, enabling a self-service
+ *   registration flow.
+ *
+ * Denormalization for Authorization: To ensure performant and secure access
+ * control, user-owned documents (like UserProfile and Certificate) are expected
+ * to contain a `userId` field that links back to the owner. This avoids costly
+ * `get()` calls and allows for simple, direct validation against the path.
+ *
+ * Structural Segregation: Private user data (`profiles`, `certificates`) is
+ * stored in user-specific subcollections, completely separate from the public
+ * top-level `/courses` collection. This clear separation is more secure and
+ * performant than using a single collection with flags to denote access levels.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions for readable and reusable logic
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Checks if the requesting user is the owner of the document.
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // Checks for ownership on existing documents for update/delete operations.
+    function isExistingOwner(userId) {
+      return isOwner(userId) && resource != null;
+    }
+
+    /**
+     * @description Rules for a user's own document.
+     * @path /users/{userId}
+     * @allow A new user creating their own user document upon signup: auth.uid == userId (create).
+     * @deny An authenticated user trying to read another user's document (get).
+     * @principle Enforces self-creation and strict ownership for user account data.
+     */
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if false;
+      allow create: if isOwner(userId) && request.resource.data.id == userId;
+      allow update: if isExistingOwner(userId) && request.resource.data.id == resource.data.id;
+      allow delete: if isExistingOwner(userId);
+
+      /**
+       * @description Rules for a user's profile document.
+       * @path /users/{userId}/profiles/{profileId}
+       * @allow The user updating their own profile information: auth.uid == userId (update).
+       * @deny Any user trying to create a profile for another user.
+       * @principle Restricts access to a user's own data tree.
+       */
+      match /profiles/{profileId} {
+        allow get: if isOwner(userId);
+        allow list: if isOwner(userId);
+        allow create: if isOwner(userId) && request.resource.data.userId == userId;
+        allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
+        allow delete: if isExistingOwner(userId);
+      }
+
+      /**
+       * @description Rules for certificates earned by a user.
+       * @path /users/{userId}/certificates/{certificateId}
+       * @allow The user fetching a list of their own certificates: auth.uid == userId (list).
+       * @deny An authenticated user trying to delete another user's certificate.
+       * @principle Restricts access to a user's own data tree.
+       */
+      match /certificates/{certificateId} {
+        allow get: if isOwner(userId);
+        allow list: if isOwner(userId);
+        allow create: if isOwner(userId);
+        allow update: if isExistingOwner(userId);
+        allow delete: if isExistingOwner(userId);
+      }
+    }
+
+    /**
+     * @description Rules for publicly accessible course content.
+     * @path /courses/{courseId}
+     * @allow Any user, including unauthenticated ones, reading a course document (get).
+     * @deny Any client trying to create, update, or delete a course document.
+     * @principle Provides public read access for browsing but locks down writes to admins.
+     */
+    match /courses/{courseId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+
+      /**
+       * @description Rules for levels within a public course.
+       * @path /courses/{courseId}/levels/{levelId}
+       * @allow Any user, including unauthenticated ones, listing the levels in a course (list).
+       * @deny Any client trying to modify a level document.
+       * @principle Inherits the public read-only principle from its parent collection.
+       */
+      match /levels/{levelId} {
+        allow get: if true;
+        allow list: if true;
+        allow create: if false;
+        allow update: if false;
+        allow delete: if false;
+
+        /**
+         * @description Rules for games within a course level.
+         * @path /courses/{courseId}/levels/{levelId}/games/{gameId}
+         * @allow Any user, including unauthenticated ones, reading a game's content (get).
+         * @deny Any client trying to modify a game document.
+         * @principle Inherits the public read-only principle from its parent collection.
+         */
+        match /games/{gameId} {
+          allow get: if true;
+          allow list: if true;
+          allow create: if false;
+          allow update: if false;
+          allow delete: if false;
+        }
+      }
+    }
+  }
+}
