@@ -22,7 +22,7 @@ export default function CoursesPage() {
               <CardDescription>{course.description}</CardDescription>
             </CardHeader>
             <CardContent className="flex-grow">
-               <p className="text-sm text-muted-foreground">{course.levels} Levels</p>
+               <p className="text-sm text-muted-foreground">{course.levels.length} Levels</p>
             </CardContent>
             <div className="p-6 pt-0">
                <Button asChild className="w-full">

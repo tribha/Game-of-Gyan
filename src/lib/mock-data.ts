@@ -52,12 +52,49 @@ export const dailyChallenge = {
 };
 
 export const courses = [
-    { id: 'javascript', name: 'JavaScript', icon: 'SiJavascript', levels: 15, description: 'Master the language of the web, from basics to advanced concepts.' },
-    { id: 'python', name: 'Python', icon: 'SiPython', levels: 20, description: 'Learn a versatile language used in web dev, data science, and more.' },
-    { id: 'sql', name: 'SQL', icon: 'Database', levels: 10, description: 'Become proficient in managing and querying relational databases.' },
-    { id: 'java', name: 'Java', icon: 'SiJava', levels: 25, description: 'Build robust, enterprise-scale applications with Java.' },
-    { id: 'cplusplus', name: 'C++', icon: 'SiCplusplus', levels: 30, description: 'Dive deep into system programming and game development with C++.' },
-    { id: 'html-css', name: 'HTML/CSS', icon: 'SiHtml5', levels: 12, description: 'Create beautiful and responsive web pages from scratch.' }
+    { 
+        id: 'javascript', 
+        name: 'JavaScript', 
+        icon: 'SiJavascript', 
+        description: 'Master the language of the web, from basics to advanced concepts.',
+        levels: [
+            {
+              id: '1',
+              levelNumber: 1,
+              title: 'Variables and Data Types',
+              description: 'Learn the basics of storing and using data in JavaScript.',
+              games: [
+                {
+                  language: 'javascript',
+                  level: 'beginner' as const,
+                  title: 'Declare a Variable',
+                  question: 'Declare a variable named `myVariable` and assign it the value `Hello, World!`. Then return it.',
+                  initialCode: `function declareVar() {\n  // Your code here\n\n  return myVariable;\n}`,
+                },
+              ],
+            },
+            {
+              id: '2',
+              levelNumber: 2,
+              title: 'Operators',
+              description: 'Understand how to perform operations on variables.',
+              games: [
+                {
+                  language: 'javascript',
+                  level: 'beginner' as const,
+                  title: 'Add two numbers',
+                  question: 'Write a function `add(a, b)` that returns the sum of two numbers.',
+                  initialCode: `function add(a, b) {\n  // Your code here\n}`,
+                },
+              ],
+            },
+        ]
+    },
+    { id: 'python', name: 'Python', icon: 'SiPython', description: 'Learn a versatile language used in web dev, data science, and more.', levels: [] },
+    { id: 'sql', name: 'SQL', icon: 'Database', description: 'Become proficient in managing and querying relational databases.', levels: [] },
+    { id: 'java', name: 'Java', icon: 'SiJava', description: 'Build robust, enterprise-scale applications with Java.', levels: [] },
+    { id: 'cplusplus', name: 'C++', icon: 'SiCplusplus', description: 'Dive deep into system programming and game development with C++.', levels: [] },
+    { id: 'html-css', name: 'HTML/CSS', icon: 'SiHtml5', description: 'Create beautiful and responsive web pages from scratch.', levels: [] }
 ];
 
 export const mockData = {
