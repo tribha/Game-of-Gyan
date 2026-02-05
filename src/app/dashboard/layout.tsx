@@ -24,7 +24,7 @@ import {
   SidebarProvider,
 } from '@/components/ui/sidebar';
 import { Header } from '@/components/layout/header';
-import { CodeConquerorLogo } from '@/components/icons';
+import { GameOfGyanLogo } from '@/components/icons';
 import { Skeleton } from '@/components/ui/skeleton';
 
 const navItems = [
@@ -53,8 +53,8 @@ export default function DashboardLayout({
     return (
       <div className="flex h-screen w-screen items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-           <CodeConquerorLogo className="size-12 animate-pulse" />
-           <p className="text-lg font-semibold">Loading your kingdom...</p>
+           <GameOfGyanLogo className="size-12 animate-pulse" />
+           <p className="text-lg font-semibold">Loading your realm...</p>
           <Skeleton className="h-4 w-64" />
         </div>
       </div>
@@ -69,8 +69,8 @@ export default function DashboardLayout({
             href="/dashboard"
             className="flex items-center gap-2 text-sidebar-foreground"
           >
-            <CodeConquerorLogo className="size-8" />
-            <span className="text-lg font-semibold">Code Conqueror</span>
+            <GameOfGyanLogo className="size-8" />
+            <span className="text-lg font-semibold">Game of Gyan</span>
           </Link>
         </SidebarHeader>
         <SidebarContent>

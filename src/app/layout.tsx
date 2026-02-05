@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import { FirebaseClientProvider } from '@/firebase';
 
 export const metadata: Metadata = {
-  title: 'Code Conqueror',
+  title: 'Game of Gyan',
   description: 'A gamified coding learning platform.',
 };
 

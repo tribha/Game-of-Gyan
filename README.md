@@ -1,4 +1,4 @@
-# Firebase Studio
+# Game of Gyan
 
 This is a NextJS starter in Firebase Studio.
 
