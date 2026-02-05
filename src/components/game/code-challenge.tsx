@@ -76,15 +76,18 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
   const { data: userProfile } = useDoc(profileRef);
 
   const handleRunCode = () => {
-    try {
-      // This is not a real execution environment. It only checks for JavaScript syntax errors.
-      // A real execution would require a sandboxed environment and test cases for each language.
-      // For non-JavaScript languages, this check will likely result in a syntax error,
-      // which is an acceptable fallback as the browser can only execute JavaScript.
-      new Function(code);
-      setOutput('✅ JavaScript syntax is valid.\n\n(Note: This is a syntax check only. It does not run your code or check for correct logic.)');
-    } catch (e: any) {
-      setOutput(`❌ Error in your code:\n\n${e.name}: ${e.message}`);
+    if (challenge.language.toLowerCase() === 'javascript') {
+      try {
+        // This is a basic client-side check for JavaScript syntax.
+        // It doesn't execute the code in a sandbox or run test cases.
+        new Function(code);
+        setOutput('✅ JavaScript syntax is valid.\n\n(Note: This is a syntax check only. It does not run your code or check for correct logic.)');
+      } catch (e: any) {
+        setOutput(`❌ Error in your JavaScript code:\n\n${e.name}: ${e.message}`);
+      }
+    } else {
+      // For other languages, we can't execute them in the browser.
+      setOutput(`-- Code execution for ${challenge.language} is not available in this browser-based editor. --\n-- You can still submit your code to check for correctness. --`);
     }
   };
   
