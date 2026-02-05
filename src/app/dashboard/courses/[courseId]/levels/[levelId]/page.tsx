@@ -35,7 +35,7 @@ export default function LevelPage() {
             <h1 className="text-3xl font-bold tracking-tight mb-4">
                 <span className="capitalize">{course.name}</span> - Level {level.levelNumber}: {level.title}
             </h1>
-            <CodeChallenge challenge={game} />
+            <CodeChallenge challenge={game} courseId={courseId} levelId={levelId} />
         </div>
     );
 }

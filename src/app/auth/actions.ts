@@ -52,8 +52,8 @@ export async function signup(formData: FormData) {
       level: 1,
       xp: 0,
       badges: [],
-      skillLevel: 'beginner',
       streak: 0,
+      completedLevels: [],
       completedCourses: [],
     });
 

@@ -79,6 +79,7 @@ export default function SignupPage() {
         xp: 0,
         badges: [],
         streak: 0,
+        completedLevels: [],
         completedCourses: [],
         name: '',
         school: '',

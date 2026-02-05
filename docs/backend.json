@@ -84,6 +84,13 @@
           "type": "number",
           "description": "Current learning streak of the user."
         },
+        "completedLevels": {
+          "type": "array",
+          "description": "Array of level IDs that the user has completed.",
+          "items": {
+            "type": "string"
+          }
+        },
         "completedCourses": {
           "type": "array",
           "description": "Array of course IDs that the user has completed.",
@@ -98,6 +105,7 @@
         "xp",
         "badges",
         "streak",
+        "completedLevels",
         "completedCourses"
       ]
     },

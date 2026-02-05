@@ -1,5 +1,6 @@
 
 'use client';
+import React from 'react';
 import {
   Card,
   CardContent,
@@ -11,7 +12,7 @@ import { StatsCard } from '@/components/dashboard/stats-card';
 import { InProgressCourses } from '@/components/dashboard/in-progress-courses';
 import { RecentAchievements } from '@/components/dashboard/recent-achievements';
 import { OverviewChart } from '@/components/dashboard/overview-chart';
-import { courseProgress, achievements } from '@/lib/mock-data';
+import { courses as allCourses, achievements } from '@/lib/mock-data';
 import { Activity, BarChart, CheckCircle, Clock } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 import { useUser, useDoc, useMemoFirebase, useFirestore } from '@/firebase';
@@ -40,6 +41,25 @@ export default function DashboardPage() {
   const totalXP = 1000;
   const currentLevel = userProfile ? Math.floor(userProfile.xp / totalXP) + 1 : 1;
   const xpForNextLevel = userProfile ? userProfile.xp % totalXP : 0;
+  
+  const inProgressCourses = React.useMemo(() => {
+    if (!userProfile?.completedLevels) {
+      return [];
+    }
+
+    return allCourses
+      .map(course => {
+        if (!course.levels || course.levels.length === 0) {
+          return { id: course.id, name: course.name, progress: 0 };
+        }
+        const completedInCourse = course.levels.filter(level => 
+          userProfile.completedLevels.includes(level.id)
+        ).length;
+        const progress = Math.round((completedInCourse / course.levels.length) * 100);
+        return { id: course.id, name: course.name, progress };
+      })
+      .filter(course => course.progress > 0 && course.progress < 100);
+  }, [userProfile]);
 
   return (
     <div className="flex flex-col gap-6">
@@ -115,7 +135,7 @@ export default function DashboardPage() {
               )}
             </CardContent>
           </Card>
-          <InProgressCourses courses={courseProgress} />
+          <InProgressCourses courses={inProgressCourses} />
         </div>
       </div>
        <RecentAchievements achievements={achievements} />
