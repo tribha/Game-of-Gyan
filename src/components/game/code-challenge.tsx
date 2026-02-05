@@ -18,6 +18,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
 import { useToast } from '@/hooks/use-toast';
 import { doc, updateDoc, arrayUnion, increment } from 'firebase/firestore';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 
 type Challenge = {
@@ -74,9 +75,11 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
   }, [firestore, user]);
 
   const { data: userProfile } = useDoc(profileRef);
+  
+  const isJsChallenge = challenge.language.toLowerCase() === 'javascript';
 
   const handleRunCode = () => {
-    if (challenge.language.toLowerCase() === 'javascript') {
+    if (isJsChallenge) {
       try {
         // This is a basic client-side check for JavaScript syntax.
         // It doesn't execute the code in a sandbox or run test cases.
@@ -85,10 +88,8 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
       } catch (e: any) {
         setOutput(`❌ Error in your JavaScript code:\n\n${e.name}: ${e.message}`);
       }
-    } else {
-      // For other languages, we can't execute them in the browser.
-      setOutput(`-- Code execution for ${challenge.language} is not available in this browser-based editor. --\n-- You can still submit your code to check for correctness. --`);
     }
+    // For other languages, the button is disabled, so this function won't be called.
   };
   
   const handleAttempt = (formData: FormData) => {
@@ -188,7 +189,22 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
               placeholder="Write your code here..."
             />
             <div className="flex flex-wrap gap-2">
-              <Button onClick={handleRunCode}>Run Code</Button>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    {/* This wrapper div is necessary to make tooltips work on disabled buttons */}
+                    <div className="inline-block">
+                       <Button onClick={handleRunCode} disabled={!isJsChallenge}>Run Code</Button>
+                    </div>
+                  </TooltipTrigger>
+                  {!isJsChallenge && (
+                    <TooltipContent>
+                      <p>In-browser code execution is only available for JavaScript.</p>
+                    </TooltipContent>
+                  )}
+                </Tooltip>
+              </TooltipProvider>
+
               <form action={handleAttempt}>
                 <input type="hidden" name="language" value={challenge.language} />
                 <input type="hidden" name="level" value={challenge.level} />
