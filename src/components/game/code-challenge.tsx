@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useActionState } from 'react';
@@ -78,7 +77,7 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
 
   const handleRunCode = () => {
     if (challenge.language.toLowerCase() !== 'javascript') {
-      setOutput(`Simulating execution for ${challenge.language}...\nOutput will appear here.`);
+      setOutput(`Simulating execution for ${challenge.language}...\n(Full execution for this language is not supported in this environment)`);
       return;
     }
 
@@ -86,9 +85,9 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
       // This is not a real execution environment. It only checks for syntax errors.
       // A real execution would require a sandboxed environment and test cases.
       new Function(code);
-      setOutput('Code syntax is valid.\n\n(Note: This is a syntax check, not a full execution with test cases.)');
+      setOutput('✅ Code syntax is valid.\n\n(Note: This is a syntax check only. It does not run your code or check for correct logic.)');
     } catch (e: any) {
-      setOutput(`Error in your code:\n\n${e.name}: ${e.message}`);
+      setOutput(`❌ Error in your code:\n\n${e.name}: ${e.message}`);
     }
   };
   
@@ -196,6 +195,7 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
                 <input type="hidden" name="question" value={challenge.question} />
                 <input type="hidden" name="attempts" value={attempts} />
                 <input type="hidden" name="studentCode" value={code} />
+                <input type="hidden" name="initialCode" value={challenge.initialCode} />
                 <SubmitButton />
               </form>
                <Button variant="secondary" onClick={handleSubmit} disabled={isSubmitting}>

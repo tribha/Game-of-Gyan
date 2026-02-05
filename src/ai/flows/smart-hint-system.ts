@@ -17,6 +17,7 @@ const SmartHintInputSchema = z.object({
   question: z.string().describe('The coding question the student is attempting to answer.'),
   attempts: z.number().describe('The number of failed attempts by the student.'),
   studentCode: z.string().describe('The code written by the student.'),
+  initialCode: z.string().describe('The initial code provided for the challenge.'),
 });
 export type SmartHintInput = z.infer<typeof SmartHintInputSchema>;
 
