@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, redirect } from 'next/navigation';
 import {
   BookOpen,
   Code,
@@ -11,6 +11,7 @@ import {
   Trophy,
   User,
 } from 'lucide-react';
+import { useUser } from '@/firebase';
 
 import {
   Sidebar,
@@ -24,6 +25,7 @@ import {
 } from '@/components/ui/sidebar';
 import { Header } from '@/components/layout/header';
 import { CodeConquerorLogo } from '@/components/icons';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const navItems = [
   { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
@@ -39,6 +41,25 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const { user, isUserLoading } = useUser();
+
+  React.useEffect(() => {
+    if (!isUserLoading && !user) {
+      redirect('/');
+    }
+  }, [user, isUserLoading]);
+
+  if (isUserLoading || !user) {
+    return (
+      <div className="flex h-screen w-screen items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+           <CodeConquerorLogo className="size-12 animate-pulse" />
+           <p className="text-lg font-semibold">Loading your kingdom...</p>
+          <Skeleton className="h-4 w-64" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <SidebarProvider>

@@ -1,3 +1,5 @@
+
+'use client';
 import {
   Card,
   CardContent,
@@ -9,11 +11,26 @@ import { StatsCard } from '@/components/dashboard/stats-card';
 import { InProgressCourses } from '@/components/dashboard/in-progress-courses';
 import { RecentAchievements } from '@/components/dashboard/recent-achievements';
 import { OverviewChart } from '@/components/dashboard/overview-chart';
-import { userProfile, courseProgress, achievements } from '@/lib/mock-data';
+import { userProfile as mockUserProfile, courseProgress, achievements } from '@/lib/mock-data';
 import { Activity, BarChart, CheckCircle, Clock } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
+import { useUser, useDoc, useMemoFirebase, useFirestore } from '@/firebase';
+import { doc } from 'firebase/firestore';
+
 
 export default function DashboardPage() {
+  const { user } = useUser();
+  const firestore = useFirestore();
+
+  const userRef = useMemoFirebase(() => {
+    if (!user) return null;
+    return doc(firestore, 'users', user.uid);
+  }, [firestore, user]);
+
+  const { data: userData } = useDoc(userRef);
+
+  // For now, we will use mock data for the dashboard stats, but we can wire this up to Firestore later.
+  const userProfile = mockUserProfile;
   const totalXP = 1000;
   const currentLevel = Math.floor(userProfile.xp / totalXP);
   const xpForNextLevel = userProfile.xp % totalXP;
@@ -22,7 +39,7 @@ export default function DashboardPage() {
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">
-          Welcome back, {userProfile.name}!
+          Welcome back, {userData?.username || user?.email}!
         </h1>
         <p className="text-muted-foreground">
           Here&apos;s a summary of your journey so far. Keep conquering!

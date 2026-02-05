@@ -5,14 +5,6 @@ import { getSmartHint, type SmartHintInput } from '@/ai/flows/smart-hint-system'
 import { z } from 'zod';
 import { redirect } from 'next/navigation';
 
-export async function login(formData: FormData) {
-  // Mock login logic
-  const email = formData.get('email');
-  if (email) {
-    redirect('/dashboard');
-  }
-}
-
 const SmartHintActionSchema = z.object({
   language: z.string(),
   level: z.enum(['beginner', 'intermediate', 'advanced']),

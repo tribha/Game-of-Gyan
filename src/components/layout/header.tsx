@@ -1,8 +1,8 @@
+
 'use client';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { UserNav } from './user-nav';
 import { usePathname } from 'next/navigation';
-import { mockData } from '@/lib/mock-data';
 
 export function Header() {
   const pathname = usePathname();
@@ -22,7 +22,7 @@ export function Header() {
       <h1 className="text-xl font-semibold">{getTitle()}</h1>
 
       <div className="ml-auto flex items-center gap-4">
-        <UserNav user={mockData.userProfile} />
+        <UserNav />
       </div>
     </header>
   );
