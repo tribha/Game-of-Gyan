@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 import {
@@ -15,16 +15,18 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Camera } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 export default function ProfilePage() {
   const { user } = useUser();
   const firestore = useFirestore();
   const { toast } = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const profileRef = useMemoFirebase(() => {
     if (!user) return null;
@@ -53,6 +55,32 @@ export default function ProfilePage() {
   }, [userProfile]);
 
   const avatarPlaceholders = PlaceHolderImages.filter(p => p.id.startsWith('user-avatar'));
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      if (file.size > 1024 * 1024) { // 1MB size limit
+        toast({
+          variant: 'destructive',
+          title: 'Image too large',
+          description: 'Please upload an image smaller than 1MB.',
+        });
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target?.result;
+        if (typeof result === 'string') {
+          setAvatarUrl(result);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+    // Reset file input to allow re-uploading the same file
+    if (event.target) {
+      event.target.value = '';
+    }
+  };
 
   const handleSave = async () => {
     if (!user) {
@@ -134,6 +162,54 @@ export default function ProfilePage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+            className="hidden"
+            accept="image/png, image/jpeg, image/gif"
+          />
+          <div className="space-y-2">
+            <Label>Avatar</Label>
+            <div className="flex items-center gap-6 flex-wrap">
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="group relative h-24 w-24 rounded-full ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+              >
+                <Avatar className="h-24 w-24">
+                  <AvatarImage src={avatarUrl} alt="Your Avatar" />
+                  <AvatarFallback className="text-3xl">
+                    {name?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U'}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
+                  <Camera className="h-8 w-8 text-white" />
+                </div>
+              </button>
+              <div className="flex flex-wrap gap-4 items-center">
+                {avatarPlaceholders.map((avatar) => (
+                  <button
+                    type="button"
+                    key={avatar.id}
+                    onClick={() => setAvatarUrl(avatar.imageUrl)}
+                    className={cn(
+                      'rounded-full ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
+                      { 'ring-2 ring-primary': avatarUrl === avatar.imageUrl }
+                    )}
+                  >
+                    <Image
+                      src={avatar.imageUrl}
+                      alt={avatar.description}
+                      width={64}
+                      height={64}
+                      className="rounded-full border-2 border-transparent transition-colors hover:border-primary"
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
           <div className="space-y-2">
             <Label htmlFor="name">Name</Label>
             <Input
@@ -182,22 +258,7 @@ export default function ProfilePage() {
               placeholder="e.g., React, Node.js, Python (comma-separated)"
             />
           </div>
-          <div className="space-y-2">
-            <Label>Avatar</Label>
-            <div className="flex flex-wrap gap-4">
-              {avatarPlaceholders.map((avatar) => (
-                <button key={avatar.id} onClick={() => setAvatarUrl(avatar.imageUrl)} className={cn("rounded-full ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2", { 'ring-2 ring-primary': avatarUrl === avatar.imageUrl })}>
-                    <Image
-                      src={avatar.imageUrl}
-                      alt={avatar.description}
-                      width={80}
-                      height={80}
-                      className="rounded-full border-2 border-transparent hover:border-primary transition-colors"
-                    />
-                </button>
-              ))}
-            </div>
-          </div>
+          
           <Button onClick={handleSave} disabled={isSaving}>
             {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Save Changes
