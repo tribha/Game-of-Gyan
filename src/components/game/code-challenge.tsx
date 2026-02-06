@@ -3,7 +3,7 @@
 import React, { useState, useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { useRouter } from 'next/navigation';
-import { AlertCircle, Lightbulb, Loader2, Terminal, Info } from 'lucide-react';
+import { AlertCircle, Lightbulb, Loader2, Terminal, Info, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -15,22 +15,25 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { getHintAction, runCodeAction, type HintState, type RunCodeState } from '@/app/actions';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { useUser, useFirestore, useMemoFirebase, useDoc } from '@/firebase';
+import { useUser, useFirestore, useMemoFirebase } from '@/firebase';
 import { useToast } from '@/hooks/use-toast';
-import { doc, updateDoc, arrayUnion, increment, collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion, increment, collection, addDoc, serverTimestamp, getDoc } from 'firebase/firestore';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 
 
-type Challenge = {
+type CodeChallengeType = {
+  type: 'code';
   language: string;
   level: 'beginner' | 'intermediate' | 'advanced';
   title: string;
-  question: string;
-  initialCode: string;
+  content: {
+    question: string;
+    initialCode: string;
+  }
 };
 
 type CodeChallengeProps = {
-  challenge: Challenge;
+  challenge: CodeChallengeType;
   courseId?: string;
   levelId?: string;
 };
@@ -38,7 +41,7 @@ type CodeChallengeProps = {
 function HintSubmitButton() {
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" disabled={pending}>
+    <Button type="submit" variant="outline" disabled={pending}>
       {pending ? (
         <>
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -54,21 +57,35 @@ function HintSubmitButton() {
   );
 }
 
-function RunCodeSubmitButton() {
+function RunCodeSubmitButton({ disabled }: { disabled: boolean }) {
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" disabled={pending}>
-      {pending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-      Run Code
-    </Button>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div className={disabled ? 'cursor-not-allowed' : ''}>
+            <Button type="submit" disabled={pending || disabled} className={disabled ? 'pointer-events-none' : ''}>
+              {pending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              Run Code
+            </Button>
+          </div>
+        </TooltipTrigger>
+        {disabled && (
+          <TooltipContent>
+            <p>In-browser execution is only supported for JavaScript.</p>
+          </TooltipContent>
+        )}
+      </Tooltip>
+    </TooltipProvider>
   );
 }
 
 
 export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengeProps) {
-  const [code, setCode] = useState(challenge.initialCode);
+  const [code, setCode] = useState(challenge.content.initialCode);
   const [attempts, setAttempts] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
 
   const { user } = useUser();
   const firestore = useFirestore();
@@ -85,8 +102,6 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
     if (!user) return null;
     return doc(firestore, 'userProfiles', user.uid);
   }, [firestore, user]);
-
-  const { data: userProfile } = useDoc(profileRef);
   
   const handleHintAttempt = (formData: FormData) => {
     setAttempts(prev => prev + 1);
@@ -94,7 +109,7 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
   }
 
   const handleSubmit = async () => {
-    if (!user || !userProfile || !courseId || !levelId) {
+    if (!user || !courseId || !levelId) {
       toast({
         variant: 'destructive',
         title: 'Cannot Submit',
@@ -102,44 +117,47 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
       });
       return;
     }
-
-    if (userProfile.completedLevels?.includes(levelId)) {
-      toast({
-        title: 'Already Completed',
-        description: 'You have already earned XP for this level.',
-      });
-       // Navigate back to the course page after a short delay
-      setTimeout(() => {
-        router.push(`/dashboard/courses/${courseId}`);
-      }, 1500);
-      return;
-    }
+    
+    if (!profileRef) return;
 
     setIsSubmitting(true);
+    
     try {
-      const xpAmount = 50;
-      // In a real app, you'd validate the code here. We'll simulate success.
-      const profileUpdatePromise = updateDoc(profileRef!, {
-        xp: increment(xpAmount),
-        completedLevels: arrayUnion(levelId),
-      });
+      const profileSnap = await getDoc(profileRef);
+      const profileData = profileSnap.data();
 
-      const xpHistoryRef = collection(firestore, 'userProfiles', user.uid, 'xpHistory');
-      const xpHistoryAddPromise = addDoc(xpHistoryRef, {
-        userId: user.uid,
-        amount: xpAmount,
-        timestamp: serverTimestamp(),
-        reason: `Completed ${levelId}`,
-        courseId: courseId,
-        levelId: levelId
-      });
-      
-      await Promise.all([profileUpdatePromise, xpHistoryAddPromise]);
+      if (profileData?.completedLevels?.includes(levelId)) {
+        toast({
+          title: 'Already Completed',
+          description: 'You have already earned XP for this level.',
+        });
+        setIsCompleted(true);
+      } else {
+        const xpAmount = 50;
+        // In a real app, you'd validate the code here. We'll simulate success.
+        const profileUpdatePromise = updateDoc(profileRef, {
+          xp: increment(xpAmount),
+          completedLevels: arrayUnion(levelId),
+        });
 
-      toast({
-        title: 'Success!',
-        description: `You completed the challenge and earned ${xpAmount} XP!`,
-      });
+        const xpHistoryRef = collection(firestore, 'userProfiles', user.uid, 'xpHistory');
+        const xpHistoryAddPromise = addDoc(xpHistoryRef, {
+          userId: user.uid,
+          amount: xpAmount,
+          timestamp: serverTimestamp(),
+          reason: `Completed ${levelId}`,
+          courseId: courseId,
+          levelId: levelId
+        });
+        
+        await Promise.all([profileUpdatePromise, xpHistoryAddPromise]);
+        
+        setIsCompleted(true);
+        toast({
+          title: 'Success!',
+          description: `You completed the challenge and earned ${xpAmount} XP!`,
+        });
+      }
 
       // Navigate back to the course page after a short delay
       setTimeout(() => {
@@ -165,6 +183,7 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
     ? `🚨 System Error: ${runCodeState.error}`
     : '// Click "Run Code" to see the output';
 
+  const isRunCodeDisabled = challenge.language !== 'javascript';
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
@@ -177,7 +196,7 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-muted-foreground">{challenge.question}</p>
+            <p className="text-muted-foreground">{challenge.content.question}</p>
           </CardContent>
         </Card>
         
@@ -212,23 +231,23 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
             <div className="flex flex-wrap gap-2">
                 <form action={runCodeFormAction}>
                     <input type="hidden" name="language" value={challenge.language} />
-                    <input type="hidden" name="question" value={challenge.question} />
+                    <input type="hidden" name="question" value={challenge.content.question} />
                     <input type="hidden" name="studentCode" value={code} />
-                    <RunCodeSubmitButton />
+                    <RunCodeSubmitButton disabled={isRunCodeDisabled}/>
                 </form>
 
               <form action={handleHintAttempt}>
                 <input type="hidden" name="language" value={challenge.language} />
                 <input type="hidden" name="level" value={challenge.level} />
-                <input type="hidden" name="question" value={challenge.question} />
+                <input type="hidden" name="question" value={challenge.content.question} />
                 <input type="hidden" name="attempts" value={attempts} />
                 <input type="hidden" name="studentCode" value={code} />
-                <input type="hidden" name="initialCode" value={challenge.initialCode} />
+                <input type="hidden" name="initialCode" value={challenge.content.initialCode} />
                 <HintSubmitButton />
               </form>
-               <Button variant="secondary" onClick={handleSubmit} disabled={isSubmitting}>
+               <Button variant="secondary" onClick={handleSubmit} disabled={isSubmitting || isCompleted}>
                  {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                 Submit
+                 {isCompleted ? <><CheckCircle className="mr-2 h-4 w-4" /> Completed</> : 'Submit'}
                </Button>
             </div>
             

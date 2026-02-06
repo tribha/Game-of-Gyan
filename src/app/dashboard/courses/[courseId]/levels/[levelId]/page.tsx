@@ -2,6 +2,7 @@
 'use client';
 import { useParams, notFound } from 'next/navigation';
 import { CodeChallenge } from '@/components/game/code-challenge';
+import { MCQChallenge } from '@/components/game/mcq-challenge';
 import { mockData } from '@/lib/mock-data';
 
 export default function LevelPage() {
@@ -35,7 +36,8 @@ export default function LevelPage() {
             <h1 className="text-3xl font-bold tracking-tight mb-4">
                 <span className="capitalize">{course.name}</span> - Level {level.levelNumber}: {level.title}
             </h1>
-            <CodeChallenge challenge={game} courseId={courseId} levelId={levelId} />
+            {game.type === 'code' && <CodeChallenge challenge={game} courseId={courseId} levelId={levelId} />}
+            {game.type === 'mcq' && <MCQChallenge challenge={game} courseId={courseId} levelId={levelId} />}
         </div>
     );
 }

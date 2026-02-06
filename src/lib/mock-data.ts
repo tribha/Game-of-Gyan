@@ -40,15 +40,14 @@ export const achievements = [
 ];
 
 export const dailyChallenge = {
+  type: 'code' as const,
   language: 'javascript',
-  level: 'beginner',
+  level: 'beginner' as const,
   title: 'Variable Swap',
-  question: 'Write a JavaScript function `swap(a, b)` that takes two variables and returns an array with their values swapped.',
-  initialCode: `function swap(a, b) {
-  // Your code here
-
-  return [a, b];
-}`,
+  content: {
+    question: 'Write a JavaScript function `swap(a, b)` that takes two variables and returns an array with their values swapped.',
+    initialCode: `function swap(a, b) {\n  // Your code here\n\n  return [a, b];\n}`,
+  }
 };
 
 export const courses = [
@@ -65,11 +64,15 @@ export const courses = [
               description: 'Learn the basics of storing and using data in JavaScript.',
               games: [
                 {
+                  type: 'mcq' as const,
                   language: 'javascript',
                   level: 'beginner' as const,
-                  title: 'Declare a Variable',
-                  question: 'Declare a variable named `myVariable` and assign it the value `Hello, World!`. Then return it.',
-                  initialCode: `function declareVar() {\n  // Your code here\n\n  return myVariable;\n}`,
+                  title: 'Declaring Variables',
+                  content: {
+                    question: 'Which keyword is used to declare a variable in modern JavaScript that can be reassigned?',
+                    options: ['var', 'let', 'const', 'variable'],
+                    answer: 1,
+                  }
                 },
               ],
             },
@@ -80,11 +83,14 @@ export const courses = [
               description: 'Understand how to perform operations on variables.',
               games: [
                 {
+                  type: 'code' as const,
                   language: 'javascript',
                   level: 'beginner' as const,
                   title: 'Add two numbers',
-                  question: 'Write a function `add(a, b)` that returns the sum of two numbers.',
-                  initialCode: `function add(a, b) {\n  // Your code here\n}`,
+                  content: {
+                    question: 'Write a function `add(a, b)` that returns the sum of two numbers.',
+                    initialCode: `function add(a, b) {\n  // Your code here\n}`,
+                  }
                 },
               ],
             },
@@ -95,11 +101,14 @@ export const courses = [
               description: 'Learn to write reusable blocks of code.',
               games: [
                 {
+                  type: 'code' as const,
                   language: 'javascript',
                   level: 'beginner' as const,
                   title: 'Create a "Hello" Function',
-                  question: 'Write a function named `sayHello` that takes a `name` as an argument and returns a string "Hello, [name]!".',
-                  initialCode: `function sayHello(name) {\n  // Your code here\n}`,
+                  content: {
+                    question: 'Write a function named `sayHello` that takes a `name` as an argument and returns a string "Hello, [name]!".',
+                    initialCode: `function sayHello(name) {\n  // Your code here\n}`,
+                  }
                 },
               ],
             },
@@ -110,11 +119,14 @@ export const courses = [
                 description: 'Make decisions in your code with if-else statements.',
                 games: [
                   {
+                    type: 'code' as const,
                     language: 'javascript',
                     level: 'intermediate' as const,
                     title: 'Check if a number is even or odd',
-                    question: 'Write a function `isEvenOrOdd(num)` that takes a number and returns the string "even" if the number is even, and "odd" if it is odd.',
-                    initialCode: `function isEvenOrOdd(num) {\n  // Your code here\n}`,
+                    content: {
+                        question: 'Write a function `isEvenOrOdd(num)` that takes a number and returns the string "even" if the number is even, and "odd" if it is odd.',
+                        initialCode: `function isEvenOrOdd(num) {\n  // Your code here\n}`,
+                    }
                   },
                 ],
             },
@@ -125,11 +137,14 @@ export const courses = [
                 description: 'Repeat actions with for and while loops.',
                 games: [
                   {
+                    type: 'code' as const,
                     language: 'javascript',
                     level: 'intermediate' as const,
                     title: 'Sum an array',
-                    question: 'Write a function `sumArray(arr)` that takes an array of numbers and returns their sum.',
-                    initialCode: `function sumArray(arr) {\n  let sum = 0;\n  // Your code here\n\n  return sum;\n}`,
+                    content: {
+                        question: 'Write a function `sumArray(arr)` that takes an array of numbers and returns their sum.',
+                        initialCode: `function sumArray(arr) {\n  let sum = 0;\n  // Your code here\n\n  return sum;\n}`,
+                    }
                   },
                 ],
             },
@@ -148,11 +163,15 @@ export const courses = [
               description: 'Get started with Python by printing to the console.',
               games: [
                 {
+                  type: 'mcq' as const,
                   language: 'python',
                   level: 'beginner' as const,
-                  title: 'Print "Hello, World!"',
-                  question: 'Write a Python function `hello()` that prints "Hello, World!" to the console. Note: The testing environment will capture print output, you don\'t need to return anything.',
-                  initialCode: `def hello():\n  # Your code here`,
+                  title: 'Python Syntax',
+                  content: {
+                    question: 'In Python, how do you print "Hello, World!" to the console?',
+                    options: ['console.log("Hello, World!")', 'echo "Hello, World!"', 'print("Hello, World!")', 'System.out.println("Hello, World!")'],
+                    answer: 2,
+                  }
                 },
               ],
             },
@@ -163,11 +182,14 @@ export const courses = [
               description: 'Learn how to store data in Python.',
               games: [
                 {
+                  type: 'code' as const,
                   language: 'python',
                   level: 'beginner' as const,
                   title: 'Create a Variable',
-                  question: 'Create a function `create_var()` that declares a variable `my_message` with the value "I love Python" and returns it.',
-                  initialCode: `def create_var():\n  # Your code here`,
+                  content: {
+                    question: 'Create a function `create_var()` that declares a variable `my_message` with the value "I love Python" and returns it.',
+                    initialCode: `def create_var():\n  # Your code here`,
+                  }
                 },
               ],
             },
@@ -178,11 +200,14 @@ export const courses = [
                 description: 'Work with ordered collections of data.',
                 games: [
                   {
+                    type: 'code' as const,
                     language: 'python',
                     level: 'beginner' as const,
                     title: 'Find the largest number',
-                    question: 'Write a function `find_max(numbers)` that takes a list of numbers and returns the largest one.',
-                    initialCode: `def find_max(numbers):\n  # Your code here`,
+                    content: {
+                        question: 'Write a function `find_max(numbers)` that takes a list of numbers and returns the largest one.',
+                        initialCode: `def find_max(numbers):\n  # Your code here`,
+                    }
                   },
                 ],
             },
@@ -193,11 +218,14 @@ export const courses = [
                 description: 'Understand key-value pairs for flexible data storage.',
                 games: [
                   {
+                    type: 'code' as const,
                     language: 'python',
                     level: 'intermediate' as const,
                     title: 'Count word frequency',
-                    question: 'Write a function `word_count(text)` that takes a string and returns a dictionary with the frequency of each word.',
-                    initialCode: `def word_count(text):\n  # Your code here`,
+                    content: {
+                        question: 'Write a function `word_count(text)` that takes a string and returns a dictionary with the frequency of each word.',
+                        initialCode: `def word_count(text):\n  # Your code here`,
+                    }
                   },
                 ],
             },
@@ -216,11 +244,15 @@ export const courses = [
               description: 'Learn how to retrieve data from a database.',
               games: [
                 {
+                  type: 'mcq' as const,
                   language: 'sql',
                   level: 'beginner' as const,
-                  title: 'Select All Customers',
-                  question: 'Write a SQL query to select all columns from the `customers` table.',
-                  initialCode: `// Your SQL query here`,
+                  title: 'Basic Query',
+                  content: {
+                    question: 'Which SQL statement is used to extract data from a database?',
+                    options: ['GET', 'OPEN', 'SELECT', 'EXTRACT'],
+                    answer: 2,
+                  }
                 },
               ],
             },
@@ -231,11 +263,14 @@ export const courses = [
               description: 'Learn how to filter data.',
               games: [
                 {
+                  type: 'code' as const,
                   language: 'sql',
                   level: 'beginner' as const,
                   title: 'Select Customers from London',
-                  question: 'Write a SQL query to select all customers who are from the city "London".',
-                  initialCode: `// Your SQL query here`,
+                  content: {
+                    question: 'Write a SQL query to select all customers who are from the city "London". The table is named `customers`.',
+                    initialCode: `// Your SQL query here`,
+                  }
                 },
               ],
             },
@@ -246,11 +281,14 @@ export const courses = [
                 description: 'Combine rows from two or more tables.',
                 games: [
                   {
+                    type: 'code' as const,
                     language: 'sql',
                     level: 'intermediate' as const,
                     title: 'Get Order Details',
-                    question: 'Write a SQL query to select the order ID and the customer name for each order by joining `orders` and `customers` tables on `customer_id`.',
-                    initialCode: `// Your SQL query here`,
+                    content: {
+                        question: 'Write a SQL query to select the order ID and the customer name for each order by joining `orders` and `customers` tables on `customer_id`.',
+                        initialCode: `// Your SQL query here`,
+                    }
                   },
                 ],
               },
@@ -261,11 +299,14 @@ export const courses = [
                 description: 'Perform calculations on a set of values.',
                 games: [
                   {
+                    type: 'code' as const,
                     language: 'sql',
                     level: 'intermediate' as const,
                     title: 'Count Total Customers',
-                    question: 'Write a SQL query to count the total number of customers in the `customers` table.',
-                    initialCode: `// Your SQL query here`,
+                    content: {
+                        question: 'Write a SQL query to count the total number of customers in the `customers` table.',
+                        initialCode: `// Your SQL query here`,
+                    }
                   },
                 ],
               },
@@ -284,11 +325,15 @@ export const courses = [
               description: 'Your first steps into the world of Java.',
               games: [
                 {
+                  type: 'mcq' as const,
                   language: 'java',
                   level: 'beginner' as const,
-                  title: 'Hello, World!',
-                  question: 'Write a Java method `hello()` that returns the string "Hello, World!".',
-                  initialCode: `class Solution {\n  public String hello() {\n    // Your code here\n  }\n}`,
+                  title: 'Java Entry Point',
+                  content: {
+                    question: 'What is the most common name for the main method in a Java program, which serves as the entry point?',
+                    options: ['start()', 'run()', 'main()', 'execute()'],
+                    answer: 2,
+                  }
                 },
               ],
             },
@@ -299,11 +344,14 @@ export const courses = [
               description: 'Learn to create and use methods.',
               games: [
                 {
+                  type: 'code' as const,
                   language: 'java',
                   level: 'beginner' as const,
                   title: 'Add two integers',
-                  question: 'Write a Java method `add(int a, int b)` that returns the sum of two integers.',
-                  initialCode: `class Solution {\n  public int add(int a, int b) {\n    // Your code here\n  }\n}`,
+                  content: {
+                    question: 'Write a Java method `add(int a, int b)` that returns the sum of two integers.',
+                    initialCode: `class Solution {\n  public int add(int a, int b) {\n    // Your code here\n  }\n}`,
+                  }
                 },
               ],
             },
@@ -314,11 +362,14 @@ export const courses = [
                 description: 'Use loops and conditional statements.',
                 games: [
                   {
+                    type: 'code' as const,
                     language: 'java',
                     level: 'beginner' as const,
                     title: 'FizzBuzz',
-                    question: 'Write a Java method `fizzBuzz(int n)` that returns "Fizz" for multiples of 3, "Buzz" for multiples of 5, "FizzBuzz" for multiples of both, and the number as a string otherwise.',
-                    initialCode: `class Solution {\n  public String fizzBuzz(int n) {\n    // Your code here\n  }\n}`,
+                    content: {
+                        question: 'Write a Java method `fizzBuzz(int n)` that returns "Fizz" for multiples of 3, "Buzz" for multiples of 5, "FizzBuzz" for multiples of both, and the number as a string otherwise.',
+                        initialCode: `class Solution {\n  public String fizzBuzz(int n) {\n    // Your code here\n  }\n}`,
+                    }
                   },
                 ],
             },
@@ -337,11 +388,15 @@ export const courses = [
               description: 'Start your C++ journey.',
               games: [
                 {
+                  type: 'mcq' as const,
                   language: 'cplusplus',
                   level: 'beginner' as const,
-                  title: 'Return a string',
-                  question: 'Write a C++ function `hello()` that returns a `std::string` with the value "Hello, World!".',
-                  initialCode: `#include <string>\n\nstd::string hello() {\n  // Your code here\n}`,
+                  title: 'C++ Header Files',
+                  content: {
+                    question: 'Which preprocessor directive is used to include a header file in C++?',
+                    options: ['#import', '#include', '#using', '#add'],
+                    answer: 1,
+                  }
                 },
               ],
             },
@@ -352,11 +407,14 @@ export const courses = [
                 description: 'Learn about fundamental data types in C++.',
                 games: [
                   {
+                    type: 'code' as const,
                     language: 'cplusplus',
                     level: 'beginner' as const,
                     title: 'Integer Sum',
-                    question: 'Write a C++ function `sum(int a, int b)` that returns the sum of two integers.',
-                    initialCode: `int sum(int a, int b) {\n  // Your code here\n}`,
+                    content: {
+                        question: 'Write a C++ function `sum(int a, int b)` that returns the sum of two integers.',
+                        initialCode: `int sum(int a, int b) {\n  // Your code here\n}`,
+                    }
                   },
                 ],
             },
@@ -367,11 +425,14 @@ export const courses = [
                 description: 'Learn to use cin and cout for input/output.',
                 games: [
                   {
+                    type: 'code' as const,
                     language: 'cplusplus',
                     level: 'beginner' as const,
                     title: 'Echo Input',
-                    question: 'Write a C++ function `echo()` that reads an integer from standard input and prints it to standard output.',
-                    initialCode: `#include <iostream>\n\nvoid echo() {\n  // Your code here\n}`,
+                    content: {
+                        question: 'Write a C++ function `echo()` that reads an integer from standard input and prints it to standard output.',
+                        initialCode: `#include <iostream>\n\nvoid echo() {\n  // Your code here\n}`,
+                    }
                   },
                 ],
             },
@@ -390,11 +451,15 @@ export const courses = [
               description: 'Learn the fundamental tags of HTML.',
               games: [
                 {
+                  type: 'mcq' as const,
                   language: 'html',
                   level: 'beginner' as const,
-                  title: 'Create a Heading',
-                  question: 'Write a function `createHeading()` that returns an HTML string for a top-level heading (h1) with the text "My First Web Page".',
-                  initialCode: `function createHeading() {\n  // Return an HTML string\n}`,
+                  title: 'HTML for Links',
+                  content: {
+                    question: 'Which HTML tag is used to create a hyperlink?',
+                    options: ['<link>', '<a>', '<href>', '<hyperlink>'],
+                    answer: 1,
+                  }
                 },
               ],
             },
@@ -405,11 +470,14 @@ export const courses = [
                 description: 'Style your HTML elements with CSS.',
                 games: [
                   {
+                    type: 'code' as const,
                     language: 'html',
                     level: 'beginner' as const,
                     title: 'Style a Paragraph',
-                    question: 'Write a function `styleParagraph()` that returns an HTML string for a paragraph with red text color. The text should be "This is a red paragraph."',
-                    initialCode: `function styleParagraph() {\n  // Return an HTML string with inline styles\n}`,
+                    content: {
+                        question: 'Write a function `styleParagraph()` that returns an HTML string for a paragraph with red text color. The text should be "This is a red paragraph."',
+                        initialCode: `function styleParagraph() {\n  // Return an HTML string with inline styles\n}`,
+                    }
                   },
                 ],
             },
@@ -420,11 +488,14 @@ export const courses = [
                 description: 'Understand margin, padding, and borders.',
                 games: [
                   {
+                    type: 'code' as const,
                     language: 'html',
                     level: 'intermediate' as const,
                     title: 'Create a Padded Box',
-                    question: 'Write a function `createBox()` that returns a div with a 1px solid black border and 20px of padding. The content of the div should be "I am in a box".',
-                    initialCode: `function createBox() {\n  // Return an HTML string with a styled div\n}`,
+                    content: {
+                        question: 'Write a function `createBox()` that returns a div with a 1px solid black border and 20px of padding. The content of the div should be "I am in a box".',
+                        initialCode: `function createBox() {\n  // Return an HTML string with a styled div\n}`,
+                    }
                   },
                 ],
             },
