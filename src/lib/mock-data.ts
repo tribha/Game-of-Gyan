@@ -57,139 +57,36 @@ export const courses = [
         icon: 'SiJavascript', 
         description: 'Master the language of the web, from basics to advanced concepts.',
         levels: [
-            {
-              id: 'js-1',
-              levelNumber: 1,
-              title: 'Variables and Data Types',
-              description: 'Learn the basics of storing and using data in JavaScript.',
-              games: [
-                {
-                  type: 'mcq' as const,
-                  language: 'javascript',
-                  level: 'beginner' as const,
-                  title: 'Declaring Variables',
-                  content: {
-                    question: 'Which keyword is used to declare a variable in modern JavaScript that can be reassigned?',
-                    options: ['var', 'let', 'const', 'variable'],
-                    answer: 1,
-                  }
-                },
-              ],
-            },
-            {
-              id: 'js-2',
-              levelNumber: 2,
-              title: 'Operators',
-              description: 'Understand how to perform operations on variables.',
-              games: [
-                {
-                  type: 'mcq' as const,
-                  language: 'javascript',
-                  level: 'beginner' as const,
-                  title: 'Addition Operator',
-                  content: {
-                    question: 'What is the result of the expression `5 + "5"` in JavaScript?',
-                    options: ['10', '"55"', '55', 'Error'],
-                    answer: 1,
-                  }
-                },
-              ],
-            },
-            {
-              id: 'js-3',
-              levelNumber: 3,
-              title: 'Functions',
-              description: 'Learn to write reusable blocks of code.',
-              games: [
-                {
-                  type: 'mcq' as const,
-                  language: 'javascript',
-                  level: 'beginner' as const,
-                  title: 'Function Declaration',
-                  content: {
-                    question: 'How do you correctly call a function named `myFunction`?',
-                    options: ['call myFunction;', 'myFunction;', 'myFunction()', 'call function myFunction()'],
-                    answer: 2,
-                  }
-                },
-              ],
-            },
-            {
-                id: 'js-4',
-                levelNumber: 4,
-                title: 'Conditional Statements',
-                description: 'Make decisions in your code with if-else statements.',
-                games: [
-                  {
-                    type: 'mcq' as const,
-                    language: 'javascript',
-                    level: 'intermediate' as const,
-                    title: 'Equality Check',
-                    content: {
-                        question: 'Which operator checks for both value and type equality?',
-                        options: ['==', '===', '=', '!='],
-                        answer: 1,
-                    }
-                  },
-                ],
-            },
-            {
-                id: 'js-5',
-                levelNumber: 5,
-                title: 'Loops',
-                description: 'Repeat actions with for and while loops.',
-                games: [
-                  {
-                    type: 'mcq' as const,
-                    language: 'javascript',
-                    level: 'intermediate' as const,
-                    title: 'For Loop Syntax',
-                    content: {
-                        question: 'Which `for` loop is written correctly?',
-                        options: ['for (i = 0; i < 5; i++)', 'for (i = 0 to 5)', 'for (i < 5; i++)', 'for i in 1..5'],
-                        answer: 0,
-                    }
-                  },
-                ],
-            },
-            {
-              id: 'js-6',
-              levelNumber: 6,
-              title: 'Arrays',
-              description: 'Work with ordered lists of data.',
-              games: [
-                {
-                  type: 'mcq' as const,
-                  language: 'javascript',
-                  level: 'intermediate' as const,
-                  title: 'Accessing Array Elements',
-                  content: {
-                      question: 'Given `const arr = ["a", "b", "c"];`, how do you access the element "b"?',
-                      options: ['arr(1)', 'arr[1]', 'arr.1', 'arr.get(1)'],
-                      answer: 1,
-                  }
-                },
-              ],
-            },
-             {
-              id: 'js-7',
-              levelNumber: 7,
-              title: 'Objects',
-              description: 'Understand key-value pairs for storing structured data.',
-              games: [
-                {
-                  type: 'mcq' as const,
-                  language: 'javascript',
-                  level: 'intermediate' as const,
-                  title: 'Accessing Object Properties',
-                  content: {
-                      question: 'Given `const person = { name: "John" };`, how do you access the name property?',
-                      options: ['person["name"]', 'person.name', 'Both A and B', 'person.get("name")'],
-                      answer: 2,
-                  }
-                },
-              ],
-            },
+            { id: 'js-1', levelNumber: 1, title: 'Declaring Variables', description: 'Learn `let`, `const`, and `var`.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'beginner' as const, title: 'Variable Declaration', content: { question: 'Which keyword is used to declare a variable in modern JavaScript that can be reassigned?', options: ['var', 'let', 'const', 'variable'], answer: 1 } }] },
+            { id: 'js-2', levelNumber: 2, title: 'Constant Variables', description: 'Understand read-only variables.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'beginner' as const, title: 'Constant Declaration', content: { question: 'Which keyword is used to declare a variable whose value cannot be changed?', options: ['let', 'static', 'const', 'final'], answer: 2 } }] },
+            { id: 'js-3', levelNumber: 3, title: 'Data Types - String', description: 'Learn about text data.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'beginner' as const, title: 'String Type', content: { question: 'Which of the following is a string?', options: ['123', '"123"', 'true', 'null'], answer: 1 } }] },
+            { id: 'js-4', levelNumber: 4, title: 'Data Types - Number', description: 'Learn about numeric data.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'beginner' as const, title: 'Number Type', content: { question: 'What is the data type of `42.5` in JavaScript?', options: ['float', 'double', 'number', 'integer'], answer: 2 } }] },
+            { id: 'js-5', levelNumber: 5, title: 'Data Types - Boolean', description: 'Learn about true/false values.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'beginner' as const, title: 'Boolean Type', content: { question: 'Which of the following is a boolean value?', options: ['"true"', '0', 'true', 'null'], answer: 2 } }] },
+            { id: 'js-6', levelNumber: 6, title: 'Addition Operator', description: 'Learn to add numbers.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'beginner' as const, title: 'Addition', content: { question: 'What is the result of `10 + 5`?', options: ['15', '"105"', '5', 'Error'], answer: 0 } }] },
+            { id: 'js-7', levelNumber: 7, title: 'String Concatenation', description: 'Combine strings together.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'beginner' as const, title: 'Concatenation', content: { question: 'What is the result of `"Hello" + " World"`?', options: ['HelloWorld', '"Hello World"', 'Hello World', 'Error'], answer: 2 } }] },
+            { id: 'js-8', levelNumber: 8, title: 'Type Coercion', description: 'Understand automatic type conversion.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'beginner' as const, title: 'Coercion', content: { question: 'What is the result of `5 + "5"` in JavaScript?', options: ['10', '"55"', '55', 'Error'], answer: 1 } }] },
+            { id: 'js-9', levelNumber: 9, title: 'Strict Equality', description: 'Learn `===` vs `==`.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'beginner' as const, title: 'Strict Equality', content: { question: 'What is the result of `5 === "5"`?', options: ['true', 'false', 'undefined', 'Error'], answer: 1 } }] },
+            { id: 'js-10', levelNumber: 10, title: 'Function Declaration', description: 'Define reusable blocks of code.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'beginner' as const, title: 'Function Syntax', content: { question: 'How do you correctly call a function named `myFunction`?', options: ['call myFunction;', 'myFunction;', 'myFunction()', 'call function myFunction()'], answer: 2 } }] },
+            { id: 'js-11', levelNumber: 11, title: 'Function Parameters', description: 'Pass data to functions.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'intermediate' as const, title: 'Parameters', content: { question: 'In `function add(a, b){...}`, `a` and `b` are known as:', options: ['arguments', 'parameters', 'variables', 'properties'], answer: 1 } }] },
+            { id: 'js-12', levelNumber: 12, title: 'Function Return', description: 'Get values back from functions.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'intermediate' as const, title: 'Return Keyword', content: { question: 'Which keyword is used to send a value back from a function?', options: ['return', 'send', 'output', 'give'], answer: 0 } }] },
+            { id: 'js-13', levelNumber: 13, title: 'If Statement', description: 'Execute code conditionally.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'intermediate' as const, title: 'If Condition', content: { question: 'Which statement is used to execute a block of code only if a specified condition is true?', options: ['for', 'while', 'if', 'switch'], answer: 2 } }] },
+            { id: 'js-14', levelNumber: 14, title: 'If-Else Statement', description: 'Handle alternative conditions.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'intermediate' as const, title: 'Else Clause', content: { question: 'In an if-else statement, which block runs if the condition is false?', options: ['if block', 'then block', 'else block', 'catch block'], answer: 2 } }] },
+            { id: 'js-15', levelNumber: 15, title: 'Logical AND', description: 'Combine multiple conditions.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'intermediate' as const, title: 'AND Operator', content: { question: 'Which operator represents logical AND?', options: ['||', '&&', '!', '&'], answer: 1 } }] },
+            { id: 'js-16', levelNumber: 16, title: 'Logical OR', description: 'Check if any condition is true.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'intermediate' as const, title: 'OR Operator', content: { question: 'Which operator represents logical OR?', options: ['||', '&&', '!', '|'], answer: 0 } }] },
+            { id: 'js-17', levelNumber: 17, title: 'For Loop', description: 'Repeat a block of code.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'intermediate' as const, title: 'For Loop Syntax', content: { question: 'Which `for` loop is written correctly to run 5 times?', options: ['for (i = 0; i < 5; i++)', 'for (i = 0 to 5)', 'for (i < 5; i++)', 'for i in 1..5'], answer: 0 } }] },
+            { id: 'js-18', levelNumber: 18, title: 'Array Creation', description: 'Store lists of data.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'intermediate' as const, title: 'Creating an Array', content: { question: 'Which syntax creates a JavaScript array?', options: ['{1, 2, 3}', '[1, 2, 3]', '(1, 2, 3)', '<1, 2, 3>'], answer: 1 } }] },
+            { id: 'js-19', levelNumber: 19, title: 'Array Indexing', description: 'Access array elements.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'intermediate' as const, title: 'Accessing Elements', content: { question: 'Given `const arr = ["a", "b", "c"];`, how do you access the element "b"?', options: ['arr(1)', 'arr[1]', 'arr.1', 'arr.get(1)'], answer: 1 } }] },
+            { id: 'js-20', levelNumber: 20, title: 'Array Length', description: 'Find the size of an array.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'intermediate' as const, title: 'Array Size', content: { question: 'Which property gives the number of elements in an array `arr`?', options: ['arr.size', 'arr.count', 'arr.length', 'arr.amount'], answer: 2 } }] },
+            { id: 'js-21', levelNumber: 21, title: 'Object Creation', description: 'Store structured data.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'intermediate' as const, title: 'Creating an Object', content: { question: 'Which syntax creates a JavaScript object?', options: ['{key: "value"}', '[key: "value"]', '(key: "value")', '<key: "value">'], answer: 0 } }] },
+            { id: 'js-22', levelNumber: 22, title: 'Object Properties', description: 'Access object data.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'intermediate' as const, title: 'Accessing Properties', content: { question: 'Given `const person = { name: "John" };`, how do you access the name property?', options: ['person("name")', 'person["name"]', 'person.get("name")', 'All of the above'], answer: 1 } }] },
+            { id: 'js-23', levelNumber: 23, title: 'Arrow Functions', description: 'A shorter syntax for functions.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'intermediate' as const, title: 'Arrow Function Syntax', content: { question: 'Which of the following is a valid arrow function?', options: ['=> (a, b) => a + b', 'function(a, b) => a + b', '(a, b) => a + b', 'let add = (a, b)'], answer: 2 } }] },
+            { id: 'js-24', levelNumber: 24, title: 'Array .map()', description: 'Create a new array from an existing one.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'advanced' as const, title: 'Map Method', content: { question: 'Which method creates a new array by performing a function on each array element?', options: ['.forEach()', '.map()', '.filter()', '.reduce()'], answer: 1 } }] },
+            { id: 'js-25', levelNumber: 25, title: 'Array .filter()', description: 'Create a new array with filtered elements.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'advanced' as const, title: 'Filter Method', content: { question: 'Which method creates a new array with all elements that pass the test implemented by the provided function?', options: ['.forEach()', '.map()', '.filter()', '.reduce()'], answer: 2 } }] },
+            { id: 'js-26', levelNumber: 26, title: 'Template Literals', description: 'Embed expressions in strings.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'advanced' as const, title: 'Template String Syntax', content: { question: 'Which syntax is used for template literals?', options: ["''", '""', '``', '()'], answer: 2 } }] },
+            { id: 'js-27', levelNumber: 27, title: 'Destructuring', description: 'Unpack values from arrays or properties from objects.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'advanced' as const, title: 'Object Destructuring', content: { question: 'What is the correct way to get the `name` property from `person` object using destructuring?', options: ['let name = person;', 'let {name} = person;', 'let [name] = person;', 'let name = {person};'], answer: 1 } }] },
+            { id: 'js-28', levelNumber: 28, title: 'Promises', description: 'Handle asynchronous operations.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'advanced' as const, title: 'Promise States', content: { question: 'Which of these is NOT a state of a Promise?', options: ['pending', 'fulfilled', 'rejected', 'completed'], answer: 3 } }] },
+            { id: 'js-29', levelNumber: 29, title: 'Async/Await', description: 'A modern way to write async code.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'advanced' as const, title: 'Async Keyword', content: { question: 'What does the `async` keyword do when placed before a function?', options: ['It makes the function run synchronously.', 'It makes the function return a Promise.', 'It deletes the function.', 'It pauses the execution of the function.'], answer: 1 } }] },
+            { id: 'js-30', levelNumber: 30, title: 'try...catch', description: 'Handle errors gracefully.', games: [{ type: 'mcq' as const, language: 'javascript', level: 'advanced' as const, title: 'Error Handling', content: { question: 'Which block is used to handle errors in JavaScript?', options: ['try...except', 'try...finally', 'try...catch', 'test...error'], answer: 2 } }] },
         ]
     },
     { 
@@ -198,120 +95,36 @@ export const courses = [
         icon: 'SiPython', 
         description: 'Learn a versatile language used in web dev, data science, and more.', 
         levels: [
-            {
-              id: 'py-1',
-              levelNumber: 1,
-              title: 'Hello, Python!',
-              description: 'Get started with Python by printing to the console.',
-              games: [
-                {
-                  type: 'mcq' as const,
-                  language: 'python',
-                  level: 'beginner' as const,
-                  title: 'Python Syntax',
-                  content: {
-                    question: 'In Python, how do you print "Hello, World!" to the console?',
-                    options: ['console.log("Hello, World!")', 'echo "Hello, World!"', 'print("Hello, World!")', 'System.out.println("Hello, World!")'],
-                    answer: 2,
-                  }
-                },
-              ],
-            },
-            {
-              id: 'py-2',
-              levelNumber: 2,
-              title: 'Python Variables',
-              description: 'Learn how to store data in Python.',
-              games: [
-                {
-                  type: 'mcq' as const,
-                  language: 'python',
-                  level: 'beginner' as const,
-                  title: 'Variable Naming',
-                  content: {
-                    question: 'Which of the following is a valid variable name in Python?',
-                    options: ['my-var', '2myvar', '_myvar', 'my var'],
-                    answer: 2,
-                  }
-                },
-              ],
-            },
-            {
-                id: 'py-3',
-                levelNumber: 3,
-                title: 'Lists and Loops',
-                description: 'Work with ordered collections of data.',
-                games: [
-                  {
-                    type: 'mcq' as const,
-                    language: 'python',
-                    level: 'beginner' as const,
-                    title: 'Accessing List Items',
-                    content: {
-                        question: 'Given `my_list = [10, 20, 30]`, what does `my_list[1]` return?',
-                        options: ['10', '20', '30', 'Error'],
-                        answer: 1,
-                    }
-                  },
-                ],
-            },
-            {
-                id: 'py-4',
-                levelNumber: 4,
-                title: 'Dictionaries',
-                description: 'Understand key-value pairs for flexible data storage.',
-                games: [
-                  {
-                    type: 'mcq' as const,
-                    language: 'python',
-                    level: 'intermediate' as const,
-                    title: 'Accessing Dictionary Values',
-                    content: {
-                        question: 'Given `my_dict = {"name": "Alice"}`, how do you get the value "Alice"?',
-                        options: ['my_dict.name', 'my_dict(0)', 'my_dict["name"]', 'my_dict.get_value("name")'],
-                        answer: 2,
-                    }
-                  },
-                ],
-            },
-            {
-                id: 'py-5',
-                levelNumber: 5,
-                title: 'Functions',
-                description: 'Define reusable blocks of code.',
-                games: [
-                  {
-                    type: 'mcq' as const,
-                    language: 'python',
-                    level: 'intermediate' as const,
-                    title: 'Defining a Function',
-                    content: {
-                        question: 'Which keyword is used to define a function in Python?',
-                        options: ['function', 'def', 'fun', 'define'],
-                        answer: 1,
-                    }
-                  },
-                ],
-            },
-             {
-                id: 'py-6',
-                levelNumber: 6,
-                title: 'String Manipulation',
-                description: 'Learn common operations on strings.',
-                games: [
-                  {
-                    type: 'mcq' as const,
-                    language: 'python',
-                    level: 'intermediate' as const,
-                    title: 'String Length',
-                    content: {
-                        question: 'Which function returns the length of a string `s`?',
-                        options: ['s.length()', 'len(s)', 'length(s)', 's.size()'],
-                        answer: 1,
-                    }
-                  },
-                ],
-            },
+            { id: 'py-1', levelNumber: 1, title: 'Print Statement', description: 'Output text to the console.', games: [{ type: 'mcq' as const, language: 'python', level: 'beginner' as const, title: 'Printing "Hello, World!"', content: { question: 'In Python, how do you print "Hello, World!" to the console?', options: ['console.log("Hello, World!")', 'echo "Hello, World!"', 'print("Hello, World!")', 'System.out.println("Hello, World!")'], answer: 2 } }] },
+            { id: 'py-2', levelNumber: 2, title: 'Variable Assignment', description: 'Store data in variables.', games: [{ type: 'mcq' as const, language: 'python', level: 'beginner' as const, title: 'Creating a Variable', content: { question: 'Which of the following correctly assigns the value 10 to a variable named `x`?', options: ['let x = 10', 'x := 10', 'x = 10', 'int x = 10;'], answer: 2 } }] },
+            { id: 'py-3', levelNumber: 3, title: 'Data Types - Integer', description: 'Work with whole numbers.', games: [{ type: 'mcq' as const, language: 'python', level: 'beginner' as const, title: 'Integer Type', content: { question: 'What is the data type of the value `5` in Python?', options: ['String', 'float', 'int', 'bool'], answer: 2 } }] },
+            { id: 'py-4', levelNumber: 4, title: 'Data Types - Float', description: 'Work with decimal numbers.', games: [{ type: 'mcq' as const, language: 'python', level: 'beginner' as const, title: 'Float Type', content: { question: 'What is the data type of the value `9.81`?', options: ['String', 'float', 'int', 'bool'], answer: 1 } }] },
+            { id: 'py-5', levelNumber: 5, title: 'Data Types - String', description: 'Work with text.', games: [{ type: 'mcq' as const, language: 'python', level: 'beginner' as const, title: 'String Type', content: { question: 'Which of the following creates a string in Python?', options: ['"A"', "'B'", 'Both A and B', '`C`'], answer: 2 } }] },
+            { id: 'py-6', levelNumber: 6, title: 'Comments', description: 'Add notes to your code.', games: [{ type: 'mcq' as const, language: 'python', level: 'beginner' as const, title: 'Single-line Comment', content: { question: 'How do you start a single-line comment in Python?', options: ['//', '/*', '#', '<!--'], answer: 2 } }] },
+            { id: 'py-7', levelNumber: 7, title: 'Lists', description: 'Create ordered collections of items.', games: [{ type: 'mcq' as const, language: 'python', level: 'beginner' as const, title: 'Creating a List', content: { question: 'Which syntax correctly creates a list in Python?', options: ['{1, 2, 3}', '[1, 2, 3]', '(1, 2, 3)', '<1, 2, 3>'], answer: 1 } }] },
+            { id: 'py-8', levelNumber: 8, title: 'List Indexing', description: 'Access items in a list.', games: [{ type: 'mcq' as const, language: 'python', level: 'beginner' as const, title: 'Accessing List Items', content: { question: 'Given `my_list = [10, 20, 30]`, what does `my_list[0]` return?', options: ['10', '20', '30', 'Error'], answer: 0 } }] },
+            { id: 'py-9', levelNumber: 9, title: 'String `len()`', description: 'Find the length of a string.', games: [{ type: 'mcq' as const, language: 'python', level: 'beginner' as const, title: 'String Length', content: { question: 'Which function returns the length of a string `s`?', options: ['s.length()', 'len(s)', 'length(s)', 's.size()'], answer: 1 } }] },
+            { id: 'py-10', levelNumber: 10, title: 'Function Definition', description: 'Create your own functions.', games: [{ type: 'mcq' as const, language: 'python', level: 'beginner' as const, title: 'Defining a Function', content: { question: 'Which keyword is used to define a function in Python?', options: ['function', 'def', 'fun', 'define'], answer: 1 } }] },
+            { id: 'py-11', levelNumber: 11, title: 'If Statement', description: 'Make decisions in your code.', games: [{ type: 'mcq' as const, language: 'python', level: 'intermediate' as const, title: 'Conditional Logic', content: { question: 'Which comparison operator means "not equal to"?', options: ['==', '!=', '<>', '><'], answer: 1 } }] },
+            { id: 'py-12', levelNumber: 12, title: 'If-Elif-Else', description: 'Handle multiple conditions.', games: [{ type: 'mcq' as const, language: 'python', level: 'intermediate' as const, title: 'Multiple Conditions', content: { question: 'Which keyword is used for "else if" in Python?', options: ['elseif', 'elif', 'else if', 'or if'], answer: 1 } }] },
+            { id: 'py-13', levelNumber: 13, title: 'For Loop', description: 'Iterate over a sequence.', games: [{ type: 'mcq' as const, language: 'python', level: 'intermediate' as const, title: 'Looping through a List', content: { question: 'How do you loop through a list called `items`?', options: ['for item in items:', 'for each item in items:', 'loop item in items:', 'foreach item in items:'], answer: 0 } }] },
+            { id: 'py-14', levelNumber: 14, title: '`range()` function', description: 'Generate a sequence of numbers.', games: [{ type: 'mcq' as const, language: 'python', level: 'intermediate' as const, title: 'Using range()', content: { question: 'What does `range(3)` produce?', options: ['[0, 1, 2, 3]', '[1, 2, 3]', '[0, 1, 2]', '[1, 2]'], answer: 2 } }] },
+            { id: 'py-15', levelNumber: 15, title: 'While Loop', description: 'Loop as long as a condition is true.', games: [{ type: 'mcq' as const, language: 'python', level: 'intermediate' as const, title: 'While Loop Syntax', content: { question: 'Which keyword is used to create a loop that continues as long as a condition is true?', options: ['for', 'while', 'repeat', 'until'], answer: 1 } }] },
+            { id: 'py-16', levelNumber: 16, title: 'Dictionaries', description: 'Store data as key-value pairs.', games: [{ type: 'mcq' as const, language: 'python', level: 'intermediate' as const, title: 'Creating a Dictionary', content: { question: 'Which syntax creates a dictionary in Python?', options: ['{ "key": "value" }', '[ "key": "value" ]', '( "key": "value" )', '< "key": "value" >'], answer: 0 } }] },
+            { id: 'py-17', levelNumber: 17, title: 'Accessing Dictionary Values', description: 'Retrieve values by key.', games: [{ type: 'mcq' as const, language: 'python', level: 'intermediate' as const, title: 'Accessing by Key', content: { question: 'Given `d = {"name": "Alice"}`, how do you get the value "Alice"?', options: ['d.name', 'd(0)', 'd["name"]', 'd.get_value("name")'], answer: 2 } }] },
+            { id: 'py-18', levelNumber: 18, title: 'List `append()`', description: 'Add items to a list.', games: [{ type: 'mcq' as const, language: 'python', level: 'intermediate' as const, title: 'Adding to a List', content: { question: 'Which method adds an element to the end of a list?', options: ['add()', 'insert()', 'push()', 'append()'], answer: 3 } }] },
+            { id: 'py-19', levelNumber: 19, title: 'Modules', description: 'Import code from other files.', games: [{ type: 'mcq' as const, language: 'python', level: 'intermediate' as const, title: 'Importing', content: { question: 'Which keyword is used to import a module like `math`?', options: ['import', 'include', 'use', 'require'], answer: 0 } }] },
+            { id: 'py-20', levelNumber: 20, title: 'Tuples', description: 'Create immutable sequences.', games: [{ type: 'mcq' as const, language: 'python', level: 'intermediate' as const, title: 'Creating a Tuple', content: { question: 'Which syntax creates a tuple in Python?', options: ['{1, 2, 3}', '[1, 2, 3]', '(1, 2, 3)', '<1, 2, 3>'], answer: 2 } }] },
+            { id: 'py-21', levelNumber: 21, title: 'List Slicing', description: 'Extract parts of a list.', games: [{ type: 'mcq' as const, language: 'python', level: 'advanced' as const, title: 'Slicing a List', content: { question: 'Given `L = [0,1,2,3,4]`, what does `L[1:3]` return?', options: ['[1, 2]', '[1, 2, 3]', '[0, 1, 2]', '[2, 3]'], answer: 0 } }] },
+            { id: 'py-22', levelNumber: 22, title: 'List Comprehensions', description: 'A concise way to create lists.', games: [{ type: 'mcq' as const, language: 'python', level: 'advanced' as const, title: 'List Comprehension Syntax', content: { question: 'Which is a valid list comprehension to create a list of squares?', options: ['[x^2 for x in range(5)]', '[x**2 for x in range(5)]', '{x**2 for x in range(5)}', '(x**2 for x in range(5))'], answer: 1 } }] },
+            { id: 'py-23', levelNumber: 23, title: 'Classes', description: 'Define blueprints for objects.', games: [{ type: 'mcq' as const, language: 'python', level: 'advanced' as const, title: 'Class Definition', content: { question: 'Which keyword is used to define a class in Python?', options: ['class', 'object', 'def', 'struct'], answer: 0 } }] },
+            { id: 'py-24', levelNumber: 24, title: '`__init__` Method', description: 'The constructor for a class.', games: [{ type: 'mcq' as const, language: 'python', level: 'advanced' as const, title: 'Constructor Method', content: { question: 'What is the name of the special method that is automatically called when a new object of a class is created?', options: ['__main__', '__new__', '__init__', '__construct__'], answer: 2 } }] },
+            { id: 'py-25', levelNumber: 25, title: 'Inheritance', description: 'Create a new class from an existing class.', games: [{ type: 'mcq' as const, language: 'python', level: 'advanced' as const, title: 'Inheritance Syntax', content: { question: 'How do you indicate that `Dog` class inherits from `Animal` class?', options: ['class Dog(Animal):', 'class Dog inherits Animal:', 'class Dog extends Animal:', 'class Dog : Animal'], answer: 0 } }] },
+            { id: 'py-26', levelNumber: 26, title: 'F-Strings', description: 'A modern way to format strings.', games: [{ type: 'mcq' as const, language: 'python', level: 'advanced' as const, title: 'F-String Syntax', content: { question: 'Given `name = "AI"`, which is a correct f-string?', options: ['"Hello, {name}"', 'f"Hello, {name}"', 'fmt"Hello, {name}"', '"Hello, %s" % name'], answer: 1 } }] },
+            { id: 'py-27', levelNumber: 27, title: 'Exception Handling', description: 'Handle errors with try/except.', games: [{ type: 'mcq' as const, language: 'python', level: 'advanced' as const, title: 'Handling Errors', content: { question: 'Which block is used to catch and handle exceptions in Python?', options: ['catch', 'except', 'error', 'handle'], answer: 1 } }] },
+            { id: 'py-28', levelNumber: 28, title: 'Sets', description: 'Store unordered collections of unique items.', games: [{ type: 'mcq' as const, language: 'python', level: 'advanced' as const, title: 'Creating a Set', content: { question: 'Which of the following creates a set of unique items?', options: ['[1, 2, 2, 3]', '{1, 2, 2, 3}', '(1, 2, 2, 3)', 'set(1, 2, 2, 3)'], answer: 1 } }] },
+            { id: 'py-29', levelNumber: 29, title: 'File Handling - Reading', description: 'Read content from files.', games: [{ type: 'mcq' as const, language: 'python', level: 'advanced' as const, title: 'Reading a file', content: { question: 'Which is the preferred way to open a file for reading in Python?', options: ['file = open("f.txt")', 'with open("f.txt", "r") as file:', 'read("f.txt")', 'cat f.txt'], answer: 1 } }] },
+            { id: 'py-30', levelNumber: 30, title: 'Lambda Functions', description: 'Create small, anonymous functions.', games: [{ type: 'mcq' as const, language: 'python', level: 'advanced' as const, title: 'Lambda Syntax', content: { question: 'Which of the following is a valid lambda function that adds two numbers?', options: ['lambda a, b: a + b', 'def (a, b): a + b', 'anon a, b: a + b', 'function(a, b): a + b'], answer: 0 } }] },
         ] 
     },
     { 
@@ -320,120 +133,36 @@ export const courses = [
         icon: 'Database', 
         description: 'Become proficient in managing and querying relational databases.', 
         levels: [
-            {
-              id: 'sql-1',
-              levelNumber: 1,
-              title: 'SELECT statements',
-              description: 'Learn how to retrieve data from a database.',
-              games: [
-                {
-                  type: 'mcq' as const,
-                  language: 'sql',
-                  level: 'beginner' as const,
-                  title: 'Basic Query',
-                  content: {
-                    question: 'Which SQL statement is used to extract data from a database?',
-                    options: ['GET', 'OPEN', 'SELECT', 'EXTRACT'],
-                    answer: 2,
-                  }
-                },
-              ],
-            },
-             {
-              id: 'sql-2',
-              levelNumber: 2,
-              title: 'WHERE clause',
-              description: 'Learn how to filter data.',
-              games: [
-                {
-                  type: 'mcq' as const,
-                  language: 'sql',
-                  level: 'beginner' as const,
-                  title: 'Filtering Data',
-                  content: {
-                    question: 'Which clause is used to filter records?',
-                    options: ['FILTER BY', 'WHERE', 'HAVING', 'SORT'],
-                    answer: 1,
-                  }
-                },
-              ],
-            },
-            {
-                id: 'sql-3',
-                levelNumber: 3,
-                title: 'JOINs',
-                description: 'Combine rows from two or more tables.',
-                games: [
-                  {
-                    type: 'mcq' as const,
-                    language: 'sql',
-                    level: 'intermediate' as const,
-                    title: 'Combining Tables',
-                    content: {
-                        question: 'Which type of JOIN returns all records when there is a match in either the left or right table?',
-                        options: ['INNER JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'FULL OUTER JOIN'],
-                        answer: 3,
-                    }
-                  },
-                ],
-              },
-              {
-                id: 'sql-4',
-                levelNumber: 4,
-                title: 'Aggregate Functions',
-                description: 'Perform calculations on a set of values.',
-                games: [
-                  {
-                    type: 'mcq' as const,
-                    language: 'sql',
-                    level: 'intermediate' as const,
-                    title: 'Counting Rows',
-                    content: {
-                        question: 'Which function returns the number of rows?',
-                        options: ['COUNT()', 'NUMBER()', 'SUM()', 'TOTAL()'],
-                        answer: 0,
-                    }
-                  },
-                ],
-              },
-               {
-                id: 'sql-5',
-                levelNumber: 5,
-                title: 'GROUP BY',
-                description: 'Group rows that have the same values.',
-                games: [
-                  {
-                    type: 'mcq' as const,
-                    language: 'sql',
-                    level: 'intermediate' as const,
-                    title: 'Grouping Data',
-                    content: {
-                        question: 'The GROUP BY statement is often used with aggregate functions to group the result-set by one or more columns. Which aggregate function is commonly used?',
-                        options: ['CONCAT()', 'MID()', 'COUNT()', 'FORMAT()'],
-                        answer: 2,
-                    }
-                  },
-                ],
-              },
-              {
-                id: 'sql-6',
-                levelNumber: 6,
-                title: 'ORDER BY',
-                description: 'Sort the result set in ascending or descending order.',
-                games: [
-                  {
-                    type: 'mcq' as const,
-                    language: 'sql',
-                    level: 'intermediate' as const,
-                    title: 'Sorting Data',
-                    content: {
-                        question: 'How do you sort the results in descending order?',
-                        options: ['ORDER BY column DESC', 'SORT BY column DESC', 'ORDER BY column DSC', 'SORT BY column DSC'],
-                        answer: 0,
-                    }
-                  },
-                ],
-              },
+            { id: 'sql-1', levelNumber: 1, title: 'SELECT', description: 'Retrieve data from a table.', games: [{ type: 'mcq' as const, language: 'sql', level: 'beginner' as const, title: 'Basic Query', content: { question: 'Which SQL statement is used to extract data from a database?', options: ['GET', 'OPEN', 'SELECT', 'EXTRACT'], answer: 2 } }] },
+            { id: 'sql-2', levelNumber: 2, title: 'SELECT *', description: 'Retrieve all columns.', games: [{ type: 'mcq' as const, language: 'sql', level: 'beginner' as const, title: 'All Columns', content: { question: 'What does the asterisk (*) signify in a `SELECT *` statement?', options: ['Nothing', 'All columns', 'All rows', 'The first column'], answer: 1 } }] },
+            { id: 'sql-3', levelNumber: 3, title: 'WHERE Clause', description: 'Filter records.', games: [{ type: 'mcq' as const, language: 'sql', level: 'beginner' as const, title: 'Filtering Data', content: { question: 'Which clause is used to filter records?', options: ['FILTER BY', 'WHERE', 'HAVING', 'SORT'], answer: 1 } }] },
+            { id: 'sql-4', levelNumber: 4, title: 'AND Operator', description: 'Combine multiple conditions.', games: [{ type: 'mcq' as const, language: 'sql', level: 'beginner' as const, title: 'Multiple Filters (AND)', content: { question: 'Which operator displays a record if all conditions separated by it are TRUE?', options: ['OR', 'BOTH', 'AND', 'ALL'], answer: 2 } }] },
+            { id: 'sql-5', levelNumber: 5, title: 'OR Operator', description: 'Check if any condition is met.', games: [{ type: 'mcq' as const, language: 'sql', level: 'beginner' as const, title: 'Multiple Filters (OR)', content: { question: 'Which operator displays a record if any of the conditions separated by it is TRUE?', options: ['OR', 'ANY', 'AND', 'EITHER'], answer: 0 } }] },
+            { id: 'sql-6', levelNumber: 6, title: 'ORDER BY', description: 'Sort the result set.', games: [{ type: 'mcq' as const, language: 'sql', level: 'beginner' as const, title: 'Sorting Data', content: { question: 'Which clause is used to sort the result-set in ascending or descending order?', options: ['SORT BY', 'ORDER BY', 'GROUP BY', 'ARRANGE BY'], answer: 1 } }] },
+            { id: 'sql-7', levelNumber: 7, title: 'ORDER BY DESC', description: 'Sort in descending order.', games: [{ type: 'mcq' as const, language: 'sql', level: 'beginner' as const, title: 'Descending Sort', content: { question: 'How do you sort the results in descending order?', options: ['ORDER BY column DESC', 'SORT BY column DESC', 'ORDER BY column DSC', 'SORT BY column DSC'], answer: 0 } }] },
+            { id: 'sql-8', levelNumber: 8, title: 'INSERT INTO', description: 'Add new records to a table.', games: [{ type: 'mcq' as const, language: 'sql', level: 'beginner' as const, title: 'Adding Data', content: { question: 'Which statement is used to insert new records in a table?', options: ['ADD RECORD', 'INSERT NEW', 'ADD INTO', 'INSERT INTO'], answer: 3 } }] },
+            { id: 'sql-9', levelNumber: 9, title: 'UPDATE', description: 'Modify existing records.', games: [{ type: 'mcq' as const, language: 'sql', level: 'beginner' as const, title: 'Modifying Data', content: { question: 'Which statement is used to modify records in a database?', options: ['MODIFY', 'UPDATE', 'CHANGE', 'ALTER'], answer: 1 } }] },
+            { id: 'sql-10', levelNumber: 10, title: 'DELETE', description: 'Remove records from a table.', games: [{ type: 'mcq' as const, language: 'sql', level: 'beginner' as const, title: 'Removing Data', content: { question: 'Which statement is used to delete records from a table?', options: ['REMOVE', 'DELETE', 'ERASE', 'TRUNCATE'], answer: 1 } }] },
+            { id: 'sql-11', levelNumber: 11, title: 'COUNT()', description: 'Count the number of rows.', games: [{ type: 'mcq' as const, language: 'sql', level: 'intermediate' as const, title: 'Counting Rows', content: { question: 'Which function returns the number of rows?', options: ['COUNT()', 'NUMBER()', 'SUM()', 'TOTAL()'], answer: 0 } }] },
+            { id: 'sql-12', levelNumber: 12, title: 'AVG()', description: 'Calculate the average value.', games: [{ type: 'mcq' as const, language: 'sql', level: 'intermediate' as const, title: 'Average Value', content: { question: 'Which function returns the average value of a numeric column?', options: ['MEAN()', 'AVERAGE()', 'AVG()', 'MEDIAN()'], answer: 2 } }] },
+            { id: 'sql-13', levelNumber: 13, title: 'SUM()', description: 'Calculate the sum of values.', games: [{ type: 'mcq' as const, language: 'sql', level: 'intermediate' as const, title: 'Total Value', content: { question: 'Which function returns the total sum of a numeric column?', options: ['TOTAL()', 'SUM()', 'ADD()', 'COMBINE()'], answer: 1 } }] },
+            { id: 'sql-14', levelNumber: 14, title: 'LIKE Operator', description: 'Search for a pattern.', games: [{ type: 'mcq' as const, language: 'sql', level: 'intermediate' as const, title: 'Pattern Matching', content: { question: 'Which operator is used to search for a specified pattern in a column?', options: ['MATCH', 'SEARCH', 'LIKE', 'FIND'], answer: 2 } }] },
+            { id: 'sql-15', levelNumber: 15, title: 'Wildcards', description: 'Use % and _ for patterns.', games: [{ type: 'mcq' as const, language: 'sql', level: 'intermediate' as const, title: 'LIKE Wildcard', content: { question: 'In a `LIKE` clause, which wildcard represents any number of characters?', options: ['*', '%', '_', '?'], answer: 1 } }] },
+            { id: 'sql-16', levelNumber: 16, title: 'IN Operator', description: 'Specify multiple values.', games: [{ type: 'mcq' as const, language: 'sql', level: 'intermediate' as const, title: 'Multiple Values', content: { question: 'Which operator allows you to specify multiple values in a `WHERE` clause?', options: ['IN', 'BETWEEN', 'LIKE', 'WITHIN'], answer: 0 } }] },
+            { id: 'sql-17', levelNumber: 17, title: 'BETWEEN Operator', description: 'Select values within a range.', games: [{ type: 'mcq' as const, language: 'sql', level: 'intermediate' as const, title: 'Range Selection', content: { question: 'Which operator selects values within a given range?', options: ['RANGE', 'WITHIN', 'BETWEEN', 'IN'], answer: 2 } }] },
+            { id: 'sql-18', levelNumber: 18, title: 'Aliases', description: 'Give temporary names to tables or columns.', games: [{ type: 'mcq' as const, language: 'sql', level: 'intermediate' as const, title: 'Using AS', content: { question: 'Which keyword is used to create an alias for a column name?', options: ['ALIAS', 'AS', 'NAME', 'TITLE'], answer: 1 } }] },
+            { id: 'sql-19', levelNumber: 19, title: 'INNER JOIN', description: 'Combine rows from two tables.', games: [{ type: 'mcq' as const, language: 'sql', level: 'intermediate' as const, title: 'Joining Tables', content: { question: 'Which keyword returns records that have matching values in both tables?', options: ['INNER JOIN', 'LEFT JOIN', 'FULL JOIN', 'CROSS JOIN'], answer: 0 } }] },
+            { id: 'sql-20', levelNumber: 20, title: 'LEFT JOIN', description: 'Return all rows from the left table.', games: [{ type: 'mcq' as const, language: 'sql', level: 'intermediate' as const, title: 'Left Join', content: { question: 'Which JOIN returns all records from the left table, and the matched records from the right table?', options: ['INNER JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'FULL JOIN'], answer: 1 } }] },
+            { id: 'sql-21', levelNumber: 21, title: 'GROUP BY', description: 'Group rows with the same values.', games: [{ type: 'mcq' as const, language: 'sql', level: 'advanced' as const, title: 'Grouping Data', content: { question: 'Which statement is often used with aggregate functions to group the result-set by one or more columns?', options: ['ORDER BY', 'GROUP BY', 'SORT BY', 'CLUSTER BY'], answer: 1 } }] },
+            { id: 'sql-22', levelNumber: 22, title: 'HAVING Clause', description: 'Filter grouped records.', games: [{ type: 'mcq' as const, language: 'sql', level: 'advanced' as const, title: 'Filtering Groups', content: { question: 'Which clause was added to SQL because the `WHERE` keyword cannot be used with aggregate functions?', options: ['GROUP BY', 'LIMIT', 'HAVING', 'FILTER'], answer: 2 } }] },
+            { id: 'sql-23', levelNumber: 23, title: 'Primary Key', description: 'Uniquely identify each record.', games: [{ type: 'mcq' as const, language: 'sql', level: 'advanced' as const, title: 'Primary Key Constraint', content: { question: 'Which constraint uniquely identifies each record in a database table?', options: ['FOREIGN KEY', 'UNIQUE', 'PRIMARY KEY', 'CHECK'], answer: 2 } }] },
+            { id: 'sql-24', levelNumber: 24, title: 'Foreign Key', description: 'Link two tables together.', games: [{ type: 'mcq' as const, language: 'sql', level: 'advanced' as const, title: 'Foreign Key Constraint', content: { question: 'What is a key used to link two tables together?', options: ['PRIMARY KEY', 'FOREIGN KEY', 'UNIQUE KEY', 'CANDIDATE KEY'], answer: 1 } }] },
+            { id: 'sql-25', levelNumber: 25, title: 'CREATE TABLE', description: 'Create a new table.', games: [{ type: 'mcq' as const, language: 'sql', level: 'advanced' as const, title: 'Table Creation', content: { question: 'Which statement is used to create a new table in a database?', options: ['CREATE DATABASE', 'CREATE TABLE', 'CREATE INDEX', 'MAKE TABLE'], answer: 1 } }] },
+            { id: 'sql-26', levelNumber: 26, title: 'DROP TABLE', description: 'Delete an existing table.', games: [{ type: 'mcq' as const, language: 'sql', level: 'advanced' as const, title: 'Table Deletion', content: { question: 'Which statement is used to delete a table?', options: ['DELETE TABLE', 'TRUNCATE TABLE', 'REMOVE TABLE', 'DROP TABLE'], answer: 3 } }] },
+            { id: 'sql-27', levelNumber: 27, title: 'ALTER TABLE', description: 'Modify a table.', games: [{ type: 'mcq' as const, language: 'sql', level: 'advanced' as const, title: 'Table Modification', content: { question: 'Which statement is used to add, delete, or modify columns in an existing table?', options: ['MODIFY TABLE', 'ALTER TABLE', 'UPDATE TABLE', 'CHANGE TABLE'], answer: 1 } }] },
+            { id: 'sql-28', levelNumber: 28, title: 'UNION', description: 'Combine result sets of two or more SELECT statements.', games: [{ type: 'mcq' as const, language: 'sql', level: 'advanced' as const, title: 'Combining Results', content: { question: 'Which operator is used to combine the result-set of two or more `SELECT` statements (showing distinct values)?', options: ['JOIN', 'UNION', 'COMBINE', 'MERGE'], answer: 1 } }] },
+            { id: 'sql-29', levelNumber: 29, title: 'Subquery', description: 'A query within another query.', games: [{ type: 'mcq' as const, language: 'sql', level: 'advanced' as const, title: 'Nested Queries', content: { question: 'A subquery or inner query is a query nested inside another SQL query. It is usually embedded within the...', options: ['SELECT clause', 'FROM clause', 'WHERE clause', 'Any of the above'], answer: 3 } }] },
+            { id: 'sql-30', levelNumber: 30, title: 'CASE Statement', description: 'Create if-then-else logic in SQL.', games: [{ type: 'mcq' as const, language: 'sql', level: 'advanced' as const, title: 'Conditional Logic', content: { question: 'Which statement goes through conditions and returns a value when the first condition is met?', options: ['IF', 'WHEN', 'CASE', 'DECODE'], answer: 2 } }] },
         ] 
     },
     { 
@@ -442,101 +171,36 @@ export const courses = [
         icon: 'SiJava', 
         description: 'Build robust, enterprise-scale applications with Java.', 
         levels: [
-            {
-              id: 'java-1',
-              levelNumber: 1,
-              title: 'Hello, Java!',
-              description: 'Your first steps into the world of Java.',
-              games: [
-                {
-                  type: 'mcq' as const,
-                  language: 'java',
-                  level: 'beginner' as const,
-                  title: 'Java Entry Point',
-                  content: {
-                    question: 'What is the most common name for the main method in a Java program, which serves as the entry point?',
-                    options: ['start()', 'run()', 'main()', 'execute()'],
-                    answer: 2,
-                  }
-                },
-              ],
-            },
-             {
-              id: 'java-2',
-              levelNumber: 2,
-              title: 'Java Methods',
-              description: 'Learn to create and use methods.',
-              games: [
-                {
-                  type: 'mcq' as const,
-                  language: 'java',
-                  level: 'beginner' as const,
-                  title: 'Method Syntax',
-                  content: {
-                    question: 'How do you declare a method that does not return any value?',
-                    options: ['function myMethod() {}', 'method myMethod() {}', 'void myMethod() {}', 'None myMethod() {}'],
-                    answer: 2,
-                  }
-                },
-              ],
-            },
-            {
-                id: 'java-3',
-                levelNumber: 3,
-                title: 'Control Flow',
-                description: 'Use loops and conditional statements.',
-                games: [
-                  {
-                    type: 'mcq' as const,
-                    language: 'java',
-                    level: 'beginner' as const,
-                    title: 'If-Else Statement',
-                    content: {
-                        question: 'Which keyword is used to handle the case where an `if` condition is false?',
-                        options: ['or', 'else if', 'else', 'next'],
-                        answer: 2,
-                    }
-                  },
-                ],
-            },
-            {
-                id: 'java-4',
-                levelNumber: 4,
-                title: 'Classes and Objects',
-                description: 'Understand the core concepts of Object-Oriented Programming.',
-                games: [
-                  {
-                    type: 'mcq' as const,
-                    language: 'java',
-                    level: 'intermediate' as const,
-                    title: 'Creating an Object',
-                    content: {
-                        question: 'Which keyword is used to create a new object in Java?',
-                        options: ['new', 'create', 'alloc', 'object'],
-                        answer: 0,
-                    }
-                  },
-                ],
-            },
-             {
-                id: 'java-5',
-                levelNumber: 5,
-                title: 'Data Types',
-                description: 'Learn about primitive data types in Java.',
-                games: [
-                  {
-                    type: 'mcq' as const,
-                    language: 'java',
-                    level: 'intermediate' as const,
-                    title: 'Integer Type',
-                    content: {
-                        question: 'Which data type is used to store whole numbers in Java?',
-                        options: ['String', 'double', 'boolean', 'int'],
-                        answer: 3,
-                    }
-                  },
-                ],
-            },
+            { id: 'java-1', levelNumber: 1, title: 'Main Method', description: 'The entry point of a Java program.', games: [{ type: 'mcq' as const, language: 'java', level: 'beginner' as const, title: 'Java Entry Point', content: { question: 'What is the most common name for the main method in a Java program, which serves as the entry point?', options: ['start()', 'run()', 'main()', 'execute()'], answer: 2 } }] },
+            { id: 'java-2', levelNumber: 2, title: 'System.out.println', description: 'Print output to the console.', games: [{ type: 'mcq' as const, language: 'java', level: 'beginner' as const, title: 'Console Output', content: { question: 'Which method is used to print text to the console in Java?', options: ['System.out.print()', 'Console.writeLine()', 'print()', 'Both A and C'], answer: 0 } }] },
+            { id: 'java-3', levelNumber: 3, title: 'Data Type - int', description: 'Store whole numbers.', games: [{ type: 'mcq' as const, language: 'java', level: 'beginner' as const, title: 'Integer Type', content: { question: 'Which data type is used to store whole numbers like 10 or -5 in Java?', options: ['String', 'double', 'boolean', 'int'], answer: 3 } }] },
+            { id: 'java-4', levelNumber: 4, title: 'Data Type - double', description: 'Store floating-point numbers.', games: [{ type: 'mcq' as const, language: 'java', level: 'beginner' as const, title: 'Double Type', content: { question: 'Which data type is best for storing a number with a decimal point like 3.14?', options: ['int', 'float', 'double', 'String'], answer: 2 } }] },
+            { id: 'java-5', levelNumber: 5, title: 'Data Type - String', description: 'Store sequences of characters.', games: [{ type: 'mcq' as const, language: 'java', level: 'beginner' as const, title: 'String Type', content: { question: 'Which is a non-primitive data type in Java?', options: ['int', 'double', 'String', 'boolean'], answer: 2 } }] },
+            { id: 'java-6', levelNumber: 6, title: 'Variable Declaration', description: 'Create and name variables.', games: [{ type: 'mcq' as const, language: 'java', level: 'beginner' as const, title: 'Declaring a variable', content: { question: 'How do you correctly declare an integer variable named `score` and initialize it to 0?', options: ['int score = 0;', 'score = 0;', 'let score = 0;', 'var score = 0;'], answer: 0 } }] },
+            { id: 'java-7', levelNumber: 7, title: 'Concatenation', description: 'Combine strings.', games: [{ type: 'mcq' as const, language: 'java', level: 'beginner' as const, title: 'String Concatenation', content: { question: 'What is the result of `"Age: " + 25`?', options: ['Error', 'Age: 25', '25', 'Age:25'], answer: 1 } }] },
+            { id: 'java-8', levelNumber: 8, title: 'Method Declaration', description: 'Create reusable blocks of code.', games: [{ type: 'mcq' as const, language: 'java', level: 'beginner' as const, title: 'Method Syntax', content: { question: 'How do you declare a method that does not return any value?', options: ['function myMethod() {}', 'method myMethod() {}', 'void myMethod() {}', 'None myMethod() {}'], answer: 2 } }] },
+            { id: 'java-9', levelNumber: 9, title: 'Creating Objects', description: 'Instantiate a class.', games: [{ type: 'mcq' as const, language: 'java', level: 'beginner' as const, title: 'Creating an Object', content: { question: 'Which keyword is used to create a new object in Java?', options: ['new', 'create', 'alloc', 'object'], answer: 0 } }] },
+            { id: 'java-10', levelNumber: 10, title: 'If-Else Statement', description: 'Control the flow of your program.', games: [{ type: 'mcq' as const, language: 'java', level: 'beginner' as const, title: 'Conditional Flow', content: { question: 'Which keyword is used to handle the case where an `if` condition is false?', options: ['or', 'else if', 'else', 'next'], answer: 2 } }] },
+            { id: 'java-11', levelNumber: 11, title: 'Comparison Operators', description: 'Compare values.', games: [{ type: 'mcq' as const, language: 'java', level: 'intermediate' as const, title: 'Equality', content: { question: 'Which operator is used to test for equality between two values?', options: ['=', '==', '===', 'eq'], answer: 1 } }] },
+            { id: 'java-12', levelNumber: 12, title: 'For Loop', description: 'Execute a block of code multiple times.', games: [{ type: 'mcq' as const, language: 'java', level: 'intermediate' as const, title: 'For Loop Syntax', content: { question: 'Which for loop syntax is correct in Java?', options: ['for (i = 0; i < 5; i++)', 'for (int i in 1..5)', 'for (int i; i < 5)', 'for (int i = 0; i < 5)'], answer: 0 } }] },
+            { id: 'java-13', levelNumber: 13, title: 'Arrays', description: 'Store multiple values in a single variable.', games: [{ type: 'mcq' as const, language: 'java', level: 'intermediate' as const, title: 'Array Declaration', content: { question: 'How do you declare an array of integers?', options: ['array int[];', 'int array[];', 'int[] array;', 'Both B and C'], answer: 3 } }] },
+            { id: 'java-14', levelNumber: 14, title: 'Accessing Array Elements', description: 'Retrieve elements by index.', games: [{ type: 'mcq' as const, language: 'java', level: 'intermediate' as const, title: 'Array Indexing', content: { question: 'If `int[] arr = {10, 20, 30};`, what is the value of `arr[1]`?', options: ['10', '20', '30', 'Error'], answer: 1 } }] },
+            { id: 'java-15', levelNumber: 15, title: 'Class Definition', description: 'Define a blueprint for objects.', games: [{ type: 'mcq' as const, language: 'java', level: 'intermediate' as const, title: 'Class Keyword', content: { question: 'Which keyword is used to define a class in Java?', options: ['class', 'struct', 'type', 'object'], answer: 0 } }] },
+            { id: 'java-16', levelNumber: 16, title: 'Constructors', description: 'Initialize new objects.', games: [{ type: 'mcq' as const, language: 'java', level: 'intermediate' as const, title: 'Constructor Rules', content: { question: 'What is true about a constructor?', options: ['It must have a `void` return type', 'It can have any name', 'It must have the same name as the class', 'It is called `__init__`'], answer: 2 } }] },
+            { id: 'java-17', levelNumber: 17, title: 'Access Modifiers - Public', description: 'Control visibility.', games: [{ type: 'mcq' as const, language: 'java', level: 'intermediate' as const, title: 'Public Access', content: { question: 'Which access modifier makes a member accessible from any other class?', options: ['private', 'protected', 'public', 'default'], answer: 2 } }] },
+            { id: 'java-18', levelNumber: 18, title: 'Access Modifiers - Private', description: 'Restrict access.', games: [{ type: 'mcq' as const, language: 'java', level: 'intermediate' as const, title: 'Private Access', content: { question: 'Which modifier makes a member accessible only within its own class?', options: ['private', 'protected', 'public', 'hidden'], answer: 0 } }] },
+            { id: 'java-19', levelNumber: 19, title: 'Inheritance', description: 'Create a new class from an existing one.', games: [{ type: 'mcq' as const, language: 'java', level: 'advanced' as const, title: 'Inheritance Keyword', content: { question: 'Which keyword is used to inherit a class in Java?', options: ['inherits', 'extends', 'implements', 'derives'], answer: 1 } }] },
+            { id: 'java-20', levelNumber: 20, title: 'Polymorphism', description: 'Objects taking many forms.', games: [{ type: 'mcq' as const, language: 'java', level: 'advanced' as const, title: 'Polymorphism Concept', content: { question: 'Method Overriding is an example of what OOP concept?', options: ['Encapsulation', 'Inheritance', 'Abstraction', 'Polymorphism'], answer: 3 } }] },
+            { id: 'java-21', levelNumber: 21, title: 'Abstract Classes', description: 'Restricted classes that cannot be used to create objects.', games: [{ type: 'mcq' as const, language: 'java', level: 'advanced' as const, title: 'Abstract Keyword', content: { question: 'Which keyword is used to declare a class that cannot be instantiated?', options: ['final', 'static', 'abstract', 'interface'], answer: 2 } }] },
+            { id: 'java-22', levelNumber: 22, title: 'Interfaces', description: 'Define a contract for classes.', games: [{ type: 'mcq' as const, language: 'java', level: 'advanced' as const, title: 'Interface Keyword', content: { question: 'Which keyword is used by a class to inherit from an interface?', options: ['extends', 'implements', 'inherits', 'uses'], answer: 1 } }] },
+            { id: 'java-23', levelNumber: 23, title: 'Exception Handling', description: 'Handle runtime errors.', games: [{ type: 'mcq' as const, language: 'java', level: 'advanced' as const, title: 'Try-Catch Block', content: { question: 'Which block of code is used to handle exceptions?', options: ['try-except', 'try-catch', 'try-finally', 'test-error'], answer: 1 } }] },
+            { id: 'java-24', levelNumber: 24, title: '`final` Keyword', description: 'Prevent modification.', games: [{ type: 'mcq' as const, language: 'java', level: 'advanced' as const, title: 'Final Variables', content: { question: 'What does the `final` keyword do when applied to a variable?', options: ['Makes it a global variable', 'Makes its value unchangeable', 'Makes it accessible only to subclasses', 'Deletes the variable'], answer: 1 } }] },
+            { id: 'java-25', levelNumber: 25, title: '`static` Keyword', description: 'Belong to the class, not the object.', games: [{ type: 'mcq' as const, language: 'java', level: 'advanced' as const, title: 'Static Methods', content: { question: 'A method declared with the `static` keyword belongs to the...', options: ['Object', 'Instance', 'Class', 'Package'], answer: 2 } }] },
+            { id: 'java-26', levelNumber: 26, title: 'ArrayList', description: 'A resizable array.', games: [{ type: 'mcq' as const, language: 'java', level: 'advanced' as const, title: 'Using ArrayList', content: { question: 'Which class provides a resizable array in Java?', options: ['Array', 'List', 'Vector', 'ArrayList'], answer: 3 } }] },
+            { id: 'java-27', levelNumber: 27, title: 'HashMap', description: 'Store items in "key/value" pairs.', games: [{ type: 'mcq' as const, language: 'java', level: 'advanced' as const, title: 'Using HashMap', content: { question: 'Which method is used to add a key-value pair to a HashMap?', options: ['add()', 'insert()', 'put()', 'set()'], answer: 2 } }] },
+            { id: 'java-28', levelNumber: 28, title: '`super` Keyword', description: 'Refer to the parent class.', games: [{ type: 'mcq' as const, language: 'java', level: 'advanced' as const, title: 'Calling Parent Constructor', content: { question: 'What is `super()` used for within a constructor?', options: ['To call a method in the same class', 'To call the constructor of the superclass', 'To create a new instance of the superclass', 'To access a static method'], answer: 1 } }] },
+            { id: 'java-29', levelNumber: 29, title: 'Encapsulation', description: 'Bundling data and methods.', games: [{ type: 'mcq' as const, language: 'java', level: 'advanced' as const, title: 'Encapsulation Principle', content: { question: 'The practice of hiding data and methods within a class is called:', options: ['Inheritance', 'Polymorphism', 'Encapsulation', 'Abstraction'], answer: 2 } }] },
+            { id: 'java-30', levelNumber: 30, title: 'Method Overloading', description: 'Multiple methods with the same name.', games: [{ type: 'mcq' as const, language: 'java', level: 'advanced' as const, title: 'Overloading', content: { question: 'What is it called when multiple methods in the same class have the same name but different parameters?', options: ['Method Overriding', 'Method Overloading', 'Method Hiding', 'Method Duplication'], answer: 1 } }] },
         ] 
     },
     { 
@@ -545,101 +209,36 @@ export const courses = [
         icon: 'SiCplusplus', 
         description: 'Dive deep into system programming and game development with C++.', 
         levels: [
-            {
-              id: 'cpp-1',
-              levelNumber: 1,
-              title: 'Your First C++ Program',
-              description: 'Start your C++ journey.',
-              games: [
-                {
-                  type: 'mcq' as const,
-                  language: 'cplusplus',
-                  level: 'beginner' as const,
-                  title: 'C++ Header Files',
-                  content: {
-                    question: 'Which preprocessor directive is used to include a header file in C++?',
-                    options: ['#import', '#include', '#using', '#add'],
-                    answer: 1,
-                  }
-                },
-              ],
-            },
-            {
-                id: 'cpp-2',
-                levelNumber: 2,
-                title: 'Variables and Types',
-                description: 'Learn about fundamental data types in C++.',
-                games: [
-                  {
-                    type: 'mcq' as const,
-                    language: 'cplusplus',
-                    level: 'beginner' as const,
-                    title: 'Declaring an Integer',
-                    content: {
-                        question: 'How do you declare an integer variable named `age`?',
-                        options: ['integer age;', 'int age;', 'age as int;', 'declare age as int;'],
-                        answer: 1,
-                    }
-                  },
-                ],
-            },
-            {
-                id: 'cpp-3',
-                levelNumber: 3,
-                title: 'Basic I/O',
-                description: 'Learn to use cin and cout for input/output.',
-                games: [
-                  {
-                    type: 'mcq' as const,
-                    language: 'cplusplus',
-                    level: 'beginner' as const,
-                    title: 'Output Stream',
-                    content: {
-                        question: 'Which object is used to print to the console in C++?',
-                        options: ['cin', 'cout', 'con', 'cerr'],
-                        answer: 1,
-                    }
-                  },
-                ],
-            },
-            {
-                id: 'cpp-4',
-                levelNumber: 4,
-                title: 'Pointers',
-                description: 'Understand memory addresses and pointers.',
-                games: [
-                  {
-                    type: 'mcq' as const,
-                    language: 'cplusplus',
-                    level: 'intermediate' as const,
-                    title: 'Pointer Declaration',
-                    content: {
-                        question: 'Which symbol is used to declare a pointer?',
-                        options: ['&', '*', '#', '$'],
-                        answer: 1,
-                    }
-                  },
-                ],
-            },
-             {
-                id: 'cpp-5',
-                levelNumber: 5,
-                title: 'Classes',
-                description: 'Define your own data types with classes.',
-                games: [
-                  {
-                    type: 'mcq' as const,
-                    language: 'cplusplus',
-                    level: 'intermediate' as const,
-                    title: 'Class Keyword',
-                    content: {
-                        question: 'Which keyword is used to define a class in C++?',
-                        options: ['class', 'struct', 'object', 'type'],
-                        answer: 0,
-                    }
-                  },
-                ],
-            },
+            { id: 'cpp-1', levelNumber: 1, title: '#include', description: 'Include header files.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'beginner' as const, title: 'C++ Header Files', content: { question: 'Which preprocessor directive is used to include a header file like `<iostream>`?', options: ['#import', '#include', '#using', '#add'], answer: 1 } }] },
+            { id: 'cpp-2', levelNumber: 2, title: '`main` function', description: 'The program entry point.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'beginner' as const, title: 'Entry Point', content: { question: 'What is the name of the function where C++ programs begin execution?', options: ['start()', 'main()', 'begin()', 'run()'], answer: 1 } }] },
+            { id: 'cpp-3', levelNumber: 3, title: '`cout`', description: 'Print to the console.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'beginner' as const, title: 'Output Stream', content: { question: 'Which object from `<iostream>` is used to print text to the console?', options: ['cin', 'cout', 'con', 'cerr'], answer: 1 } }] },
+            { id: 'cpp-4', levelNumber: 4, title: '`cin`', description: 'Read input from the user.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'beginner' as const, title: 'Input Stream', content: { question: 'Which object is used to get user input?', options: ['cin', 'cout', 'get', 'input'], answer: 0 } }] },
+            { id: 'cpp-5', levelNumber: 5, title: 'Variable Declaration', description: 'Declare integer variables.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'beginner' as const, title: 'Declaring an Integer', content: { question: 'How do you declare an integer variable named `age`?', options: ['integer age;', 'int age;', 'age as int;', 'declare age as int;'], answer: 1 } }] },
+            { id: 'cpp-6', levelNumber: 6, title: 'Comments', description: 'Add notes to your code.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'beginner' as const, title: 'Single-line Comment', content: { question: 'How do you start a single-line comment in C++?', options: ['#', '//', '/*', '--'], answer: 1 } }] },
+            { id: 'cpp-7', levelNumber: 7, title: 'Data Types - `double`', description: 'Store floating-point numbers.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'beginner' as const, title: 'Double Type', content: { question: 'Which data type is typically used for decimal numbers like `9.99`?', options: ['int', 'float', 'double', 'string'], answer: 2 } }] },
+            { id: 'cpp-8', levelNumber: 8, title: 'Data Types - `char`', description: 'Store single characters.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'beginner' as const, title: 'Character Type', content: { question: "Which data type is used for single characters like 'A'?", options: ['char', 'string', 'character', 'alpha'], answer: 0 } }] },
+            { id: 'cpp-9', levelNumber: 9, title: 'Data Types - `bool`', description: 'Store true/false values.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'beginner' as const, title: 'Boolean Type', content: { question: 'Which data type can only take the values `true` or `false`?', options: ['int', 'boolean', 'bool', 'bit'], answer: 2 } }] },
+            { id: 'cpp-10', levelNumber: 10, title: '`if-else` statement', description: 'Make decisions in code.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'beginner' as const, title: 'Conditionals', content: { question: 'Which statement allows you to execute a block of code if a condition is true, and another block if it is false?', options: ['for', 'while', 'switch', 'if-else'], answer: 3 } }] },
+            { id: 'cpp-11', levelNumber: 11, title: 'Comparison Operators', description: 'Compare two values.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'intermediate' as const, title: 'Equality Operator', content: { question: 'Which operator checks if two values are equal?', options: ['=', '==', 'eq', '!='], answer: 1 } }] },
+            { id: 'cpp-12', levelNumber: 12, title: '`for` loop', description: 'Execute a block of code a set number of times.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'intermediate' as const, title: 'For Loop Syntax', content: { question: 'Which `for` loop syntax is correct in C++?', options: ['for (int i = 0; i < 10; i++)', 'for i from 0 to 10', 'for (i < 10)', 'loop (i=0; i<10; i++)'], answer: 0 } }] },
+            { id: 'cpp-13', levelNumber: 13, title: '`while` loop', description: 'Loop as long as a condition is true.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'intermediate' as const, title: 'While Loop', content: { question: 'Which loop continues to execute as long as its condition remains true?', options: ['for', 'if', 'while', 'do-while'], answer: 2 } }] },
+            { id: 'cpp-14', levelNumber: 14, title: 'Function Definition', description: 'Create reusable functions.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'intermediate' as const, title: 'Function Syntax', content: { question: 'What is the correct syntax to declare a function that returns an integer?', options: ['function myFunction() : int', 'def myFunction() -> int', 'int myFunction()', 'myFunction() int'], answer: 2 } }] },
+            { id: 'cpp-15', levelNumber: 15, title: 'Arrays', description: 'Store fixed-size sequential collections.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'intermediate' as const, title: 'Array Declaration', content: { question: 'How do you declare an array of 10 integers named `numbers`?', options: ['int numbers[10];', 'int[10] numbers;', 'array<int, 10> numbers;', 'numbers[10] as int;'], answer: 0 } }] },
+            { id: 'cpp-16', levelNumber: 16, 'title': 'Accessing Array Elements', 'description': 'Get values from an array by index.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'intermediate' as const, title: 'Array Indexing', content: { question: 'In C++, the first element of an array has an index of:', options: ['1', '0', 'first', '-1'], answer: 1 } }] },
+            { id: 'cpp-17', levelNumber: 17, title: 'Pointers', description: 'Variables that store memory addresses.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'intermediate' as const, title: 'Pointer Declaration', content: { question: 'Which symbol is used to declare a pointer variable?', options: ['&', '*', '#', '$'], answer: 1 } }] },
+            { id: 'cpp-18', levelNumber: 18, title: 'Address-of operator', description: 'Get the memory address of a variable.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'intermediate' as const, title: '`&` Operator', content: { question: 'Which operator is used to get the memory address of a variable?', options: ['&', '*', '@', '#'], answer: 0 } }] },
+            { id: 'cpp-19', levelNumber: 19, title: 'Dereference operator', description: 'Access the value at a memory address.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'intermediate' as const, title: '`*` Operator', content: { question: 'Which operator is used to access the value pointed to by a pointer?', options: ['&', '->', '.', '*'], answer: 3 } }] },
+            { id: 'cpp-20', levelNumber: 20, title: 'References', description: 'An alias for an already existing variable.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'advanced' as const, title: 'Reference Declaration', content: { question: 'How is a reference variable declared in C++?', options: ['int &ref = var;', 'int *ref = var;', 'ref int = var;', 'int ref = &var;'], answer: 0 } }] },
+            { id: 'cpp-21', levelNumber: 21, title: '`class`', description: 'Define user-defined types.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'advanced' as const, title: 'Class Keyword', content: { question: 'Which keyword is used to define a class in C++?', options: ['class', 'struct', 'object', 'type'], answer: 0 } }] },
+            { id: 'cpp-22', levelNumber: 22, title: 'Objects', description: 'Instances of a class.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'advanced' as const, title: 'Object Creation', content: { question: 'If you have a class named `Car`, how do you create an object of it named `myCar`?', options: ['Car.new() myCar;', 'new Car() myCar;', 'Car myCar;', 'object myCar = Car;'], answer: 2 } }] },
+            { id: 'cpp-23', levelNumber: 23, title: 'Constructors', description: 'Initialize objects.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'advanced' as const, title: 'Constructor Properties', content: { question: 'What is a special method for creating and initializing an object of a class?', options: ['Initializer', 'Constructor', 'Destructor', 'Allocator'], answer: 1 } }] },
+            { id: 'cpp-24', levelNumber: 24, title: 'Access Specifiers', description: 'Control access to class members.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'advanced' as const, title: '`public` specifier', content: { question: 'Which access specifier makes members accessible from outside the class?', options: ['private', 'public', 'protected', 'hidden'], answer: 1 } }] },
+            { id: 'cpp-25', levelNumber: 25, title: 'Inheritance', description: 'Derive a class from another class.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'advanced' as const, title: 'Inheritance Syntax', content: { question: 'How do you specify that class `Dog` inherits from class `Animal`?', options: ['class Dog : public Animal', 'class Dog inherits Animal', 'class Dog extends Animal', 'class Dog derives Animal'], answer: 0 } }] },
+            { id: 'cpp-26', levelNumber: 26, title: 'Polymorphism', description: 'A concept allowing one interface to be used for a general class of actions.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'advanced' as const, title: 'Virtual Functions', content: { question: 'Which keyword is used to declare a function that can be overridden in a derived class?', options: ['override', 'virtual', 'dynamic', 'poly'], answer: 1 } }] },
+            { id: 'cpp-27', levelNumber: 27, title: '`vector`', description: 'A dynamic array from the STL.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'advanced' as const, title: 'Using std::vector', content: { question: 'Which header file must be included to use `std::vector`?', options: ['<array>', '<list>', '<vector>', '<iostream>'], answer: 2 } }] },
+            { id: 'cpp-28', levelNumber: 28, title: '`push_back`', description: 'Add elements to a vector.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'advanced' as const, title: 'Adding to a Vector', content: { question: 'Which method is used to add an element to the end of a `std::vector`?', options: ['add()', 'append()', 'push_back()', 'insert()'], answer: 2 } }] },
+            { id: 'cpp-29', levelNumber: 29, title: 'Namespaces', description: 'Organize code into logical groups.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'advanced' as const, title: 'Using `std`', content: { question: 'What does `using namespace std;` do?', options: ['Imports the standard library', 'Makes all names from the `std` namespace visible without prefix', 'Creates a new namespace called `std`', 'Deletes the `std` namespace'], answer: 1 } }] },
+            { id: 'cpp-30', levelNumber: 30, title: 'File I/O', description: 'Read from and write to files.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'advanced' as const, title: '`fstream`', content: { question: 'Which header file is needed for file handling in C++?', options: ['<io.h>', '<file>', '<stream>', '<fstream>'], answer: 3 } }] },
         ] 
     },
     { 
@@ -648,101 +247,36 @@ export const courses = [
         icon: 'SiHtml5', 
         description: 'Create beautiful and responsive web pages from scratch.', 
         levels: [
-            {
-              id: 'html-1',
-              levelNumber: 1,
-              title: 'HTML Basics',
-              description: 'Learn the fundamental tags of HTML.',
-              games: [
-                {
-                  type: 'mcq' as const,
-                  language: 'html',
-                  level: 'beginner' as const,
-                  title: 'HTML for Links',
-                  content: {
-                    question: 'Which HTML tag is used to create a hyperlink?',
-                    options: ['<link>', '<a>', '<href>', '<hyperlink>'],
-                    answer: 1,
-                  }
-                },
-              ],
-            },
-            {
-                id: 'css-1',
-                levelNumber: 2,
-                title: 'Basic CSS Styling',
-                description: 'Style your HTML elements with CSS.',
-                games: [
-                  {
-                    type: 'mcq' as const,
-                    language: 'html',
-                    level: 'beginner' as const,
-                    title: 'CSS Selectors',
-                    content: {
-                        question: 'How do you select an element with id "header"?',
-                        options: ['.header', '#header', 'header', '*header'],
-                        answer: 1,
-                    }
-                  },
-                ],
-            },
-            {
-                id: 'css-2',
-                levelNumber: 3,
-                title: 'The Box Model',
-                description: 'Understand margin, padding, and borders.',
-                games: [
-                  {
-                    type: 'mcq' as const,
-                    language: 'html',
-                    level: 'intermediate' as const,
-                    title: 'Box Model Components',
-                    content: {
-                        question: 'Which of these is NOT part of the CSS Box Model?',
-                        options: ['Margin', 'Padding', 'Border', 'Spacing'],
-                        answer: 3,
-                    }
-                  },
-                ],
-            },
-            {
-                id: 'css-3',
-                levelNumber: 4,
-                title: 'Flexbox',
-                description: 'Create flexible layouts with Flexbox.',
-                games: [
-                  {
-                    type: 'mcq' as const,
-                    language: 'html',
-                    level: 'intermediate' as const,
-                    title: 'Flex Container',
-                    content: {
-                        question: 'To use Flexbox, you need to apply `display: flex;` to...',
-                        options: ['The parent container', 'The child elements', 'Both parent and children', 'The body element'],
-                        answer: 0,
-                    }
-                  },
-                ],
-            },
-            {
-              id: 'html-2',
-              levelNumber: 5,
-              title: 'HTML Forms',
-              description: 'Learn to collect user input with forms.',
-              games: [
-                {
-                  type: 'mcq' as const,
-                  language: 'html',
-                  level: 'intermediate' as const,
-                  title: 'Text Input Field',
-                  content: {
-                    question: 'Which tag is used to create a single-line text input field?',
-                    options: ['<textfield>', '<input type="text">', '<textinput>', '<input type="textfield">'],
-                    answer: 1,
-                  }
-                },
-              ],
-            },
+            { id: 'html-1', levelNumber: 1, title: 'HTML Tags', description: 'The building blocks of web pages.', games: [{ type: 'mcq' as const, language: 'html', level: 'beginner' as const, title: 'Basic Tags', content: { question: 'What does HTML stand for?', options: ['Hyper Text Markup Language', 'High Tech Modern Language', 'Hyperlinks and Text Markup Language', 'Home Tool Markup Language'], answer: 0 } }] },
+            { id: 'html-2', levelNumber: 2, title: 'Headings', description: 'Structure your content with headings.', games: [{ type: 'mcq' as const, language: 'html', level: 'beginner' as const, title: 'Largest Heading', content: { question: 'Which HTML tag is for the largest heading?', options: ['<heading>', '<h6>', '<h1>', '<head>'], answer: 2 } }] },
+            { id: 'html-3', levelNumber: 3, title: 'Paragraphs', description: 'Create blocks of text.', games: [{ type: 'mcq' as const, language: 'html', level: 'beginner' as const, title: 'Paragraph Tag', content: { question: 'Which tag is used to define a paragraph?', options: ['<p>', '<para>', '<text>', '<pg>'], answer: 0 } }] },
+            { id: 'html-4', levelNumber: 4, title: 'Links', description: 'Create hyperlinks to other pages.', games: [{ type: 'mcq' as const, language: 'html', level: 'beginner' as const, title: 'Anchor Tag', content: { question: 'Which HTML tag is used to create a hyperlink?', options: ['<link>', '<a>', '<href>', '<hyperlink>'], answer: 1 } }] },
+            { id: 'html-5', levelNumber: 5, title: '`href` Attribute', description: 'Specify the URL for a link.', games: [{ type: 'mcq' as const, language: 'html', level: 'beginner' as const, title: 'Link Destination', content: { question: 'Which attribute of the `<a>` tag specifies the link\'s destination?', options: ['src', 'link', 'href', 'url'], answer: 2 } }] },
+            { id: 'html-6', levelNumber: 6, title: 'Images', description: 'Display images on your page.', games: [{ type: 'mcq' as const, language: 'html', level: 'beginner' as const, title: 'Image Tag', content: { question: 'Which tag is used to embed an image in an HTML page?', options: ['<img>', '<image>', '<pic>', '<picture>'], answer: 0 } }] },
+            { id: 'html-7', levelNumber: 7, title: '`src` Attribute', description: 'Specify the path to an image.', games: [{ type: 'mcq' as const, language: 'html', level: 'beginner' as const, title: 'Image Source', content: { question: 'Which attribute specifies the path to the image to be displayed?', options: ['href', 'link', 'path', 'src'], answer: 3 } }] },
+            { id: 'html-8', levelNumber: 8, title: '`alt` Attribute', description: 'Provide alternate text for an image.', games: [{ type: 'mcq' as const, language: 'html', level: 'beginner' as const, title: 'Alternate Text', content: { question: 'What is the purpose of the `alt` attribute on an `<img>` tag?', options: ['To provide alternative text for screen readers', 'To set the image alignment', 'To add a title to the image', 'To style the image'], answer: 0 } }] },
+            { id: 'html-9', levelNumber: 9, title: 'Unordered Lists', description: 'Create bulleted lists.', games: [{ type: 'mcq' as const, language: 'html', level: 'beginner' as const, title: '`<ul>` Tag', content: { question: 'Which tag creates a bulleted list?', options: ['<ol>', '<list>', '<ul>', '<dl>'], answer: 2 } }] },
+            { id: 'html-10', levelNumber: 10, title: 'Ordered Lists', description: 'Create numbered lists.', games: [{ type: 'mcq' as const, language: 'html', level: 'beginner' as const, title: '`<ol>` Tag', content: { question: 'Which tag creates a numbered list?', options: ['<ol>', '<nl>', '<ul>', '<list>'], answer: 0 } }] },
+            { id: 'html-11', levelNumber: 11, title: 'List Items', description: 'Define items within a list.', games: [{ type: 'mcq' as const, language: 'html', level: 'beginner' as const, title: '`<li>` Tag', content: { question: 'Which tag is used to define an item in a list (both ordered and unordered)?', options: ['<item>', '<li>', '<dd>', '<dt>'], answer: 1 } }] },
+            { id: 'html-12', levelNumber: 12, title: 'CSS Introduction', description: 'Add styles to your HTML.', games: [{ type: 'mcq' as const, language: 'html', level: 'beginner' as const, title: 'What is CSS?', content: { question: 'What does CSS stand for?', options: ['Creative Style Sheets', 'Computer Style Sheets', 'Colorful Style Sheets', 'Cascading Style Sheets'], answer: 3 } }] },
+            { id: 'css-13', levelNumber: 13, title: 'Inline CSS', description: 'Apply styles directly in HTML.', games: [{ type: 'mcq' as const, language: 'html', level: 'beginner' as const, title: 'Style Attribute', content: { question: 'Which HTML attribute is used to define inline styles?', options: ['style', 'css', 'styles', 'font'], answer: 0 } }] },
+            { id: 'css-14', levelNumber: 14, title: 'Internal CSS', description: 'Define styles in the `<head>` section.', games: [{ type: 'mcq' as const, language: 'html', level: 'beginner' as const, title: '`<style>` Tag', content: { question: 'Where in an HTML document is the correct place to refer to an internal style sheet?', options: ['In the <body> section', 'At the end of the document', 'In the <head> section', 'After the </html> tag'], answer: 2 } }] },
+            { id: 'css-15', levelNumber: 15, title: 'External CSS', description: 'Link to an external `.css` file.', games: [{ type: 'mcq' as const, language: 'html', level: 'beginner' as const, title: '`<link>` Tag', content: { question: 'Which HTML tag is used to link to an external style sheet?', options: ['<style>', '<script>', '<css>', '<link>'], answer: 3 } }] },
+            { id: 'css-16', levelNumber: 16, title: 'CSS Selectors - ID', description: 'Select elements by ID.', games: [{ type: 'mcq' as const, language: 'html', level: 'intermediate' as const, title: 'ID Selector', content: { question: 'How do you select an element with id "header" in CSS?', options: ['.header', '#header', 'header', '*header'], answer: 1 } }] },
+            { id: 'css-17', levelNumber: 17, title: 'CSS Selectors - Class', description: 'Select elements by class.', games: [{ type: 'mcq' as const, language: 'html', level: 'intermediate' as const, title: 'Class Selector', content: { question: 'How do you select all elements with class name "intro"?', options: ['intro', '#intro', '*intro', '.intro'], answer: 3 } }] },
+            { id: 'css-18', levelNumber: 18, title: '`color` property', description: 'Change the text color.', games: [{ type: 'mcq' as const, language: 'html', level: 'intermediate' as const, title: 'Text Color', content: { question: 'Which CSS property is used to change the text color of an element?', options: ['fgcolor', 'text-color', 'color', 'font-color'], answer: 2 } }] },
+            { id: 'css-19', levelNumber: 19, title: '`background-color` property', description: 'Change the background color.', games: [{ type: 'mcq' as const, language: 'html', level: 'intermediate' as const, title: 'Background Color', content: { question: 'Which CSS property controls the background color of an element?', options: ['background-color', 'bgcolor', 'color', 'background'], answer: 0 } }] },
+            { id: 'css-20', levelNumber: 20, title: '`font-size` property', description: 'Change the size of text.', games: [{ type: 'mcq' as const, language: 'html', level: 'intermediate' as const, title: 'Font Size', content: { question: 'How do you make the text size larger?', options: ['font-style: large;', 'text-size: 2em;', 'font-size: 120%;', 'text-style: large;'], answer: 2 } }] },
+            { id: 'css-21', levelNumber: 21, title: 'Box Model - Padding', description: 'Space inside the border.', games: [{ type: 'mcq' as const, language: 'html', level: 'intermediate' as const, title: 'Padding', content: { question: 'In the CSS box model, what is the space between the content and the border?', options: ['margin', 'padding', 'spacing', 'border-spacing'], answer: 1 } }] },
+            { id: 'css-22', levelNumber: 22, title: 'Box Model - Margin', description: 'Space outside the border.', games: [{ type: 'mcq' as const, language: 'html', level: 'intermediate' as const, title: 'Margin', content: { question: 'Which property is used to generate space around an element, outside of the border?', options: ['padding', 'spacing', 'margin', 'border-spacing'], answer: 2 } }] },
+            { id: 'html-23', levelNumber: 23, title: '`<div>` vs `<span>`', description: 'Block vs. inline containers.', games: [{ type: 'mcq' as const, language: 'html', level: 'intermediate' as const, title: 'Block vs Inline', content: { question: 'Which of these is a block-level element by default?', options: ['<span>', '<a>', '<img>', '<div>'], answer: 3 } }] },
+            { id: 'html-24', levelNumber: 24, title: 'HTML Forms', description: 'Create forms to collect user input.', games: [{ type: 'mcq' as const, language: 'html', level: 'intermediate' as const, title: '`<form>` Tag', content: { question: 'Which tag is used to create an HTML form?', options: ['<form>', '<input>', '<form-group>', '<fieldset>'], answer: 0 } }] },
+            { id: 'html-25', levelNumber: 25, title: 'Form Input', description: 'Create text input fields.', games: [{ type: 'mcq' as const, language: 'html', level: 'intermediate' as const, title: '`<input>` Tag', content: { question: 'Which tag is used to create a single-line text input field?', options: ['<textfield>', '<input type="text">', '<textinput>', '<input type="textfield">'], answer: 1 } }] },
+            { id: 'html-26', levelNumber: 26, title: 'Submit Button', description: 'A button to submit form data.', games: [{ type: 'mcq' as const, language: 'html', level: 'intermediate' as const, title: 'Submit Input', content: { question: 'What is the correct HTML for creating a submit button?', options: ['<button type="submit">Submit</button>', '<input type="button" value="Submit">', '<input type="submit" value="Submit">', 'Both A and C are valid'], answer: 3 } }] },
+            { id: 'css-27', levelNumber: 27, title: 'Flexbox', description: 'A modern layout model.', games: [{ type: 'mcq' as const, language: 'html', level: 'advanced' as const, title: 'Flex Container', content: { question: 'To use Flexbox, you need to apply `display: flex;` to...', options: ['The parent container', 'The child elements', 'Both parent and children', 'The body element'], answer: 0 } }] },
+            { id: 'css-28', levelNumber: 28, title: '`justify-content`', description: 'Align flex items horizontally.', games: [{ type: 'mcq' as const, language: 'html', level: 'advanced' as const, title: 'Horizontal Alignment', content: { question: 'Which `justify-content` value distributes items evenly, with the first item at the start and the last at the end?', options: ['space-around', 'space-between', 'center', 'flex-start'], answer: 1 } }] },
+            { id: 'css-29', levelNumber: 29, title: '`align-items`', description: 'Align flex items vertically.', games: [{ type: 'mcq' as const, language: 'html', level: 'advanced' as const, title: 'Vertical Alignment', content: { question: 'Which `align-items` value will place flex items in the center of the container, vertically?', options: ['flex-start', 'flex-end', 'stretch', 'center'], answer: 3 } }] },
+            { id: 'css-30', levelNumber: 30, title: 'Media Queries', description: 'Create responsive designs.', games: [{ type: 'mcq' as const, language: 'html', level: 'advanced' as const, title: 'Responsive Design', content: { question: 'What is the correct syntax for a media query that applies styles for screens smaller than 600px?', options: ['@media (max-width: 600px) { ... }', '@media screen and (width < 600px) { ... }', '@responsive (max-width: 600px) { ... }', 'screen(max-width: 600px) { ... }'], answer: 0 } }] },
         ] 
     }
 ];
