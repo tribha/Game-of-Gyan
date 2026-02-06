@@ -83,13 +83,14 @@ export const courses = [
               description: 'Understand how to perform operations on variables.',
               games: [
                 {
-                  type: 'code' as const,
+                  type: 'mcq' as const,
                   language: 'javascript',
                   level: 'beginner' as const,
-                  title: 'Add two numbers',
+                  title: 'Addition Operator',
                   content: {
-                    question: 'Write a function `add(a, b)` that returns the sum of two numbers.',
-                    initialCode: `function add(a, b) {\n  // Your code here\n}`,
+                    question: 'What is the result of the expression `5 + "5"` in JavaScript?',
+                    options: ['10', '"55"', '55', 'Error'],
+                    answer: 1,
                   }
                 },
               ],
@@ -101,13 +102,14 @@ export const courses = [
               description: 'Learn to write reusable blocks of code.',
               games: [
                 {
-                  type: 'code' as const,
+                  type: 'mcq' as const,
                   language: 'javascript',
                   level: 'beginner' as const,
-                  title: 'Create a "Hello" Function',
+                  title: 'Function Declaration',
                   content: {
-                    question: 'Write a function named `sayHello` that takes a `name` as an argument and returns a string "Hello, [name]!".',
-                    initialCode: `function sayHello(name) {\n  // Your code here\n}`,
+                    question: 'How do you correctly call a function named `myFunction`?',
+                    options: ['call myFunction;', 'myFunction;', 'myFunction()', 'call function myFunction()'],
+                    answer: 2,
                   }
                 },
               ],
@@ -119,13 +121,14 @@ export const courses = [
                 description: 'Make decisions in your code with if-else statements.',
                 games: [
                   {
-                    type: 'code' as const,
+                    type: 'mcq' as const,
                     language: 'javascript',
                     level: 'intermediate' as const,
-                    title: 'Check if a number is even or odd',
+                    title: 'Equality Check',
                     content: {
-                        question: 'Write a function `isEvenOrOdd(num)` that takes a number and returns the string "even" if the number is even, and "odd" if it is odd.',
-                        initialCode: `function isEvenOrOdd(num) {\n  // Your code here\n}`,
+                        question: 'Which operator checks for both value and type equality?',
+                        options: ['==', '===', '=', '!='],
+                        answer: 1,
                     }
                   },
                 ],
@@ -137,16 +140,55 @@ export const courses = [
                 description: 'Repeat actions with for and while loops.',
                 games: [
                   {
-                    type: 'code' as const,
+                    type: 'mcq' as const,
                     language: 'javascript',
                     level: 'intermediate' as const,
-                    title: 'Sum an array',
+                    title: 'For Loop Syntax',
                     content: {
-                        question: 'Write a function `sumArray(arr)` that takes an array of numbers and returns their sum.',
-                        initialCode: `function sumArray(arr) {\n  let sum = 0;\n  // Your code here\n\n  return sum;\n}`,
+                        question: 'Which `for` loop is written correctly?',
+                        options: ['for (i = 0; i < 5; i++)', 'for (i = 0 to 5)', 'for (i < 5; i++)', 'for i in 1..5'],
+                        answer: 0,
                     }
                   },
                 ],
+            },
+            {
+              id: 'js-6',
+              levelNumber: 6,
+              title: 'Arrays',
+              description: 'Work with ordered lists of data.',
+              games: [
+                {
+                  type: 'mcq' as const,
+                  language: 'javascript',
+                  level: 'intermediate' as const,
+                  title: 'Accessing Array Elements',
+                  content: {
+                      question: 'Given `const arr = ["a", "b", "c"];`, how do you access the element "b"?',
+                      options: ['arr(1)', 'arr[1]', 'arr.1', 'arr.get(1)'],
+                      answer: 1,
+                  }
+                },
+              ],
+            },
+             {
+              id: 'js-7',
+              levelNumber: 7,
+              title: 'Objects',
+              description: 'Understand key-value pairs for storing structured data.',
+              games: [
+                {
+                  type: 'mcq' as const,
+                  language: 'javascript',
+                  level: 'intermediate' as const,
+                  title: 'Accessing Object Properties',
+                  content: {
+                      question: 'Given `const person = { name: "John" };`, how do you access the name property?',
+                      options: ['person["name"]', 'person.name', 'Both A and B', 'person.get("name")'],
+                      answer: 2,
+                  }
+                },
+              ],
             },
         ]
     },
@@ -182,13 +224,14 @@ export const courses = [
               description: 'Learn how to store data in Python.',
               games: [
                 {
-                  type: 'code' as const,
+                  type: 'mcq' as const,
                   language: 'python',
                   level: 'beginner' as const,
-                  title: 'Create a Variable',
+                  title: 'Variable Naming',
                   content: {
-                    question: 'Create a function `create_var()` that declares a variable `my_message` with the value "I love Python" and returns it.',
-                    initialCode: `def create_var():\n  # Your code here`,
+                    question: 'Which of the following is a valid variable name in Python?',
+                    options: ['my-var', '2myvar', '_myvar', 'my var'],
+                    answer: 2,
                   }
                 },
               ],
@@ -200,13 +243,14 @@ export const courses = [
                 description: 'Work with ordered collections of data.',
                 games: [
                   {
-                    type: 'code' as const,
+                    type: 'mcq' as const,
                     language: 'python',
                     level: 'beginner' as const,
-                    title: 'Find the largest number',
+                    title: 'Accessing List Items',
                     content: {
-                        question: 'Write a function `find_max(numbers)` that takes a list of numbers and returns the largest one.',
-                        initialCode: `def find_max(numbers):\n  # Your code here`,
+                        question: 'Given `my_list = [10, 20, 30]`, what does `my_list[1]` return?',
+                        options: ['10', '20', '30', 'Error'],
+                        answer: 1,
                     }
                   },
                 ],
@@ -218,13 +262,52 @@ export const courses = [
                 description: 'Understand key-value pairs for flexible data storage.',
                 games: [
                   {
-                    type: 'code' as const,
+                    type: 'mcq' as const,
                     language: 'python',
                     level: 'intermediate' as const,
-                    title: 'Count word frequency',
+                    title: 'Accessing Dictionary Values',
                     content: {
-                        question: 'Write a function `word_count(text)` that takes a string and returns a dictionary with the frequency of each word.',
-                        initialCode: `def word_count(text):\n  # Your code here`,
+                        question: 'Given `my_dict = {"name": "Alice"}`, how do you get the value "Alice"?',
+                        options: ['my_dict.name', 'my_dict(0)', 'my_dict["name"]', 'my_dict.get_value("name")'],
+                        answer: 2,
+                    }
+                  },
+                ],
+            },
+            {
+                id: 'py-5',
+                levelNumber: 5,
+                title: 'Functions',
+                description: 'Define reusable blocks of code.',
+                games: [
+                  {
+                    type: 'mcq' as const,
+                    language: 'python',
+                    level: 'intermediate' as const,
+                    title: 'Defining a Function',
+                    content: {
+                        question: 'Which keyword is used to define a function in Python?',
+                        options: ['function', 'def', 'fun', 'define'],
+                        answer: 1,
+                    }
+                  },
+                ],
+            },
+             {
+                id: 'py-6',
+                levelNumber: 6,
+                title: 'String Manipulation',
+                description: 'Learn common operations on strings.',
+                games: [
+                  {
+                    type: 'mcq' as const,
+                    language: 'python',
+                    level: 'intermediate' as const,
+                    title: 'String Length',
+                    content: {
+                        question: 'Which function returns the length of a string `s`?',
+                        options: ['s.length()', 'len(s)', 'length(s)', 's.size()'],
+                        answer: 1,
                     }
                   },
                 ],
@@ -263,13 +346,14 @@ export const courses = [
               description: 'Learn how to filter data.',
               games: [
                 {
-                  type: 'code' as const,
+                  type: 'mcq' as const,
                   language: 'sql',
                   level: 'beginner' as const,
-                  title: 'Select Customers from London',
+                  title: 'Filtering Data',
                   content: {
-                    question: 'Write a SQL query to select all customers who are from the city "London". The table is named `customers`.',
-                    initialCode: `// Your SQL query here`,
+                    question: 'Which clause is used to filter records?',
+                    options: ['FILTER BY', 'WHERE', 'HAVING', 'SORT'],
+                    answer: 1,
                   }
                 },
               ],
@@ -281,13 +365,14 @@ export const courses = [
                 description: 'Combine rows from two or more tables.',
                 games: [
                   {
-                    type: 'code' as const,
+                    type: 'mcq' as const,
                     language: 'sql',
                     level: 'intermediate' as const,
-                    title: 'Get Order Details',
+                    title: 'Combining Tables',
                     content: {
-                        question: 'Write a SQL query to select the order ID and the customer name for each order by joining `orders` and `customers` tables on `customer_id`.',
-                        initialCode: `// Your SQL query here`,
+                        question: 'Which type of JOIN returns all records when there is a match in either the left or right table?',
+                        options: ['INNER JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'FULL OUTER JOIN'],
+                        answer: 3,
                     }
                   },
                 ],
@@ -299,13 +384,52 @@ export const courses = [
                 description: 'Perform calculations on a set of values.',
                 games: [
                   {
-                    type: 'code' as const,
+                    type: 'mcq' as const,
                     language: 'sql',
                     level: 'intermediate' as const,
-                    title: 'Count Total Customers',
+                    title: 'Counting Rows',
                     content: {
-                        question: 'Write a SQL query to count the total number of customers in the `customers` table.',
-                        initialCode: `// Your SQL query here`,
+                        question: 'Which function returns the number of rows?',
+                        options: ['COUNT()', 'NUMBER()', 'SUM()', 'TOTAL()'],
+                        answer: 0,
+                    }
+                  },
+                ],
+              },
+               {
+                id: 'sql-5',
+                levelNumber: 5,
+                title: 'GROUP BY',
+                description: 'Group rows that have the same values.',
+                games: [
+                  {
+                    type: 'mcq' as const,
+                    language: 'sql',
+                    level: 'intermediate' as const,
+                    title: 'Grouping Data',
+                    content: {
+                        question: 'The GROUP BY statement is often used with aggregate functions to group the result-set by one or more columns. Which aggregate function is commonly used?',
+                        options: ['CONCAT()', 'MID()', 'COUNT()', 'FORMAT()'],
+                        answer: 2,
+                    }
+                  },
+                ],
+              },
+              {
+                id: 'sql-6',
+                levelNumber: 6,
+                title: 'ORDER BY',
+                description: 'Sort the result set in ascending or descending order.',
+                games: [
+                  {
+                    type: 'mcq' as const,
+                    language: 'sql',
+                    level: 'intermediate' as const,
+                    title: 'Sorting Data',
+                    content: {
+                        question: 'How do you sort the results in descending order?',
+                        options: ['ORDER BY column DESC', 'SORT BY column DESC', 'ORDER BY column DSC', 'SORT BY column DSC'],
+                        answer: 0,
                     }
                   },
                 ],
@@ -344,13 +468,14 @@ export const courses = [
               description: 'Learn to create and use methods.',
               games: [
                 {
-                  type: 'code' as const,
+                  type: 'mcq' as const,
                   language: 'java',
                   level: 'beginner' as const,
-                  title: 'Add two integers',
+                  title: 'Method Syntax',
                   content: {
-                    question: 'Write a Java method `add(int a, int b)` that returns the sum of two integers.',
-                    initialCode: `class Solution {\n  public int add(int a, int b) {\n    // Your code here\n  }\n}`,
+                    question: 'How do you declare a method that does not return any value?',
+                    options: ['function myMethod() {}', 'method myMethod() {}', 'void myMethod() {}', 'None myMethod() {}'],
+                    answer: 2,
                   }
                 },
               ],
@@ -362,13 +487,52 @@ export const courses = [
                 description: 'Use loops and conditional statements.',
                 games: [
                   {
-                    type: 'code' as const,
+                    type: 'mcq' as const,
                     language: 'java',
                     level: 'beginner' as const,
-                    title: 'FizzBuzz',
+                    title: 'If-Else Statement',
                     content: {
-                        question: 'Write a Java method `fizzBuzz(int n)` that returns "Fizz" for multiples of 3, "Buzz" for multiples of 5, "FizzBuzz" for multiples of both, and the number as a string otherwise.',
-                        initialCode: `class Solution {\n  public String fizzBuzz(int n) {\n    // Your code here\n  }\n}`,
+                        question: 'Which keyword is used to handle the case where an `if` condition is false?',
+                        options: ['or', 'else if', 'else', 'next'],
+                        answer: 2,
+                    }
+                  },
+                ],
+            },
+            {
+                id: 'java-4',
+                levelNumber: 4,
+                title: 'Classes and Objects',
+                description: 'Understand the core concepts of Object-Oriented Programming.',
+                games: [
+                  {
+                    type: 'mcq' as const,
+                    language: 'java',
+                    level: 'intermediate' as const,
+                    title: 'Creating an Object',
+                    content: {
+                        question: 'Which keyword is used to create a new object in Java?',
+                        options: ['new', 'create', 'alloc', 'object'],
+                        answer: 0,
+                    }
+                  },
+                ],
+            },
+             {
+                id: 'java-5',
+                levelNumber: 5,
+                title: 'Data Types',
+                description: 'Learn about primitive data types in Java.',
+                games: [
+                  {
+                    type: 'mcq' as const,
+                    language: 'java',
+                    level: 'intermediate' as const,
+                    title: 'Integer Type',
+                    content: {
+                        question: 'Which data type is used to store whole numbers in Java?',
+                        options: ['String', 'double', 'boolean', 'int'],
+                        answer: 3,
                     }
                   },
                 ],
@@ -407,13 +571,14 @@ export const courses = [
                 description: 'Learn about fundamental data types in C++.',
                 games: [
                   {
-                    type: 'code' as const,
+                    type: 'mcq' as const,
                     language: 'cplusplus',
                     level: 'beginner' as const,
-                    title: 'Integer Sum',
+                    title: 'Declaring an Integer',
                     content: {
-                        question: 'Write a C++ function `sum(int a, int b)` that returns the sum of two integers.',
-                        initialCode: `int sum(int a, int b) {\n  // Your code here\n}`,
+                        question: 'How do you declare an integer variable named `age`?',
+                        options: ['integer age;', 'int age;', 'age as int;', 'declare age as int;'],
+                        answer: 1,
                     }
                   },
                 ],
@@ -425,13 +590,52 @@ export const courses = [
                 description: 'Learn to use cin and cout for input/output.',
                 games: [
                   {
-                    type: 'code' as const,
+                    type: 'mcq' as const,
                     language: 'cplusplus',
                     level: 'beginner' as const,
-                    title: 'Echo Input',
+                    title: 'Output Stream',
                     content: {
-                        question: 'Write a C++ function `echo()` that reads an integer from standard input and prints it to standard output.',
-                        initialCode: `#include <iostream>\n\nvoid echo() {\n  // Your code here\n}`,
+                        question: 'Which object is used to print to the console in C++?',
+                        options: ['cin', 'cout', 'con', 'cerr'],
+                        answer: 1,
+                    }
+                  },
+                ],
+            },
+            {
+                id: 'cpp-4',
+                levelNumber: 4,
+                title: 'Pointers',
+                description: 'Understand memory addresses and pointers.',
+                games: [
+                  {
+                    type: 'mcq' as const,
+                    language: 'cplusplus',
+                    level: 'intermediate' as const,
+                    title: 'Pointer Declaration',
+                    content: {
+                        question: 'Which symbol is used to declare a pointer?',
+                        options: ['&', '*', '#', '$'],
+                        answer: 1,
+                    }
+                  },
+                ],
+            },
+             {
+                id: 'cpp-5',
+                levelNumber: 5,
+                title: 'Classes',
+                description: 'Define your own data types with classes.',
+                games: [
+                  {
+                    type: 'mcq' as const,
+                    language: 'cplusplus',
+                    level: 'intermediate' as const,
+                    title: 'Class Keyword',
+                    content: {
+                        question: 'Which keyword is used to define a class in C++?',
+                        options: ['class', 'struct', 'object', 'type'],
+                        answer: 0,
                     }
                   },
                 ],
@@ -470,13 +674,14 @@ export const courses = [
                 description: 'Style your HTML elements with CSS.',
                 games: [
                   {
-                    type: 'code' as const,
+                    type: 'mcq' as const,
                     language: 'html',
                     level: 'beginner' as const,
-                    title: 'Style a Paragraph',
+                    title: 'CSS Selectors',
                     content: {
-                        question: 'Write a function `styleParagraph()` that returns an HTML string for a paragraph with red text color. The text should be "This is a red paragraph."',
-                        initialCode: `function styleParagraph() {\n  // Return an HTML string with inline styles\n}`,
+                        question: 'How do you select an element with id "header"?',
+                        options: ['.header', '#header', 'header', '*header'],
+                        answer: 1,
                     }
                   },
                 ],
@@ -488,16 +693,55 @@ export const courses = [
                 description: 'Understand margin, padding, and borders.',
                 games: [
                   {
-                    type: 'code' as const,
+                    type: 'mcq' as const,
                     language: 'html',
                     level: 'intermediate' as const,
-                    title: 'Create a Padded Box',
+                    title: 'Box Model Components',
                     content: {
-                        question: 'Write a function `createBox()` that returns a div with a 1px solid black border and 20px of padding. The content of the div should be "I am in a box".',
-                        initialCode: `function createBox() {\n  // Return an HTML string with a styled div\n}`,
+                        question: 'Which of these is NOT part of the CSS Box Model?',
+                        options: ['Margin', 'Padding', 'Border', 'Spacing'],
+                        answer: 3,
                     }
                   },
                 ],
+            },
+            {
+                id: 'css-3',
+                levelNumber: 4,
+                title: 'Flexbox',
+                description: 'Create flexible layouts with Flexbox.',
+                games: [
+                  {
+                    type: 'mcq' as const,
+                    language: 'html',
+                    level: 'intermediate' as const,
+                    title: 'Flex Container',
+                    content: {
+                        question: 'To use Flexbox, you need to apply `display: flex;` to...',
+                        options: ['The parent container', 'The child elements', 'Both parent and children', 'The body element'],
+                        answer: 0,
+                    }
+                  },
+                ],
+            },
+            {
+              id: 'html-2',
+              levelNumber: 5,
+              title: 'HTML Forms',
+              description: 'Learn to collect user input with forms.',
+              games: [
+                {
+                  type: 'mcq' as const,
+                  language: 'html',
+                  level: 'intermediate' as const,
+                  title: 'Text Input Field',
+                  content: {
+                    question: 'Which tag is used to create a single-line text input field?',
+                    options: ['<textfield>', '<input type="text">', '<textinput>', '<input type="textfield">'],
+                    answer: 1,
+                  }
+                },
+              ],
             },
         ] 
     }
