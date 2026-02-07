@@ -45,25 +45,25 @@
     {
       "id": "achievement-1",
       "description": "First Code Badge",
-      "imageUrl": "https://images.unsplash.com/photo-1578869922829-5ab498c69788?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnb2xkJTIwbWVkYWx8ZW58MHx8fHwxNzcwNDI5ODM2fDA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageUrl": "https://api.dicebear.com/8.x/lorelei/svg?seed=ach1&backgroundColor=ffd700",
       "imageHint": "gold medal"
     },
     {
       "id": "achievement-2",
       "description": "JavaScript Novice Badge",
-      "imageUrl": "https://images.unsplash.com/photo-1618851955140-5035c33b708b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzaWx2ZXIlMjBtZWRhbHxlbnwwfHx8fDE3NzA0NTk0NDF8MA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageUrl": "https://api.dicebear.com/8.x/lorelei/svg?seed=ach2&backgroundColor=c0c0c0",
       "imageHint": "silver medal"
     },
     {
       "id": "achievement-3",
       "description": "Pythonista Badge",
-      "imageUrl": "https://images.unsplash.com/photo-1618851955214-383457f5f4b2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxicm9uemUlMjBtZWRhbHxlbnwwfHx8fDE3NzA0NTAxNDN8MA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageUrl": "https://api.dicebear.com/8.x/lorelei/svg?seed=ach3&backgroundColor=cd7f32",
       "imageHint": "bronze medal"
     },
     {
       "id": "achievement-4",
       "description": "Perfect Score Badge",
-      "imageUrl": "https://images.unsplash.com/photo-1599422488668-3e74c83d735f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0cm9waHl8ZW58MHx8fHwxNzcwMzg3Mzg4fDA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageUrl": "https://api.dicebear.com/8.x/lorelei/svg?seed=ach4&backgroundColor=b9f2ff",
       "imageHint": "trophy"
     },
     {
