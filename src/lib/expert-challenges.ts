@@ -1,58 +1,58 @@
 
 export const expertChallenges = [
-  // C++ Daily Routine Game
+  // C Daily Routine Game
   {
-    id: 'expert-cpp-routine-1',
+    id: 'expert-c-routine-1',
     type: 'mcq' as const,
-    language: 'cplusplus',
+    language: 'c',
     level: 'advanced' as const,
-    title: 'C++ Routine: Wake Up',
+    title: 'C Routine: Wake Up',
     description: 'Level 1: The alarm is ringing! Choose the correct code to turn it off.',
     content: {
-      question: 'You are creating a `SmartHome` class. A boolean `isAlarmOn` is true. Which option correctly defines a method to turn the alarm off?',
+      question: 'You have `struct SmartHome { int isAlarmOn; };`. A function `void turnOffAlarm(struct SmartHome *home)` needs to set `isAlarmOn` to 0. What is the correct implementation inside the function?',
       options: [
-        'void turnOffAlarm() { isAlarmOn = false; }',
-        'void turnOffAlarm() { isAlarmOn = "false"; }',
-        'turnOffAlarm() => isAlarmOn = false;',
-        'function turnOffAlarm() { this.isAlarmOn = false; }'
+        'home.isAlarmOn = 0;',
+        'home->isAlarmOn = 0;',
+        '(*home).isAlarmOn = "false";',
+        'isAlarmOn = 0;'
       ],
-      answer: 0
+      answer: 1
     }
   },
   {
-    id: 'expert-cpp-routine-2',
+    id: 'expert-c-routine-2',
     type: 'mcq' as const,
-    language: 'cplusplus',
+    language: 'c',
     level: 'advanced' as const,
-    title: 'C++ Routine: Turn on Fan',
-    description: 'Level 2: It\'s getting warm. You have a `Fan` object named `myFan`. How do you turn it on?',
+    title: 'C Routine: Turn on Fan',
+    description: 'Level 2: It\'s getting warm. You have a `Fan` object. How do you turn it on?',
     content: {
-      question: 'Given a `Fan` class with a public method `void turnOn()`, and an instance `Fan myFan;`, which code correctly calls the method?',
+      question: 'You have a `struct Fan myFan;` and a function `void setFanSpeed(struct Fan *f, int speed);`. How do you correctly call the function to set the fan speed to 3?',
       options: [
-        'myFan->turnOn();',
-        'Fan.turnOn();',
-        'myFan.turnOn();',
-        'turnOn(myFan);'
+        'setFanSpeed(myFan, 3);',
+        'myFan.setFanSpeed(3);',
+        'setFanSpeed(&myFan, 3);',
+        'setFanSpeed(*myFan, 3);'
       ],
       answer: 2
     }
   },
   {
-    id: 'expert-cpp-routine-3',
+    id: 'expert-c-routine-3',
     type: 'mcq' as const,
-    language: 'cplusplus',
+    language: 'c',
     level: 'advanced' as const,
-    title: 'C++ Routine: Go to Market',
-    description: 'Level 3: Time to buy groceries. Add "milk" and "eggs" to your shopping list.',
+    title: 'C Routine: Go to Market',
+    description: 'Level 3: Time to buy groceries. Add "milk" to your shopping list.',
     content: {
-      question: 'You have a `std::vector<std::string> shoppingList;`. Which code correctly adds "milk" and "eggs" to the list?',
+      question: 'You have a shopping list `char *shoppingList[10];` and a counter `int itemCount = 0;`. Which code correctly adds "milk" as the next item?',
       options: [
-        'shoppingList.add("milk"); shoppingList.add("eggs");',
-        'shoppingList.push("milk", "eggs");',
-        'shoppingList += "milk"; shoppingList += "eggs";',
-        'shoppingList.push_back("milk"); shoppingList.push_back("eggs");'
+        'shoppingList.add("milk");',
+        'shoppingList[itemCount] = "milk"; itemCount++;',
+        'shoppingList[itemCount++] = &"milk";',
+        'strcpy(shoppingList[itemCount++], "milk");'
       ],
-      answer: 3
+      answer: 1
     }
   },
   // Java Daily Routine Game

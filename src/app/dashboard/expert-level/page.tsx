@@ -15,10 +15,10 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 export default function ExpertLevelPage() {
     const expertGames = [
         {
-            language: 'cplusplus',
-            name: 'C++ Daily Routine',
-            description: 'A day in the life of a C++ programmer. Complete daily tasks using your coding skills.',
-            href: '/dashboard/expert-level/series/cplusplus',
+            language: 'c',
+            name: 'C Daily Routine',
+            description: 'A day in the life of a C programmer. Complete daily tasks using your coding skills.',
+            href: '/dashboard/expert-level/series/c',
             image: PlaceHolderImages.find(p => p.id === 'expert-c-game'),
         },
         {

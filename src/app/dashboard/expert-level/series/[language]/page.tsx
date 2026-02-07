@@ -23,6 +23,7 @@ export default function ExpertLanguagePage({ params }: { params: { language: str
     const getLanguageName = (lang: string) => {
         switch (lang) {
             case 'cplusplus': return 'C++';
+            case 'c': return 'C';
             case 'java': return 'Java';
             default: return lang;
         }
