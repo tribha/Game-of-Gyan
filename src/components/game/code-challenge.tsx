@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useActionState } from 'react';
@@ -157,14 +158,16 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
         });
 
         const xpHistoryRef = collection(firestore, 'userProfiles', user.uid, 'xpHistory');
-        const xpHistoryAddPromise = addDoc(xpHistoryRef, {
+        const xpEntry: { [key: string]: any } = {
           userId: user.uid,
           amount: xpAmount,
           timestamp: serverTimestamp(),
           reason: reason,
-          courseId: courseId,
-          levelId: levelId
-        });
+        };
+        if (courseId) xpEntry.courseId = courseId;
+        if (levelId) xpEntry.levelId = levelId;
+        
+        const xpHistoryAddPromise = addDoc(xpHistoryRef, xpEntry);
         
         await Promise.all([profileUpdatePromise, xpHistoryAddPromise]);
         
@@ -289,3 +292,5 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
     </div>
   );
 }
+
+    

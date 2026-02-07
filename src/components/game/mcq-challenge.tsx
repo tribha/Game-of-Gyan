@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -122,14 +123,17 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
             });
 
             const xpHistoryRef = collection(firestore, 'userProfiles', user.uid, 'xpHistory');
-            const xpHistoryAddPromise = addDoc(xpHistoryRef, {
+            const xpEntry: { [key: string]: any } = {
                 userId: user.uid,
                 amount: xpAmount,
                 timestamp: serverTimestamp(),
                 reason: reason,
-                courseId: courseId,
-                levelId: levelId
-            });
+            };
+
+            if (courseId) xpEntry.courseId = courseId;
+            if (levelId) xpEntry.levelId = levelId;
+            
+            const xpHistoryAddPromise = addDoc(xpHistoryRef, xpEntry);
             
             await Promise.all([profileUpdatePromise, xpHistoryAddPromise]);
 
@@ -227,3 +231,5 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
     </div>
   );
 }
+
+    
