@@ -70,7 +70,7 @@ export default function DashboardLayout({
             className="flex items-center gap-2 text-sidebar-foreground"
           >
             <GameOfGyanLogo className="size-8" />
-            <span className="font-special text-2xl">Game of Gyan</span>
+            <span className="text-xl font-bold">Game of Gyan</span>
           </Link>
         </SidebarHeader>
         <SidebarContent>

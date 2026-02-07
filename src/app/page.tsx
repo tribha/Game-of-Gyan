@@ -77,7 +77,7 @@ export default function LoginPage() {
         <div className="absolute inset-0 bg-primary/80" />
         <div className="relative z-20 flex items-center text-lg font-medium">
           <GameOfGyanLogo className="h-8 w-8 mr-2" />
-          <span className="font-special text-3xl">Game of Gyan</span>
+          <span className="text-xl font-bold">Game of Gyan</span>
         </div>
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">
@@ -95,7 +95,7 @@ export default function LoginPage() {
           <CardHeader className="text-center">
             <div className="mb-4 flex items-center justify-center gap-2 font-bold">
               <GameOfGyanLogo className="h-10 w-10" />
-              <span className="font-special text-4xl">Game of Gyan</span>
+              <span className="text-3xl font-bold">Game of Gyan</span>
             </div>
             <CardTitle className="text-3xl font-bold">Welcome, Warrior!</CardTitle>
             <CardDescription>
