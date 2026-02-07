@@ -21,7 +21,6 @@ export function GameOfGyanLogo(props: { className?: string }) {
       height={500}
       data-ai-hint={logo.imageHint}
       className={props.className}
-      unoptimized
     />
   );
 }
