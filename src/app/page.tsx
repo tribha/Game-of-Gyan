@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -94,10 +95,10 @@ export default function LoginPage() {
           <CardHeader className="text-center">
             <div className="mb-4 flex items-center justify-center gap-2">
               <GameOfGyanLogo className="h-12 w-12" />
-              <CardTitle className="text-3xl font-bold">Game of Gyan</CardTitle>
             </div>
+            <CardTitle className="text-3xl font-bold">Welcome, Warrior!</CardTitle>
             <CardDescription>
-              Welcome Back, Warrior! Your next conquest awaits. Login to continue your journey.
+              Your next conquest awaits. Login to continue your journey.
             </CardDescription>
           </CardHeader>
           <CardContent>
