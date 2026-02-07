@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle, Lock } from 'lucide-react';
+import { ArrowRight, CheckCircle, ChevronLeft, Lock } from 'lucide-react';
 import { expertChallenges } from '@/lib/expert-challenges';
 import { notFound, useParams } from 'next/navigation';
 import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
@@ -76,13 +76,21 @@ export default function ExpertLanguagePage() {
 
     return (
         <div className="space-y-6">
-        <div>
-            <h1 className="text-3xl font-bold tracking-tight">
-            Expert Challenge: {languageName} Daily Routine
-            </h1>
-            <p className="text-muted-foreground">
-            Complete the levels to finish the daily routine.
-            </p>
+        <div className="flex items-center gap-4">
+            <Button asChild variant="outline" size="icon">
+                <Link href="/dashboard/expert-level">
+                <ChevronLeft className="h-4 w-4" />
+                <span className="sr-only">Back to Expert Challenges</span>
+                </Link>
+            </Button>
+            <div>
+                <h1 className="text-3xl font-bold tracking-tight">
+                Expert Challenge: {languageName} Daily Routine
+                </h1>
+                <p className="text-muted-foreground">
+                Complete the levels to finish the daily routine.
+                </p>
+            </div>
         </div>
 
         <Card>
@@ -110,7 +118,7 @@ export default function ExpertLanguagePage() {
                             <div>
                                 <CardTitle className="flex items-center gap-2">
                                      {isLocked ? <Lock className="h-5 w-5 text-muted-foreground" /> : isCompleted ? <CheckCircle className="h-5 w-5 text-green-500" /> : <span className="text-primary">{`Level ${index + 1}`}</span>}
-                                    <span className={isLocked ? 'text-muted-foreground' : ''}>{challenge.title.split(': ')[1]}</span>
+                                     <span className={isLocked ? 'text-muted-foreground' : ''}>{challenge.title.split(': ').length > 1 ? challenge.title.split(': ')[1] : challenge.title}</span>
                                 </CardTitle>
                                 <CardDescription className="mt-2">{challenge.description}</CardDescription>
                             </div>
