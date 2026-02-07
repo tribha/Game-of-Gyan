@@ -20,6 +20,7 @@ import { useUser, useFirestore, useMemoFirebase } from '@/firebase';
 import { useToast } from '@/hooks/use-toast';
 import { doc, updateDoc, arrayUnion, increment, collection, addDoc, serverTimestamp, getDoc } from 'firebase/firestore';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
+import { expertChallenges } from '@/lib/expert-challenges';
 
 
 type CodeChallengeType = {
@@ -164,8 +165,8 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
           timestamp: serverTimestamp(),
           reason: reason,
         };
-        if (courseId) xpEntry.courseId = courseId;
-        if (levelId) xpEntry.levelId = levelId;
+        if (courseId && !isExpertChallenge) xpEntry.courseId = courseId;
+        if (levelId && !isExpertChallenge) xpEntry.levelId = levelId;
         
         const xpHistoryAddPromise = addDoc(xpHistoryRef, xpEntry);
         
@@ -181,7 +182,17 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
       // Navigate back after a short delay
       setTimeout(() => {
         if (isExpertChallenge) {
-          router.push(`/dashboard/expert-level/series/${challenge.language}`);
+           const challengesForLanguage = expertChallenges.filter(c => c.language === challenge.language);
+           const currentIndex = challengesForLanguage.findIndex(c => c.id === challenge.id);
+           const nextChallenge = challengesForLanguage[currentIndex + 1];
+
+           if (nextChallenge) {
+             router.push(`/dashboard/expert-level/challenge/${nextChallenge.id}`);
+           } else {
+             // Last challenge completed, go back to series page
+             toast({ title: "Series Complete!", description: "Congratulations, you've completed all challenges in this series!" });
+             router.push(`/dashboard/expert-level/series/${challenge.language}`);
+           }
         } else {
           router.push(`/dashboard/courses/${courseId}`);
         }
@@ -292,5 +303,3 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
     </div>
   );
 }
-
-    
