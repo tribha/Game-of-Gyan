@@ -3,43 +3,43 @@
     {
       "id": "game-of-gyan-logo",
       "description": "Game of Gyan Logo",
-      "imageUrl": "https://images.unsplash.com/photo-1720855101081-2f0933765993?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cmV0cm8lMjBnYW1pbmd8ZW58MHx8fHwxNzcwNDE4OTYwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxyZXRybyUyMGdhbWluZ3xlbnwwfHx8fDE3NzA0MTg5NjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "retro gaming"
     },
     {
       "id": "user-avatar-1",
-      "description": "3D animated male character avatar",
-      "imageUrl": "https://images.unsplash.com/photo-1740252117012-bb53ad05e370?w=400",
+      "description": "3D animated male character with hoodie",
+      "imageUrl": "https://images.unsplash.com/photo-1639747280804-dd2d6b3d88ac?w=400&q=80",
       "imageHint": "3d avatar"
     },
     {
       "id": "user-avatar-2",
-      "description": "3D animated male character avatar with glasses",
-      "imageUrl": "https://images.unsplash.com/photo-1728577740843-5f29c7586afe?w=400",
+      "description": "3D animated spiderman character",
+      "imageUrl": "https://images.unsplash.com/photo-1635805737704-5ca2aa134807?w=400&q=80",
       "imageHint": "3d avatar"
     },
     {
       "id": "user-avatar-3",
-      "description": "Animated robot character avatar",
-      "imageUrl": "https://images.unsplash.com/photo-1732020858816-93c130ab8f49?w=400",
-      "imageHint": "robot avatar"
-    },
-    {
-      "id": "user-avatar-4",
       "description": "3D animated female character avatar",
-      "imageUrl": "https://images.unsplash.com/photo-1634926878768-2a5b3c42f139?w=400",
+      "imageUrl": "https://images.unsplash.com/photo-1634926878768-2a5b3c42f139?w=400&q=80",
       "imageHint": "female avatar"
     },
     {
-      "id": "user-avatar-5",
-      "description": "3D animated female character with short hair",
-      "imageUrl": "https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=400",
+      "id": "user-avatar-4",
+      "description": "3D animated female character with headset",
+      "imageUrl": "https://images.unsplash.com/photo-1634193295627-1c6462c8eb95?w=400&q=80",
       "imageHint": "female character"
     },
     {
+      "id": "user-avatar-5",
+      "description": "3D animated male character with glasses",
+      "imageUrl": "https://images.unsplash.com/photo-1639747280948-b2a1a4a3e2b8?w=400&q=80",
+      "imageHint": "male avatar"
+    },
+    {
       "id": "user-avatar-6",
-      "description": "3D animated female character with long hair",
-      "imageUrl": "https://images.unsplash.com/photo-1632765854612-9b0c2b6b1b1c?w=400",
+      "description": "3D animated female character with glasses",
+      "imageUrl": "https://images.unsplash.com/photo-1640960543409-dbe56ccc30e2?w=400&q=80",
       "imageHint": "female avatar"
     },
     {
