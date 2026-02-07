@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -21,10 +20,12 @@ import { AlertCircle, Loader2 } from 'lucide-react';
 import { useAuth } from '@/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { cn } from '@/lib/utils';
 
 export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
   const router = useRouter();
   const auth = useAuth();
 
@@ -59,8 +60,14 @@ export default function LoginPage() {
       setLoading(false);
     }
   };
-  
-  const loginImage = PlaceHolderImages.find((p) => p.id === 'login-splash');
+
+  const loginImageInitial = PlaceHolderImages.find(
+    (p) => p.id === 'login-bg-initial'
+  );
+  const loginImageActive = PlaceHolderImages.find(
+    (p) => p.id === 'login-bg-active'
+  );
+
   const courseIcons = [
     'course-icon-js',
     'course-icon-python',
@@ -69,36 +76,53 @@ export default function LoginPage() {
     'course-icon-cpp',
     'course-icon-html',
     'course-icon-css',
-  ].map(id => PlaceHolderImages.find(p => p.id === id)).filter(Boolean);
+  ]
+    .map((id) => PlaceHolderImages.find((p) => p.id === id))
+    .filter(Boolean);
 
   return (
     <div className="w-full lg:grid lg:min-h-screen lg:grid-cols-2">
       <div className="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r">
-        {loginImage && (
-            <Image
-                src={loginImage.imageUrl}
-                alt={loginImage.description}
-                data-ai-hint={loginImage.imageHint}
-                fill
-                className="absolute inset-0 h-full w-full object-cover"
-            />
+        {loginImageInitial && (
+          <Image
+            src={loginImageInitial.imageUrl}
+            alt={loginImageInitial.description}
+            data-ai-hint={loginImageInitial.imageHint}
+            fill
+            className={cn(
+              'absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out',
+              hasInteracted ? 'opacity-0' : 'opacity-100'
+            )}
+          />
+        )}
+        {loginImageActive && (
+          <Image
+            src={loginImageActive.imageUrl}
+            alt={loginImageActive.description}
+            data-ai-hint={loginImageActive.imageHint}
+            fill
+            className={cn(
+              'absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out',
+              hasInteracted ? 'opacity-100' : 'opacity-0'
+            )}
+          />
         )}
         <div className="absolute inset-0 bg-primary/80" />
         <div className="relative z-20 flex items-center text-lg font-medium">
-          <GameOfGyanLogo className="h-8 w-8 mr-2" />
+          <GameOfGyanLogo className="mr-2 h-8 w-8" />
           <span className="text-xl font-bold text-primary">Game of Gyan</span>
         </div>
         <div className="relative z-20 mt-auto">
-          <div className="mb-8 flex items-center justify-center gap-x-6 gap-y-4 flex-wrap">
+          <div className="mb-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-4">
             {courseIcons.map((icon) => (
-                <Image
+              <Image
                 key={icon!.id}
                 src={icon!.imageUrl}
                 alt={icon!.description}
                 width={32}
                 height={32}
                 className="h-8 w-8 transition-transform hover:scale-110"
-                />
+              />
             ))}
           </div>
           <blockquote className="space-y-2">
@@ -116,9 +140,13 @@ export default function LoginPage() {
           <CardHeader className="text-center">
             <div className="mb-4 flex items-center justify-center gap-2 font-bold">
               <GameOfGyanLogo className="h-10 w-10" />
-              <span className="text-3xl font-bold text-primary">Game of Gyan</span>
+              <span className="text-3xl font-bold text-primary">
+                Game of Gyan
+              </span>
             </div>
-            <CardTitle className="text-3xl font-bold">Welcome, Warrior!</CardTitle>
+            <CardTitle className="text-3xl font-bold">
+              Welcome, Warrior!
+            </CardTitle>
             <CardDescription>
               Your next conquest awaits. Login to continue your journey.
             </CardDescription>
@@ -140,6 +168,7 @@ export default function LoginPage() {
                   name="email"
                   placeholder="m@example.com"
                   required
+                  onChange={(e) => setHasInteracted(!!e.target.value)}
                 />
               </div>
               <div className="grid gap-2">
