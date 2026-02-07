@@ -41,17 +41,6 @@ export const achievements = [
   { id: 'ach4', name: 'Perfect Score', date: '2023-11-20', iconUrl: PlaceHolderImages.find(p => p.id === 'achievement-4')?.imageUrl || '', imageHint: 'trophy' },
 ];
 
-export const dailyChallenge = {
-  type: 'code' as const,
-  language: 'javascript',
-  level: 'beginner' as const,
-  title: 'Variable Swap',
-  content: {
-    question: 'Write a JavaScript function `swap(a, b)` that takes two variables and returns an array with their values swapped.',
-    initialCode: `function swap(a, b) {\n  // Your code here\n\n  return [a, b];\n}`,
-  }
-};
-
 export const courses = [
     { 
         id: 'javascript', 
@@ -226,7 +215,7 @@ export const courses = [
             { id: 'cpp-13', levelNumber: 13, title: '`while` loop', description: 'Loop as long as a condition is true.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'intermediate' as const, title: 'While Loop', content: { question: 'Which loop continues to execute as long as its condition remains true?', options: ['for', 'if', 'while', 'do-while'], answer: 2 } }] },
             { id: 'cpp-14', levelNumber: 14, title: 'Function Definition', description: 'Create reusable functions.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'intermediate' as const, title: 'Function Syntax', content: { question: 'What is the correct syntax to declare a function that returns an integer?', options: ['function myFunction() : int', 'def myFunction() -> int', 'int myFunction()', 'myFunction() int'], answer: 2 } }] },
             { id: 'cpp-15', levelNumber: 15, title: 'Arrays', description: 'Store fixed-size sequential collections.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'intermediate' as const, title: 'Array Declaration', content: { question: 'How do you declare an array of 10 integers named `numbers`?', options: ['int numbers[10];', 'int[10] numbers;', 'array<int, 10> numbers;', 'numbers[10] as int;'], answer: 0 } }] },
-            { id: 'cpp-16', levelNumber: 16, 'title': 'Accessing Array Elements', 'description': 'Get values from an array by index.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'intermediate' as const, title: 'Array Indexing', content: { question: 'In C++, the first element of an array has an index of:', options: ['1', '0', 'first', '-1'], answer: 1 } }] },
+            { id: 'cpp-16', 'title': 'Accessing Array Elements', 'description': 'Get values from an array by index.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'intermediate' as const, title: 'Array Indexing', content: { question: 'In C++, the first element of an array has an index of:', options: ['1', '0', 'first', '-1'], answer: 1 } }] },
             { id: 'cpp-17', levelNumber: 17, title: 'Pointers', description: 'Variables that store memory addresses.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'intermediate' as const, title: 'Pointer Declaration', content: { question: 'Which symbol is used to declare a pointer variable?', options: ['&', '*', '#', '$'], answer: 1 } }] },
             { id: 'cpp-18', levelNumber: 18, title: 'Address-of operator', description: 'Get the memory address of a variable.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'intermediate' as const, title: '`&` Operator', content: { question: 'Which operator is used to get the memory address of a variable?', options: ['&', '*', '@', '#'], answer: 0 } }] },
             { id: 'cpp-19', levelNumber: 19, title: 'Dereference operator', description: 'Access the value at a memory address.', games: [{ type: 'mcq' as const, language: 'cplusplus', level: 'intermediate' as const, title: '`*` Operator', content: { question: 'Which operator is used to access the value pointed to by a pointer?', options: ['&', '->', '.', '*'], answer: 3 } }] },
@@ -287,6 +276,5 @@ export const mockData = {
   userProfile,
   courseProgress,
   achievements,
-  dailyChallenge,
   courses
 };
