@@ -3,44 +3,44 @@
     {
       "id": "game-of-gyan-logo",
       "description": "Game of Gyan Logo",
-      "imageUrl": "https://images.unsplash.com/photo-1585881728919-5c0ce925ad10?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxyZXRybyUyMGdhbWluZ3xlbnwwfHx8fDE3NzA0MTg5NjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxyZXRybyUyMGdhbWluZ3xlbnwwfHx8fDE3NzA0MTg5NjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "retro gaming"
     },
     {
       "id": "user-avatar-1",
       "description": "Robot avatar",
-      "imageUrl": "https://images.unsplash.com/photo-1589254065909-b7086229d092",
+      "imageUrl": "https://api.dicebear.com/8.x/bottts-neutral/svg?seed=Sheldon",
       "imageHint": "robot avatar"
     },
     {
       "id": "user-avatar-2",
-      "description": "Robot avatar with one eye",
-      "imageUrl": "https://images.unsplash.com/photo-1589254066205-d145ab55490a",
-      "imageHint": "robot avatar"
+      "description": "Female character avatar",
+      "imageUrl": "https://api.dicebear.com/8.x/adventurer/svg?seed=Jane",
+      "imageHint": "female avatar"
     },
     {
       "id": "user-avatar-3",
-      "description": "Small friendly robot avatar",
-      "imageUrl": "https://images.unsplash.com/photo-1535378620166-273708d44e4c",
+      "description": "Friendly robot avatar",
+      "imageUrl": "https://api.dicebear.com/8.x/bottts-neutral/svg?seed=Leonard",
       "imageHint": "robot avatar"
     },
     {
       "id": "user-avatar-4",
-      "description": "White and blue robot head avatar",
-      "imageUrl": "https://images.unsplash.com/photo-1620712943543-95fc69397969",
-      "imageHint": "robot avatar"
+      "description": "Male character avatar",
+      "imageUrl": "https://api.dicebear.com/8.x/adventurer/svg?seed=John",
+      "imageHint": "male avatar"
     },
     {
       "id": "user-avatar-5",
-      "description": "Futuristic robot avatar",
-      "imageUrl": "https://images.unsplash.com/photo-1695029053278-005154335539",
+      "description": "Female robot avatar",
+      "imageUrl": "https://api.dicebear.com/8.x/bottts-neutral/svg?seed=Penny",
       "imageHint": "robot avatar"
     },
     {
       "id": "user-avatar-6",
-      "description": "Sleek modern robot avatar",
-      "imageUrl": "https://images.unsplash.com/photo-1674069818815-2a2b3724c965",
-      "imageHint": "robot avatar"
+      "description": "Female adventurer avatar",
+      "imageUrl": "https://api.dicebear.com/8.x/adventurer/svg?seed=Amy",
+      "imageHint": "female avatar"
     },
     {
       "id": "achievement-1",
