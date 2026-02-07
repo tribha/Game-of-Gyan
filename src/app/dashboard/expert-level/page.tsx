@@ -13,6 +13,18 @@ import { expertChallenges } from '@/lib/expert-challenges';
 import { Badge } from '@/components/ui/badge';
 
 export default function ExpertLevelPage() {
+  const getLanguageName = (lang: string) => {
+    switch (lang) {
+      case 'javascript': return 'JavaScript';
+      case 'python': return 'Python';
+      case 'sql': return 'SQL';
+      case 'css': return 'CSS';
+      case 'cplusplus': return 'C++';
+      case 'java': return 'Java';
+      default: return lang;
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -32,7 +44,7 @@ export default function ExpertLevelPage() {
                   {challenge.type === 'code' ? <Code className="h-6 w-6" /> : <ListChecks className="h-6 w-6" />}
                   <span>{challenge.title}</span>
                 </CardTitle>
-                 <Badge variant="secondary" className="capitalize">{challenge.language}</Badge>
+                 <Badge variant="secondary">{getLanguageName(challenge.language)}</Badge>
               </div>
               <CardDescription>{challenge.description}</CardDescription>
             </CardHeader>
