@@ -95,7 +95,7 @@ export default function LoginPage() {
           <CardHeader className="text-center">
             <div className="mb-4 flex items-center justify-center gap-2 font-bold">
               <GameOfGyanLogo className="h-10 w-10" />
-              <span className="text-3xl font-bold">Game of Gyan</span>
+              <span className="text-3xl font-bold text-primary">Game of Gyan</span>
             </div>
             <CardTitle className="text-3xl font-bold">Welcome, Warrior!</CardTitle>
             <CardDescription>
