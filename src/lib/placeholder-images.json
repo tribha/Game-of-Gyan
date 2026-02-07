@@ -3,44 +3,44 @@
     {
       "id": "game-of-gyan-logo",
       "description": "Game of Gyan Logo",
-      "imageUrl": "https://images.unsplash.com/photo-1625805866852-b2ab3e740530?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxyZXRybyUyMGdhbWluZ3xlbnwwfHx8fDE3NzA0MTg5NjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxyZXRybyUyMGdhbWluZ3xlbnwwfHx8fDE3NzA0MTg5NjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "retro gaming"
     },
     {
       "id": "user-avatar-1",
-      "description": "3D animated male character with glasses",
-      "imageUrl": "https://images.unsplash.com/photo-1639747280804-dd2d6b3d88ac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHwzZCUyMGF2YXRhcnxlbnwwfHx8fDE3NzE0OTA5MTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "3d avatar"
+      "description": "Robot avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1589254065909-b7086229d092?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxSb2JvdCUyMGF2YXRhcnxlbnwwfHx8fDE3NzE0OTgwMDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "robot avatar"
     },
     {
       "id": "user-avatar-2",
-      "description": "3D animated male character with hoodie",
-      "imageUrl": "https://images.unsplash.com/photo-1640960543409-dbe56ccc30e2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxtYWxlJTIwYXZhdGFyfGVufDB8fHx8MTc3MDQzNjg3OXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "male avatar"
+      "description": "Robot avatar with one eye",
+      "imageUrl": "https://images.unsplash.com/photo-1589254066205-d145ab55490a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxSb2JvdCUyMGF2YXRhcnxlbnwwfHx8fDE3NzE0OTgwMDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "robot avatar"
     },
     {
       "id": "user-avatar-3",
-      "description": "3D animated male character with jacket",
-      "imageUrl": "https://images.unsplash.com/photo-1714889953920-f80c6553a067?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHwzZCUyMGF2YXRhcnxlbnwwfHx8fDE3NzE0OTA5MTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "3d avatar"
+      "description": "Small friendly robot avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1535378620166-273708d44e4c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxSb2JvdCUyMGF2YXRhcnxlbnwwfHx8fDE3NzE0OTgwMDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "robot avatar"
     },
     {
       "id": "user-avatar-4",
-      "description": "3D animated female character avatar",
-      "imageUrl": "https://images.unsplash.com/photo-1635805737704-5ca2aa13ae86?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHwzZCUyMGF2YXRhcnxlbnwwfHx8fDE3NzE0OTA5MTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "3d avatar"
+      "description": "White and blue robot head avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1620712943543-95fc69397969?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxSb2JvdCUyMGF2YXRhcnxlbnwwfHx8fDE3NzE0OTgwMDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "robot avatar"
     },
     {
       "id": "user-avatar-5",
-      "description": "3D animated female character with punk hair",
-      "imageUrl": "https://images.unsplash.com/photo-1678812033329-a03a0833a7f8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMnx8M2QlMjBhdmF0YXJ8ZW58MHx8fHwxNzcxNDkwOTE5fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "3d avatar"
+      "description": "Futuristic robot avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1695029053278-005154335539?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNXx8Um9ib3QlMjBhdmF0YXJ8ZW58MHx8fHwxNzcxNDk4MTI1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "robot avatar"
     },
     {
       "id": "user-avatar-6",
-      "description": "3D animated female character with short hair",
-      "imageUrl": "https://images.unsplash.com/photo-1699969188849-92d64a0b6389?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyMHx8M2QlMjBhdmF0YXJ8ZW58MHx8fHwxNzcxNDkwOTE5fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "3d avatar"
+      "description": "Sleek modern robot avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1674069818815-2a2b3724c965?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNnx8Um9ib3QlMjBhdmF0YXJ8ZW58MHx8fHwxNzcxNDk4MTI1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "robot avatar"
     },
     {
       "id": "achievement-1",
