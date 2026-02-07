@@ -14,6 +14,7 @@ import { useToast } from '@/hooks/use-toast';
 import { doc, updateDoc, arrayUnion, increment, collection, addDoc, serverTimestamp, getDoc } from 'firebase/firestore';
 import { expertChallenges } from '@/lib/expert-challenges';
 import Link from 'next/link';
+import { mockData } from '@/lib/mock-data';
 
 // Define the shape of the MCQ challenge
 type MCQChallengeType = {
@@ -51,7 +52,7 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
     return doc(firestore, 'userProfiles', user.uid);
   }, [firestore, user]);
 
-  const isExpertChallenge = !!challenge?.id?.startsWith('expert-');
+  const isExpertChallenge = challenge?.id?.startsWith('expert-');
 
   useEffect(() => {
     const checkCompletion = async () => {
@@ -69,7 +70,7 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
       }
     };
     checkCompletion();
-  }, [profileRef, levelId, challenge.id, isExpertChallenge]);
+  }, [profileRef, levelId, challenge?.id, isExpertChallenge]);
 
 
   const handleOptionChange = (value: string) => {
@@ -165,7 +166,33 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
               router.push(`/dashboard/expert-level/series/${challenge.language}`);
             }
           } else {
-            router.push(`/dashboard/courses/${courseId}`);
+            const course = mockData.courses.find(c => c.id === courseId);
+            if (course && levelId) {
+                const currentIndex = course.levels.findIndex(l => l.id === levelId);
+                const nextLevel = course.levels[currentIndex + 1];
+
+                if (nextLevel) {
+                    router.push(`/dashboard/courses/${courseId}/levels/${nextLevel.id}`);
+                } else {
+                    // Last level, complete the course
+                    if (profileRef) {
+                         (async () => {
+                            const profileSnap = await getDoc(profileRef);
+                            const courseIsCompleted = profileSnap.data()?.completedCourses?.includes(courseId);
+                            if (!courseIsCompleted) {
+                                await updateDoc(profileRef, {
+                                    completedCourses: arrayUnion(courseId)
+                                });
+                                toast({ title: "Course Complete!", description: `Congratulations! You've finished the ${course.name} course!` });
+                            }
+                         })();
+                    }
+                    router.push(`/dashboard/courses/${courseId}`);
+                }
+            } else {
+                // Fallback
+                router.push(`/dashboard/courses/${courseId}`);
+            }
           }
         }, 1500);
 
@@ -185,7 +212,7 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
       toast({
         variant: 'destructive',
         title: 'Incorrect',
-        description: 'That\'s not quite right. Try again!',
+        description: 'That\\'s not quite right. Try again!',
       });
       setIsSubmitting(false);
     }

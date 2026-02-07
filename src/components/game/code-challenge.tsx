@@ -4,7 +4,7 @@
 import React, { useState, useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { useRouter } from 'next/navigation';
-import { AlertCircle, Lightbulb, Loader2, Terminal, Info, CheckCircle, ChevronLeft } from 'lucide-react';
+import { AlertCircle, Lightbulb, Loader2, Terminal, CheckCircle, ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -22,6 +22,7 @@ import { doc, updateDoc, arrayUnion, increment, collection, addDoc, serverTimest
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 import { expertChallenges } from '@/lib/expert-challenges';
 import Link from 'next/link';
+import { mockData } from '@/lib/mock-data';
 
 
 type CodeChallengeType = {
@@ -107,7 +108,7 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
     return doc(firestore, 'userProfiles', user.uid);
   }, [firestore, user]);
 
-  const isExpertChallenge = !!challenge?.id?.startsWith('expert-');
+  const isExpertChallenge = challenge?.id?.startsWith('expert-');
   
   const handleHintAttempt = (formData: FormData) => {
     setAttempts(prev => prev + 1);
@@ -195,7 +196,33 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
              router.push(`/dashboard/expert-level/series/${challenge.language}`);
            }
         } else {
-          router.push(`/dashboard/courses/${courseId}`);
+            const course = mockData.courses.find(c => c.id === courseId);
+            if (course && levelId) {
+                const currentIndex = course.levels.findIndex(l => l.id === levelId);
+                const nextLevel = course.levels[currentIndex + 1];
+
+                if (nextLevel) {
+                    router.push(`/dashboard/courses/${courseId}/levels/${nextLevel.id}`);
+                } else {
+                    // Last level, complete the course
+                    if (profileRef) {
+                         (async () => {
+                            const profileSnap = await getDoc(profileRef);
+                            const courseIsCompleted = profileSnap.data()?.completedCourses?.includes(courseId);
+                            if (!courseIsCompleted) {
+                                await updateDoc(profileRef, {
+                                    completedCourses: arrayUnion(courseId)
+                                });
+                                toast({ title: "Course Complete!", description: `Congratulations! You've finished the ${course.name} course!` });
+                            }
+                         })();
+                    }
+                    router.push(`/dashboard/courses/${courseId}`);
+                }
+            } else {
+                // Fallback
+                router.push(`/dashboard/courses/${courseId}`);
+            }
         }
       }, 1500);
 

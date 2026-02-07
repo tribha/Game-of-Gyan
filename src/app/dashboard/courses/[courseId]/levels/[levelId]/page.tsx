@@ -4,6 +4,9 @@ import { useParams, notFound } from 'next/navigation';
 import { CodeChallenge } from '@/components/game/code-challenge';
 import { MCQChallenge } from '@/components/game/mcq-challenge';
 import { mockData } from '@/lib/mock-data';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { ChevronLeft } from 'lucide-react';
 
 export default function LevelPage() {
     const params = useParams();
@@ -33,9 +36,17 @@ export default function LevelPage() {
 
     return (
         <div className="container mx-auto">
-            <h1 className="text-3xl font-bold tracking-tight mb-4">
-                <span className="capitalize">{course.name}</span> - Level {level.levelNumber}: {level.title}
-            </h1>
+             <div className="flex items-center gap-4 mb-4">
+                <Button asChild variant="outline" size="icon">
+                    <Link href={`/dashboard/courses/${courseId}`}>
+                    <ChevronLeft className="h-4 w-4" />
+                    <span className="sr-only">Back to course</span>
+                    </Link>
+                </Button>
+                <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
+                    <span className="capitalize">{course.name}</span> - Level {level.levelNumber}: {level.title}
+                </h1>
+            </div>
             {game.type === 'code' && <CodeChallenge challenge={game} courseId={courseId} levelId={levelId} />}
             {game.type === 'mcq' && <MCQChallenge challenge={game} courseId={courseId} levelId={levelId} />}
         </div>
