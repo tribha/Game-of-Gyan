@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -6,6 +7,7 @@ import { usePathname, redirect } from 'next/navigation';
 import {
   Award,
   Gamepad2,
+  Rocket,
   Swords,
   Target,
   UserCog,
@@ -30,6 +32,7 @@ const navItems = [
   { href: '/dashboard', icon: Gamepad2, label: 'Dashboard' },
   { href: '/dashboard/courses', icon: Swords, label: 'Courses' },
   { href: '/dashboard/challenge', icon: Target, label: 'Daily Challenge' },
+  { href: '/dashboard/expert-level', icon: Rocket, label: 'Expert Level' },
   { href: '/dashboard/profile', icon: UserCog, label: 'Profile' },
   { href: '/dashboard/certificates', icon: Award, label: 'Certificates' },
 ];

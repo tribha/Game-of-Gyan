@@ -9,6 +9,7 @@ export function Header() {
   const getTitle = () => {
     if (pathname.startsWith('/dashboard/challenge')) return 'Daily Challenge';
     if (pathname.startsWith('/dashboard/courses')) return 'Courses';
+    if (pathname.startsWith('/dashboard/expert-level')) return 'Expert Level';
     if (pathname.startsWith('/dashboard/profile')) return 'Your Profile';
     if (pathname.startsWith('/dashboard/certificates')) return 'Your Certificates';
     return 'Dashboard';

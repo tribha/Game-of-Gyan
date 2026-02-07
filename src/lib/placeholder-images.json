@@ -149,6 +149,36 @@
       "description": "CSS3 language icon",
       "imageUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
       "imageHint": "css3 logo"
+    },
+    {
+      "id": "expert-codedex",
+      "description": "Codedex game image",
+      "imageUrl": "https://images.unsplash.com/photo-1763568258535-fa1066506571?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y29kZSUyMGVkaXRvcnxlbnwwfHx8fDE3NzA0NTk4ODR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "code editor"
+    },
+    {
+      "id": "expert-flexbox-froggy",
+      "description": "Flexbox Froggy game image",
+      "imageUrl": "https://images.unsplash.com/photo-1720625922624-746c8fca2f0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxmcm9nJTIwbGlseXBhZHxlbnwwfHx8fDE3NzA0ODkxODB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "frog lilypad"
+    },
+    {
+      "id": "expert-elevator-saga",
+      "description": "Elevator Saga game image",
+      "imageUrl": "https://images.unsplash.com/photo-1635375113080-2bcee0c02ba4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxlbGV2YXRvciUyMGJ1aWxkaW5nfGVufDB8fHx8MTc3MDQ4OTE4MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "elevator building"
+    },
+    {
+      "id": "expert-learn-git",
+      "description": "Learn Git Branching game image",
+      "imageUrl": "https://images.unsplash.com/photo-1707061229170-fc232a07a55f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnaXQlMjBicmFuY2h8ZW58MHx8fHwxNzcwNDg5MTgwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "git branch"
+    },
+    {
+      "id": "expert-c-game",
+      "description": "C language game image",
+      "imageUrl": "https://images.unsplash.com/photo-1743090660977-babf07732432?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8YyUyMHByb2dyYW1taW5nfGVufDB8fHx8MTc3MDQ4OTE4MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "c programming"
     }
   ]
 }
