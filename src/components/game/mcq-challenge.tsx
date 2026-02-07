@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { CheckCircle, XCircle, Loader2 } from 'lucide-react';
+import { CheckCircle, XCircle, Loader2, ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -13,6 +13,7 @@ import { useUser, useFirestore, useMemoFirebase } from '@/firebase';
 import { useToast } from '@/hooks/use-toast';
 import { doc, updateDoc, arrayUnion, increment, collection, addDoc, serverTimestamp, getDoc } from 'firebase/firestore';
 import { expertChallenges } from '@/lib/expert-challenges';
+import Link from 'next/link';
 
 // Define the shape of the MCQ challenge
 type MCQChallengeType = {
@@ -50,7 +51,7 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
     return doc(firestore, 'userProfiles', user.uid);
   }, [firestore, user]);
 
-  const isExpertChallenge = challenge.id.startsWith('expert-');
+  const isExpertChallenge = !!challenge?.id?.startsWith('expert-');
 
   useEffect(() => {
     const checkCompletion = async () => {
@@ -190,11 +191,24 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
     }
   };
 
+  const backLink = isExpertChallenge ? `/dashboard/expert-level/series/${challenge.language}` : `/dashboard/courses/${courseId}`;
+
   return (
     <div className="space-y-6 max-w-2xl mx-auto">
+       {isExpertChallenge && (
+        <div className="flex items-center gap-4">
+           <Button asChild variant="outline" size="icon">
+              <Link href={backLink}>
+                <ChevronLeft className="h-4 w-4" />
+                <span className="sr-only">Back</span>
+              </Link>
+            </Button>
+            <h1 className="text-xl md:text-2xl font-bold tracking-tight">{challenge.title}</h1>
+        </div>
+      )}
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">{challenge.title}</CardTitle>
+          {!isExpertChallenge && <CardTitle className="text-2xl">{challenge.title}</CardTitle>}
           <CardDescription>
             Language: {challenge.language} | Level: {challenge.level}
           </CardDescription>

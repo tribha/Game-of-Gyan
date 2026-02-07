@@ -4,7 +4,7 @@
 import React, { useState, useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { useRouter } from 'next/navigation';
-import { AlertCircle, Lightbulb, Loader2, Terminal, Info, CheckCircle } from 'lucide-react';
+import { AlertCircle, Lightbulb, Loader2, Terminal, Info, CheckCircle, ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -21,6 +21,7 @@ import { useToast } from '@/hooks/use-toast';
 import { doc, updateDoc, arrayUnion, increment, collection, addDoc, serverTimestamp, getDoc } from 'firebase/firestore';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 import { expertChallenges } from '@/lib/expert-challenges';
+import Link from 'next/link';
 
 
 type CodeChallengeType = {
@@ -106,7 +107,7 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
     return doc(firestore, 'userProfiles', user.uid);
   }, [firestore, user]);
 
-  const isExpertChallenge = challenge.id.startsWith('expert-');
+  const isExpertChallenge = !!challenge?.id?.startsWith('expert-');
   
   const handleHintAttempt = (formData: FormData) => {
     setAttempts(prev => prev + 1);
@@ -219,12 +220,25 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
 
   const isRunCodeDisabled = challenge.language !== 'javascript';
 
+  const backLink = isExpertChallenge ? `/dashboard/expert-level/series/${challenge.language}` : `/dashboard/courses/${courseId}`;
+
   return (
     <div className="grid gap-8 lg:grid-cols-2">
       <div className="space-y-6">
+        {isExpertChallenge && (
+        <div className="flex items-center gap-4">
+           <Button asChild variant="outline" size="icon">
+              <Link href={backLink}>
+                <ChevronLeft className="h-4 w-4" />
+                <span className="sr-only">Back</span>
+              </Link>
+            </Button>
+            <h1 className="text-xl md:text-2xl font-bold tracking-tight">{challenge.title}</h1>
+        </div>
+      )}
         <Card>
           <CardHeader>
-            <CardTitle className="text-2xl">{challenge.title}</CardTitle>
+            {!isExpertChallenge && <CardTitle className="text-2xl">{challenge.title}</CardTitle>}
             <CardDescription>
               Language: {challenge.language} | Level: {challenge.level}
             </CardDescription>
