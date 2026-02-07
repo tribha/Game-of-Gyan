@@ -81,6 +81,7 @@ export default function SignupPage() {
         streak: 0,
         completedLevels: [],
         completedCourses: [],
+        completedExpertChallenges: [],
         name: '',
         school: '',
         city: '',

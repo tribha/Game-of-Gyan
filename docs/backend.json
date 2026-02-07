@@ -96,6 +96,13 @@
           "items": {
             "type": "string"
           }
+        },
+        "completedExpertChallenges": {
+          "type": "array",
+          "description": "Array of expert challenge IDs that the user has completed.",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
@@ -104,7 +111,8 @@
         "badges",
         "streak",
         "completedLevels",
-        "completedCourses"
+        "completedCourses",
+        "completedExpertChallenges"
       ]
     },
     "Course": {

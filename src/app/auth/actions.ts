@@ -55,6 +55,7 @@ export async function signup(formData: FormData) {
       streak: 0,
       completedLevels: [],
       completedCourses: [],
+      completedExpertChallenges: [],
     });
 
   } catch (e: any) {

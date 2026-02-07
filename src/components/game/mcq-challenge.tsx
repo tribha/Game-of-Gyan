@@ -14,6 +14,7 @@ import { doc, updateDoc, arrayUnion, increment, collection, addDoc, serverTimest
 
 // Define the shape of the MCQ challenge
 type MCQChallengeType = {
+  id: string;
   type: 'mcq';
   language: string;
   level: 'beginner' | 'intermediate' | 'advanced';
@@ -47,18 +48,25 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
     return doc(firestore, 'userProfiles', user.uid);
   }, [firestore, user]);
 
+  const isExpertChallenge = challenge.id.startsWith('expert-');
+
   useEffect(() => {
     const checkCompletion = async () => {
-      if (profileRef && levelId) {
+      if (profileRef) {
         const profileSnap = await getDoc(profileRef);
         const profileData = profileSnap.data();
-        if (profileData?.completedLevels?.includes(levelId)) {
+        const completedItems = isExpertChallenge 
+            ? profileData?.completedExpertChallenges 
+            : profileData?.completedLevels;
+        const currentId = isExpertChallenge ? challenge.id : levelId;
+
+        if (completedItems?.includes(currentId)) {
           setIsCompleted(true);
         }
       }
     };
     checkCompletion();
-  }, [profileRef, levelId]);
+  }, [profileRef, levelId, challenge.id, isExpertChallenge]);
 
 
   const handleOptionChange = (value: string) => {
@@ -75,8 +83,17 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
       });
       return;
     }
+    
+    if (!user || !profileRef) {
+      toast({
+        variant: 'destructive',
+        title: 'Not logged in',
+        description: 'You must be logged in to submit a challenge.',
+      });
+      return;
+    }
 
-    if (!user || !courseId || !levelId || !profileRef) {
+    if (!isExpertChallenge && (!courseId || !levelId)) {
       toast({
         variant: 'destructive',
         title: 'Cannot Submit',
@@ -93,12 +110,15 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
     if (isCorrect) {
       setSubmissionStatus('correct');
       try {
-        const xpAmount = 25; // MCQs are worth 25 XP
-        
+        const xpAmount = isExpertChallenge ? 75 : 25;
+        const completionId = isExpertChallenge ? challenge.id : levelId!;
+        const reason = isExpertChallenge ? `Completed expert challenge ${completionId}` : `Completed ${levelId}`;
+        const updateField = isExpertChallenge ? 'completedExpertChallenges' : 'completedLevels';
+
         if (!isCompleted) {
             const profileUpdatePromise = updateDoc(profileRef, {
                 xp: increment(xpAmount),
-                completedLevels: arrayUnion(levelId),
+                [updateField]: arrayUnion(completionId),
             });
 
             const xpHistoryRef = collection(firestore, 'userProfiles', user.uid, 'xpHistory');
@@ -106,7 +126,7 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
                 userId: user.uid,
                 amount: xpAmount,
                 timestamp: serverTimestamp(),
-                reason: `Completed ${levelId}`,
+                reason: reason,
                 courseId: courseId,
                 levelId: levelId
             });
@@ -121,13 +141,16 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
         } else {
              toast({
                 title: 'Correct!',
-                description: `You have already completed this level.`,
+                description: `You have already completed this challenge.`,
             });
         }
         
-        // Navigate back to the course page after a short delay
         setTimeout(() => {
-          router.push(`/dashboard/courses/${courseId}`);
+          if (isExpertChallenge) {
+            router.push(`/dashboard/expert-level/series/${challenge.language}`);
+          } else {
+            router.push(`/dashboard/courses/${courseId}`);
+          }
         }, 1500);
 
       } catch (error) {

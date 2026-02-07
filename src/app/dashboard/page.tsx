@@ -13,7 +13,8 @@ import { InProgressCourses } from '@/components/dashboard/in-progress-courses';
 import { RecentAchievements } from '@/components/dashboard/recent-achievements';
 import { OverviewChart } from '@/components/dashboard/overview-chart';
 import { courses as allCourses, achievements } from '@/lib/mock-data';
-import { Activity, BarChart, CheckCircle, Clock } from 'lucide-react';
+import { expertChallenges } from '@/lib/expert-challenges';
+import { Activity, BarChart, CheckCircle, Clock, Rocket } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 import { useUser, useDoc, useMemoFirebase, useFirestore, useCollection } from '@/firebase';
 import { doc, query, collection, where, orderBy, Timestamp } from 'firebase/firestore';
@@ -106,6 +107,10 @@ export default function DashboardPage() {
       })
       .filter(course => course.progress > 0 && course.progress < 100);
   }, [userProfile]);
+  
+  const totalExpertChallenges = expertChallenges.length;
+  const completedExpertChallenges = userProfile?.completedExpertChallenges?.length ?? 0;
+  const expertProgress = totalExpertChallenges > 0 ? (completedExpertChallenges / totalExpertChallenges) * 100 : 0;
 
   return (
     <div className="flex flex-col gap-6">
@@ -181,6 +186,29 @@ export default function DashboardPage() {
               )}
             </CardContent>
           </Card>
+          <Card>
+            <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                    <Rocket />
+                    <span>Expert Level Progress</span>
+                </CardTitle>
+                <CardDescription>
+                    Your progress in the expert challenges.
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                {isProfileLoading ? (
+                    <Skeleton className="h-8 w-full" />
+                ) : (
+                    <div className="space-y-2">
+                        <Progress value={expertProgress} />
+                        <p className="text-sm text-muted-foreground text-center">
+                            {completedExpertChallenges} / {totalExpertChallenges} Challenges
+                        </p>
+                    </div>
+                )}
+            </CardContent>
+        </Card>
           <InProgressCourses courses={inProgressCourses} />
         </div>
       </div>

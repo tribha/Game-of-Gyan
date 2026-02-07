@@ -22,6 +22,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/
 
 
 type CodeChallengeType = {
+  id: string;
   type: 'code';
   language: string;
   level: 'beginner' | 'intermediate' | 'advanced';
@@ -102,6 +103,8 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
     if (!user) return null;
     return doc(firestore, 'userProfiles', user.uid);
   }, [firestore, user]);
+
+  const isExpertChallenge = challenge.id.startsWith('expert-');
   
   const handleHintAttempt = (formData: FormData) => {
     setAttempts(prev => prev + 1);
@@ -109,35 +112,48 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
   }
 
   const handleSubmit = async () => {
-    if (!user || !courseId || !levelId) {
+    if (!user || !profileRef) {
+      toast({ variant: 'destructive', title: 'Not logged in' });
+      return;
+    }
+
+    if (!isExpertChallenge && (!courseId || !levelId)) {
       toast({
         variant: 'destructive',
         title: 'Cannot Submit',
-        description: 'This is a daily challenge and does not count towards course progress.',
+        description: 'This challenge does not count towards course progress.',
       });
       return;
     }
     
-    if (!profileRef) return;
-
     setIsSubmitting(true);
     
     try {
       const profileSnap = await getDoc(profileRef);
       const profileData = profileSnap.data();
 
-      if (profileData?.completedLevels?.includes(levelId)) {
+      const completionId = isExpertChallenge ? challenge.id : levelId!;
+      const completedItems = isExpertChallenge
+        ? profileData?.completedExpertChallenges
+        : profileData?.completedLevels;
+      
+      const alreadyCompleted = completedItems?.includes(completionId);
+
+      if (alreadyCompleted) {
         toast({
           title: 'Already Completed',
-          description: 'You have already earned XP for this level.',
+          description: 'You have already earned XP for this challenge.',
         });
         setIsCompleted(true);
       } else {
-        const xpAmount = 50;
+        const xpAmount = isExpertChallenge ? 100 : 50;
+        const updateField = isExpertChallenge ? 'completedExpertChallenges' : 'completedLevels';
+        const reason = isExpertChallenge ? `Completed expert challenge ${completionId}` : `Completed ${levelId}`;
+
         // In a real app, you'd validate the code here. We'll simulate success.
         const profileUpdatePromise = updateDoc(profileRef, {
           xp: increment(xpAmount),
-          completedLevels: arrayUnion(levelId),
+          [updateField]: arrayUnion(completionId),
         });
 
         const xpHistoryRef = collection(firestore, 'userProfiles', user.uid, 'xpHistory');
@@ -145,7 +161,7 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
           userId: user.uid,
           amount: xpAmount,
           timestamp: serverTimestamp(),
-          reason: `Completed ${levelId}`,
+          reason: reason,
           courseId: courseId,
           levelId: levelId
         });
@@ -159,9 +175,13 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
         });
       }
 
-      // Navigate back to the course page after a short delay
+      // Navigate back after a short delay
       setTimeout(() => {
-        router.push(`/dashboard/courses/${courseId}`);
+        if (isExpertChallenge) {
+          router.push(`/dashboard/expert-level/series/${challenge.language}`);
+        } else {
+          router.push(`/dashboard/courses/${courseId}`);
+        }
       }, 1500);
 
     } catch (error) {
