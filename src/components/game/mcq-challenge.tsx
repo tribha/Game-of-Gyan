@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -51,7 +52,7 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
     return doc(firestore, 'userProfiles', user.uid);
   }, [firestore, user]);
 
-  const isExpertChallenge = challenge.id?.startsWith('expert-');
+  const isExpertChallenge = challenge?.id?.startsWith('expert-');
 
   useEffect(() => {
     const checkCompletion = async () => {
@@ -63,7 +64,7 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
             : profileData?.completedLevels;
         const currentId = isExpertChallenge ? challenge.id : levelId;
 
-        if (completedItems?.includes(currentId)) {
+        if (currentId && completedItems?.includes(currentId)) {
           setIsCompleted(true);
         }
       }
@@ -217,21 +218,11 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
     }
   };
 
-  const backLink = isExpertChallenge ? `/dashboard/expert-level/series/${challenge.language}` : `/dashboard/courses/${courseId}`;
-
   return (
     <div className="space-y-6 max-w-2xl mx-auto">
-       <div className="flex items-center gap-4">
-            <Button asChild variant="outline" size="icon">
-                <Link href={backLink || '/dashboard'}>
-                <ChevronLeft className="h-4 w-4" />
-                <span className="sr-only">Back</span>
-                </Link>
-            </Button>
-            <h1 className="text-xl md:text-2xl font-bold tracking-tight">{challenge.title}</h1>
-        </div>
       <Card>
         <CardHeader>
+          <CardTitle>{challenge.title}</CardTitle>
           <CardDescription>
             Language: {challenge.language} | Level: {challenge.level}
           </CardDescription>

@@ -26,7 +26,7 @@ import { mockData } from '@/lib/mock-data';
 
 
 type CodeChallengeType = {
-  id: string;
+  id?: string;
   type: 'code';
   language: string;
   level: 'beginner' | 'intermediate' | 'advanced';
@@ -247,25 +247,12 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
 
   const isRunCodeDisabled = challenge.language !== 'javascript';
 
-  const backLink = isExpertChallenge ? `/dashboard/expert-level/series/${challenge.language}` : `/dashboard/courses/${courseId}`;
-
   return (
     <div className="grid gap-8 lg:grid-cols-2">
       <div className="space-y-6">
-        {isExpertChallenge && (
-        <div className="flex items-center gap-4">
-           <Button asChild variant="outline" size="icon">
-              <Link href={backLink}>
-                <ChevronLeft className="h-4 w-4" />
-                <span className="sr-only">Back</span>
-              </Link>
-            </Button>
-            <h1 className="text-xl md:text-2xl font-bold tracking-tight">{challenge.title}</h1>
-        </div>
-      )}
         <Card>
           <CardHeader>
-            {!isExpertChallenge && <CardTitle className="text-2xl">{challenge.title}</CardTitle>}
+            <CardTitle className="text-2xl">{challenge.title}</CardTitle>
             <CardDescription>
               Language: {challenge.language} | Level: {challenge.level}
             </CardDescription>
