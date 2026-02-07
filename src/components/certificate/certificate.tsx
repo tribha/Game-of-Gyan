@@ -18,7 +18,7 @@ export function Certificate({
     <div className="bg-white text-gray-800 rounded-lg shadow-2xl p-8 max-w-4xl mx-auto border-4 border-primary">
       <div className="border-2 border-primary p-6 relative">
         <div className="flex justify-center mb-4">
-          <GameOfGyanLogo className="h-20 w-20 text-primary" />
+          <GameOfGyanLogo className="h-20 w-20" />
         </div>
         <h1 className="text-4xl font-bold text-center text-primary tracking-wider mb-2">
           Game of Gyan
