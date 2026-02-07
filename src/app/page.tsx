@@ -61,6 +61,15 @@ export default function LoginPage() {
   };
   
   const loginImage = PlaceHolderImages.find((p) => p.id === 'login-splash');
+  const courseIcons = [
+    'course-icon-js',
+    'course-icon-python',
+    'course-icon-sql',
+    'course-icon-java',
+    'course-icon-cpp',
+    'course-icon-html',
+    'course-icon-css',
+  ].map(id => PlaceHolderImages.find(p => p.id === id)).filter(Boolean);
 
   return (
     <div className="w-full lg:grid lg:min-h-screen lg:grid-cols-2">
@@ -77,9 +86,21 @@ export default function LoginPage() {
         <div className="absolute inset-0 bg-primary/80" />
         <div className="relative z-20 flex items-center text-lg font-medium">
           <GameOfGyanLogo className="h-8 w-8 mr-2" />
-          <span className="text-xl font-bold">Game of Gyan</span>
+          <span className="text-xl font-bold text-primary">Game of Gyan</span>
         </div>
         <div className="relative z-20 mt-auto">
+          <div className="mb-8 flex items-center justify-center gap-x-6 gap-y-4 flex-wrap">
+            {courseIcons.map((icon) => (
+                <Image
+                key={icon!.id}
+                src={icon!.imageUrl}
+                alt={icon!.description}
+                width={32}
+                height={32}
+                className="h-8 w-8 transition-transform hover:scale-110"
+                />
+            ))}
+          </div>
           <blockquote className="space-y-2">
             <p className="text-4xl font-bold">
               "The best way to predict the future is to create it."

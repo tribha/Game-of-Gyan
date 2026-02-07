@@ -3,7 +3,7 @@
     {
       "id": "game-of-gyan-logo",
       "description": "Game of Gyan Logo",
-      "imageUrl": "https://images.unsplash.com/photo-1720855101081-2f0933765993?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cmV0cm8lMjBnYW1pbmd8ZW58MHx8fHwxNzcwNDE4OTYwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxyZXRybyUyMGdhbWluZ3xlbnwwfHx8fDE3NzA0MTg5NjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "retro gaming"
     },
     {
@@ -45,68 +45,110 @@
     {
       "id": "achievement-1",
       "description": "First Code Badge",
-      "imageUrl": "https://images.unsplash.com/photo-1613826488066-5a115a53a1fc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxnb2xkJTIwbWVkYWx8ZW58MHx8fHwxNzcwNDI5ODM2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1578869922829-5ab498c69788?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnb2xkJTIwbWVkYWx8ZW58MHx8fHwxNzcwNDI5ODM2fDA&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "gold medal"
     },
     {
       "id": "achievement-2",
       "description": "JavaScript Novice Badge",
-      "imageUrl": "https://images.unsplash.com/photo-1667406593453-5bc911f8dd50?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxzaWx2ZXIlMjBtZWRhbHxlbnwwfHx8fDE3NzA0NTk0NDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1618851955140-5035c33b708b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzaWx2ZXIlMjBtZWRhbHxlbnwwfHx8fDE3NzA0NTk0NDF8MA&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "silver medal"
     },
     {
       "id": "achievement-3",
       "description": "Pythonista Badge",
-      "imageUrl": "https://images.unsplash.com/photo-1744035858093-d8de2d27ec15?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxicm9uemUlMjBtZWRhbHxlbnwwfHx8fDE3NzA0NTAxNDN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1618851955214-383457f5f4b2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxicm9uemUlMjBtZWRhbHxlbnwwfHx8fDE3NzA0NTAxNDN8MA&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "bronze medal"
     },
     {
       "id": "achievement-4",
       "description": "Perfect Score Badge",
-      "imageUrl": "https://images.unsplash.com/photo-1614036417651-efe5912149d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx0cm9waHl8ZW58MHx8fHwxNzcwMzg3Mzg4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1599422488668-3e74c83d735f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0cm9waHl8ZW58MHx8fHwxNzcwMzg3Mzg4fDA&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "trophy"
     },
     {
       "id": "course-javascript",
       "description": "JavaScript Course Image",
-      "imageUrl": "https://images.unsplash.com/photo-1763568258492-7c006595375a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx3ZWIlMjBjb2RlfGVufDB8fHx8MTc3MDQ1ODg1Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1526498460520-4c246339d10a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3ZWIlMjBjb2RlfGVufDB8fHx8MTc3MDQ1ODg1Mnww&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "web code"
     },
     {
       "id": "course-python",
       "description": "Python Course Image",
-      "imageUrl": "https://images.unsplash.com/photo-1767966783202-c5659292bd39?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxyb2JvdGljcyUyMGFybXxlbnwwfHx8fDE3NzA0NTk0NDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxyb2JvdGljcyUyMGFybXxlbnwwfHx8fDE3NzA0NTk0NDF8MA&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "robotics arm"
     },
     {
       "id": "course-sql",
       "description": "SQL Course Image",
-      "imageUrl": "https://images.unsplash.com/photo-1506399558188-acca6f8cbf41?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzZXJ2ZXIlMjByb29tfGVufDB8fHx8MTc3MDQzNTEyMnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzZXJ2ZXIlMjByb29tfGVufDB8fHx8MTc3MDQzNTEyMnww&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "server room"
     },
     {
       "id": "course-java",
       "description": "Java Course Image",
-      "imageUrl": "https://images.unsplash.com/photo-1598965402089-897ce52e8355?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxhbmRyb2lkJTIwcGhvbmV8ZW58MHx8fHwxNzcwNDU5NDQxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1627398242454-45a1465c2479?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhbmRyb2lkJTIwcGhvbmV8ZW58MHx8fHwxNzcwNDU5NDQxfDA&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "android phone"
     },
     {
       "id": "course-cplusplus",
       "description": "C++ Course Image",
-      "imageUrl": "https://images.unsplash.com/photo-1556438064-2d7646166914?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnYW1lJTIwZGV2ZWxvcG1lbnR8ZW58MHx8fHwxNzcwNDQ3MjkzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1593720213428-28a5b9e94613?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnYW1lJTIwZGV2ZWxvcG1lbnR8ZW58MHx8fHwxNzcwNDQ3MjkzfDA&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "game development"
     },
     {
       "id": "course-html-css",
       "description": "HTML/CSS Course Image",
-      "imageUrl": "https://images.unsplash.com/photo-1559028012-481c04fa702d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx3ZWIlMjBkZXNpZ258ZW58MHx8fHwxNzcwNDE1NTUyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1605379399642-870262d3d051?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3ZWIlMjBkZXNpZ258ZW58MHx8fHwxNzcwNDE1NTUyfDA&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "web design"
     },
     {
       "id": "login-splash",
-      "description": "Abstract background for login page",
-      "imageUrl": "https://images.unsplash.com/photo-1605810230464-37d8e844ae75?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMHRlY2h8ZW58MHx8fHwxNzExNjg1Mjc4fDA&ixlib=rb-4.0.3&q=80&w=1080",
-      "imageHint": "abstract tech"
+      "description": "Students learning with computers",
+      "imageUrl": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMGNvbXB1dGVyc3xlbnwwfHx8fDE3MTE2ODUyNzh8MA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageHint": "students computer"
+    },
+    {
+      "id": "course-icon-js",
+      "description": "JavaScript language icon",
+      "imageUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+      "imageHint": "javascript logo"
+    },
+    {
+      "id": "course-icon-python",
+      "description": "Python language icon",
+      "imageUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+      "imageHint": "python logo"
+    },
+    {
+      "id": "course-icon-sql",
+      "description": "SQL language icon",
+      "imageUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+      "imageHint": "sql logo"
+    },
+    {
+      "id": "course-icon-java",
+      "description": "Java language icon",
+      "imageUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+      "imageHint": "java logo"
+    },
+    {
+      "id": "course-icon-cpp",
+      "description": "C++ language icon",
+      "imageUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
+      "imageHint": "cplusplus logo"
+    },
+    {
+      "id": "course-icon-html",
+      "description": "HTML5 language icon",
+      "imageUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+      "imageHint": "html5 logo"
+    },
+    {
+      "id": "course-icon-css",
+      "description": "CSS3 language icon",
+      "imageUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+      "imageHint": "css3 logo"
     }
   ]
 }
