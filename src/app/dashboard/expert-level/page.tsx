@@ -8,23 +8,27 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Code, ListChecks } from 'lucide-react';
-import { expertChallenges } from '@/lib/expert-challenges';
-import { Badge } from '@/components/ui/badge';
+import { ArrowRight, Code } from 'lucide-react';
+import Image from 'next/image';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export default function ExpertLevelPage() {
-  const getLanguageName = (lang: string) => {
-    switch (lang) {
-      case 'javascript': return 'JavaScript';
-      case 'python': return 'Python';
-      case 'sql': return 'SQL';
-      case 'css': return 'CSS';
-      case 'cplusplus': return 'C++';
-      case 'java': return 'Java';
-      default: return lang;
-    }
-  };
-
+    const expertGames = [
+        {
+            language: 'cplusplus',
+            name: 'C++ Daily Routine',
+            description: 'A day in the life of a C++ programmer. Complete daily tasks using your coding skills.',
+            href: '/dashboard/expert-level/series/cplusplus',
+            image: PlaceHolderImages.find(p => p.id === 'expert-c-game'),
+        },
+        {
+            language: 'java',
+            name: 'Java Daily Routine',
+            description: 'Live a day as a Java developer. Solve real-world problems with your code.',
+            href: '/dashboard/expert-level/series/java',
+            image: PlaceHolderImages.find(p => p.id === 'course-java')
+        }
+    ]
   return (
     <div className="space-y-6">
       <div>
@@ -35,22 +39,30 @@ export default function ExpertLevelPage() {
           Test your skills with these advanced, built-in coding challenges.
         </p>
       </div>
-      <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {expertChallenges.map((challenge) => (
-          <Card key={challenge.id} className="flex flex-col">
+      <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2">
+        {expertGames.map((game) => (
+          <Card key={game.language} className="flex flex-col">
+            {game.image && (
+                 <div className="relative h-48 w-full">
+                    <Image
+                    src={game.image.imageUrl}
+                    alt={game.image.description}
+                    data-ai-hint={game.image.imageHint}
+                    fill
+                    className="object-cover rounded-t-lg"
+                    />
+                </div>
+            )}
             <CardHeader>
-              <div className="flex items-center justify-between">
                 <CardTitle className="flex items-center gap-2">
-                  {challenge.type === 'code' ? <Code className="h-6 w-6" /> : <ListChecks className="h-6 w-6" />}
-                  <span>{challenge.title}</span>
+                  <Code className="h-6 w-6" />
+                  <span>{game.name}</span>
                 </CardTitle>
-                 <Badge variant="secondary">{getLanguageName(challenge.language)}</Badge>
-              </div>
-              <CardDescription>{challenge.description}</CardDescription>
+                <CardDescription>{game.description}</CardDescription>
             </CardHeader>
-             <CardContent className="mt-auto">
+            <CardContent className="mt-auto">
               <Button asChild className="w-full">
-                <Link href={`/dashboard/expert-level/${challenge.id}`}>
+                <Link href={game.href}>
                   Start Challenge <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
