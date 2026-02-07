@@ -1,4 +1,3 @@
-
 'use client';
 import Link from 'next/link';
 import {
@@ -10,14 +9,15 @@ import {
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, Lock } from 'lucide-react';
 import { expertChallenges } from '@/lib/expert-challenges';
-import { notFound } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
 import { doc } from 'firebase/firestore';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Progress } from '@/components/ui/progress';
 
-export default function ExpertLanguagePage({ params }: { params: { language: string } }) {
-    const { language } = params;
+export default function ExpertLanguagePage() {
+    const params = useParams();
+    const language = params.language as string;
     const { user } = useUser();
     const firestore = useFirestore();
 
