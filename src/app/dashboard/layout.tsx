@@ -1,15 +1,14 @@
-
 'use client';
 
 import * as React from 'react';
 import Link from 'next/link';
 import { usePathname, redirect } from 'next/navigation';
 import {
-  BookOpen,
-  Code,
-  LayoutDashboard,
-  Trophy,
-  User,
+  Award,
+  Gamepad2,
+  Swords,
+  Target,
+  UserCog,
 } from 'lucide-react';
 import { useUser } from '@/firebase';
 
@@ -28,11 +27,11 @@ import { GameOfGyanLogo } from '@/components/icons';
 import { Skeleton } from '@/components/ui/skeleton';
 
 const navItems = [
-  { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-  { href: '/dashboard/courses', icon: BookOpen, label: 'Courses' },
-  { href: '/dashboard/challenge', icon: Code, label: 'Daily Challenge' },
-  { href: '/dashboard/profile', icon: User, label: 'Profile' },
-  { href: '/dashboard/certificates', icon: Trophy, label: 'Certificates' },
+  { href: '/dashboard', icon: Gamepad2, label: 'Dashboard' },
+  { href: '/dashboard/courses', icon: Swords, label: 'Courses' },
+  { href: '/dashboard/challenge', icon: Target, label: 'Daily Challenge' },
+  { href: '/dashboard/profile', icon: UserCog, label: 'Profile' },
+  { href: '/dashboard/certificates', icon: Award, label: 'Certificates' },
 ];
 
 export default function DashboardLayout({
@@ -79,11 +78,12 @@ export default function DashboardLayout({
               <SidebarMenuItem key={item.href}>
                 <SidebarMenuButton
                   asChild
-                  isActive={pathname === item.href}
+                  size="lg"
+                  isActive={item.href === '/dashboard' ? pathname === '/dashboard' : pathname.startsWith(item.href)}
                   tooltip={item.label}
                 >
                   <Link href={item.href}>
-                    <item.icon />
+                    <item.icon className="size-6" />
                     <span>{item.label}</span>
                   </Link>
                 </SidebarMenuButton>
