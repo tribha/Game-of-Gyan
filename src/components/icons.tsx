@@ -1,13 +1,12 @@
 import Image from 'next/image';
-import type { SVGProps } from 'react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
-export function GameOfGyanLogo(props: SVGProps<SVGSVGElement>) {
+export function GameOfGyanLogo(props: { className?: string }) {
   const logo = PlaceHolderImages.find(p => p.id === 'game-of-gyan-logo');
 
   if (!logo) {
     // Fallback to a simple div to avoid breaking layouts if image is missing
-    return <div {...props} />;
+    return <div className={props.className} />;
   }
   
   // The className on the Image will be used for sizing (h-*, w-*), but Next/Image
@@ -22,6 +21,7 @@ export function GameOfGyanLogo(props: SVGProps<SVGSVGElement>) {
       height={500}
       data-ai-hint={logo.imageHint}
       className={props.className}
+      unoptimized
     />
   );
 }

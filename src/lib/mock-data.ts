@@ -1,4 +1,6 @@
 
+import { PlaceHolderImages } from './placeholder-images';
+
 export const userProfile = {
   name: 'Alex Doe',
   email: 'alex.doe@example.com',
@@ -13,30 +15,30 @@ export const courseProgress = [
     id: 'js-101',
     name: 'JavaScript Basics',
     progress: 75,
-    imageUrl: 'https://picsum.photos/seed/coursejs/400/200',
+    imageUrl: PlaceHolderImages.find(p => p.id === 'course-js')?.imageUrl || '',
     imageHint: 'code abstract',
   },
   {
     id: 'py-101',
     name: 'Python for Beginners',
     progress: 40,
-    imageUrl: 'https://picsum.photos/seed/coursepy/400/200',
+    imageUrl: PlaceHolderImages.find(p => p.id === 'course-python')?.imageUrl || '',
     imageHint: 'circuit board',
   },
    {
     id: 'sql-101',
     name: 'SQL Fundamentals',
     progress: 90,
-    imageUrl: 'https://picsum.photos/seed/coursesql/400/200',
+    imageUrl: PlaceHolderImages.find(p => p.id === 'course-sql')?.imageUrl || '',
     imageHint: 'data network',
   },
 ];
 
 export const achievements = [
-  { id: 'ach1', name: 'First Code', date: '2023-10-01', iconUrl: 'https://picsum.photos/seed/ach1/100/100', imageHint: 'gold medal' },
-  { id: 'ach2', name: 'JS Novice', date: '2023-10-15', iconUrl: 'https://picsum.photos/seed/ach2/100/100', imageHint: 'silver medal' },
-  { id: 'ach3', name: 'Pythonista', date: '2023-11-05', iconUrl: 'https://picsum.photos/seed/ach3/100/100', imageHint: 'bronze medal' },
-  { id: 'ach4', name: 'Perfect Score', date: '2023-11-20', iconUrl: 'https://picsum.photos/seed/ach4/100/100', imageHint: 'trophy' },
+  { id: 'ach1', name: 'First Code', date: '2023-10-01', iconUrl: PlaceHolderImages.find(p => p.id === 'achievement-1')?.imageUrl || '', imageHint: 'gold medal' },
+  { id: 'ach2', name: 'JS Novice', date: '2023-10-15', iconUrl: PlaceHolderImages.find(p => p.id === 'achievement-2')?.imageUrl || '', imageHint: 'silver medal' },
+  { id: 'ach3', name: 'Pythonista', date: '2023-11-05', iconUrl: PlaceHolderImages.find(p => p.id === 'achievement-3')?.imageUrl || '', imageHint: 'bronze medal' },
+  { id: 'ach4', name: 'Perfect Score', date: '2023-11-20', iconUrl: PlaceHolderImages.find(p => p.id === 'achievement-4')?.imageUrl || '', imageHint: 'trophy' },
 ];
 
 export const dailyChallenge = {
