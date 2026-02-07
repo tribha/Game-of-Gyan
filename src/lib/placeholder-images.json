@@ -3,103 +3,103 @@
     {
       "id": "game-of-gyan-logo",
       "description": "Game of Gyan Logo",
-      "imageUrl": "https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxyZXRybyUyMGdhbWluZ3xlbnwwfHx8fDE3NzA0MTg5NjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1585881728919-5c0ce925ad10?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxyZXRybyUyMGdhbWluZ3xlbnwwfHx8fDE3NzA0MTg5NjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "retro gaming"
     },
     {
       "id": "user-avatar-1",
       "description": "Robot avatar",
-      "imageUrl": "https://images.unsplash.com/photo-1589254065909-b7086229d092?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxSb2JvdCUyMGF2YXRhcnxlbnwwfHx8fDE3NzE0OTgwMDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1589254065909-b7086229d092",
       "imageHint": "robot avatar"
     },
     {
       "id": "user-avatar-2",
       "description": "Robot avatar with one eye",
-      "imageUrl": "https://images.unsplash.com/photo-1589254066205-d145ab55490a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxSb2JvdCUyMGF2YXRhcnxlbnwwfHx8fDE3NzE0OTgwMDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1589254066205-d145ab55490a",
       "imageHint": "robot avatar"
     },
     {
       "id": "user-avatar-3",
       "description": "Small friendly robot avatar",
-      "imageUrl": "https://images.unsplash.com/photo-1535378620166-273708d44e4c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxSb2JvdCUyMGF2YXRhcnxlbnwwfHx8fDE3NzE0OTgwMDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1535378620166-273708d44e4c",
       "imageHint": "robot avatar"
     },
     {
       "id": "user-avatar-4",
       "description": "White and blue robot head avatar",
-      "imageUrl": "https://images.unsplash.com/photo-1620712943543-95fc69397969?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxSb2JvdCUyMGF2YXRhcnxlbnwwfHx8fDE3NzE0OTgwMDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1620712943543-95fc69397969",
       "imageHint": "robot avatar"
     },
     {
       "id": "user-avatar-5",
       "description": "Futuristic robot avatar",
-      "imageUrl": "https://images.unsplash.com/photo-1695029053278-005154335539?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNXx8Um9ib3QlMjBhdmF0YXJ8ZW58MHx8fHwxNzcxNDk4MTI1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1695029053278-005154335539",
       "imageHint": "robot avatar"
     },
     {
       "id": "user-avatar-6",
       "description": "Sleek modern robot avatar",
-      "imageUrl": "https://images.unsplash.com/photo-1674069818815-2a2b3724c965?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNnx8Um9ib3QlMjBhdmF0YXJ8ZW58MHx8fHwxNzcxNDk4MTI1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1674069818815-2a2b3724c965",
       "imageHint": "robot avatar"
     },
     {
       "id": "achievement-1",
       "description": "First Code Badge",
-      "imageUrl": "https://images.unsplash.com/photo-1620764840976-a6752f359c46?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxnb2xkJTIwbWVkYWx8ZW58MHx8fHwxNzcwNDI5ODM2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1620764840976-a6752f359c46",
       "imageHint": "gold medal"
     },
     {
       "id": "achievement-2",
       "description": "JavaScript Novice Badge",
-      "imageUrl": "https://images.unsplash.com/photo-1667406593453-5bc911f8dd50?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxzaWx2ZXIlMjBtZWRhbHxlbnwwfHx8fDE3NzA0NTk0NDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1667406593453-5bc911f8dd50",
       "imageHint": "silver medal"
     },
     {
       "id": "achievement-3",
       "description": "Pythonista Badge",
-      "imageUrl": "https://images.unsplash.com/photo-1759688983881-0742f416a4b4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxicm9uemUlMjBtZWRhbHxlbnwwfHx8fDE3NzA0NTAxNDN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1759688983881-0742f416a4b4",
       "imageHint": "bronze medal"
     },
     {
       "id": "achievement-4",
       "description": "Perfect Score Badge",
-      "imageUrl": "https://images.unsplash.com/photo-1706374503312-7a4a4c030d2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8dHJvcGh5fGVufDB8fHx8MTc3MDM4NzM4OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1706374503312-7a4a4c030d2d",
       "imageHint": "trophy"
     },
     {
       "id": "course-javascript",
       "description": "JavaScript Course Image",
-      "imageUrl": "https://images.unsplash.com/photo-1555949963-aa79dcee981c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx3ZWIlMjBjb2RlfGVufDB8fHx8MTc3MDQ1ODg1Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1555949963-aa79dcee981c",
       "imageHint": "web code"
     },
     {
       "id": "course-python",
       "description": "Python Course Image",
-      "imageUrl": "https://images.unsplash.com/photo-1728724654223-ae890fc31f1f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cm9ib3RpY3MlMjBhcm18ZW58MHx8fHwxNzcwNDU5NDQxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1728724654223-ae890fc31f1f",
       "imageHint": "robotics arm"
     },
     {
       "id": "course-sql",
       "description": "SQL Course Image",
-      "imageUrl": "https://images.unsplash.com/photo-1683322499436-f4383dd59f5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzZXJ2ZXIlMjByb29tfGVufDB8fHx8MTc3MDQzNTEyMnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1683322499436-f4383dd59f5a",
       "imageHint": "server room"
     },
     {
       "id": "course-java",
       "description": "Java Course Image",
-      "imageUrl": "https://images.unsplash.com/photo-1673718424704-51d0d2ca1fd2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxhbmRyb2lkJTIwcGhvbmV8ZW58MHx8fHwxNzcwNDU5NDQxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1673718424704-51d0d2ca1fd2",
       "imageHint": "android phone"
     },
     {
       "id": "course-cplusplus",
       "description": "C++ Course Image",
-      "imageUrl": "https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxnYW1lJTIwZGV2ZWxvcG1lbnR8ZW58MHx8fHwxNzcwNDQ3MjkzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1534423861386-85a16f5d13fd",
       "imageHint": "game development"
     },
     {
       "id": "course-html-css",
       "description": "HTML/CSS Course Image",
-      "imageUrl": "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx3ZWIlMjBkZXNpZ258ZW58MHx8fHwxNzcwNDE1NTUyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e",
       "imageHint": "web design"
     }
   ]
