@@ -8,27 +8,39 @@
     },
     {
       "id": "user-avatar-1",
-      "description": "Animated character avatar",
-      "imageUrl": "https://images.unsplash.com/photo-1740252117012-bb53ad05e370?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHwzZCUyMGF2YXRhcnxlbnwwfHx8fDE3NzA0NTk0NDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "description": "3D animated male character avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1740252117012-bb53ad05e370?w=400",
       "imageHint": "3d avatar"
     },
     {
       "id": "user-avatar-2",
-      "description": "Animated character avatar",
-      "imageUrl": "https://images.unsplash.com/photo-1732020858816-93c130ab8f49?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxyb2JvdCUyMGF2YXRhcnxlbnwwfHx8fDE3NzA0MDQ5Nzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "robot avatar"
-    },
-    {
-      "id": "user-avatar-3",
-      "description": "Animated character avatar",
-      "imageUrl": "https://images.unsplash.com/photo-1728577740843-5f29c7586afe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHwzZCUyMGF2YXRhcnxlbnwwfHx8fDE3NzA0NTk0NDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "description": "3D animated male character avatar with glasses",
+      "imageUrl": "https://images.unsplash.com/photo-1728577740843-5f29c7586afe?w=400",
       "imageHint": "3d avatar"
     },
     {
+      "id": "user-avatar-3",
+      "description": "Animated robot character avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1732020858816-93c130ab8f49?w=400",
+      "imageHint": "robot avatar"
+    },
+    {
       "id": "user-avatar-4",
-      "description": "Animated character avatar",
-      "imageUrl": "https://images.unsplash.com/photo-1750535135635-3783825e996c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8YW5pbWF0ZWQlMjBhdmF0YXJ8ZW58MHx8fHwxNzcwMzgxMzQ3fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "animated avatar"
+      "description": "3D animated female character avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1634926878768-2a5b3c42f139?w=400",
+      "imageHint": "female avatar"
+    },
+    {
+      "id": "user-avatar-5",
+      "description": "3D animated female character with short hair",
+      "imageUrl": "https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=400",
+      "imageHint": "female character"
+    },
+    {
+      "id": "user-avatar-6",
+      "description": "3D animated female character with long hair",
+      "imageUrl": "https://images.unsplash.com/photo-1632765854612-9b0c2b6b1b1c?w=400",
+      "imageHint": "female avatar"
     },
     {
       "id": "achievement-1",
