@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -18,7 +17,7 @@ import { mockData } from '@/lib/mock-data';
 
 // Define the shape of the MCQ challenge
 type MCQChallengeType = {
-  id: string;
+  id?: string;
   type: 'mcq';
   language: string;
   level: 'beginner' | 'intermediate' | 'advanced';
@@ -52,7 +51,7 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
     return doc(firestore, 'userProfiles', user.uid);
   }, [firestore, user]);
 
-  const isExpertChallenge = challenge?.id?.startsWith('expert-');
+  const isExpertChallenge = challenge.id?.startsWith('expert-');
 
   useEffect(() => {
     const checkCompletion = async () => {
@@ -70,7 +69,7 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
       }
     };
     checkCompletion();
-  }, [profileRef, levelId, challenge?.id, isExpertChallenge]);
+  }, [profileRef, levelId, challenge.id, isExpertChallenge]);
 
 
   const handleOptionChange = (value: string) => {
@@ -115,7 +114,7 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
       setSubmissionStatus('correct');
       try {
         const xpAmount = isExpertChallenge ? 75 : 25;
-        const completionId = isExpertChallenge ? challenge.id : levelId!;
+        const completionId = isExpertChallenge ? challenge.id! : levelId!;
         const reason = isExpertChallenge ? `Completed expert challenge ${completionId}` : `Completed ${levelId}`;
         const updateField = isExpertChallenge ? 'completedExpertChallenges' : 'completedLevels';
 
@@ -212,7 +211,7 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
       toast({
         variant: 'destructive',
         title: 'Incorrect',
-        description: 'That\\'s not quite right. Try again!',
+        description: "That's not quite right. Try again!",
       });
       setIsSubmitting(false);
     }
@@ -222,20 +221,17 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
 
   return (
     <div className="space-y-6 max-w-2xl mx-auto">
-       {isExpertChallenge && (
-        <div className="flex items-center gap-4">
-           <Button asChild variant="outline" size="icon">
-              <Link href={backLink}>
+       <div className="flex items-center gap-4">
+            <Button asChild variant="outline" size="icon">
+                <Link href={backLink || '/dashboard'}>
                 <ChevronLeft className="h-4 w-4" />
                 <span className="sr-only">Back</span>
-              </Link>
+                </Link>
             </Button>
             <h1 className="text-xl md:text-2xl font-bold tracking-tight">{challenge.title}</h1>
         </div>
-      )}
       <Card>
         <CardHeader>
-          {!isExpertChallenge && <CardTitle className="text-2xl">{challenge.title}</CardTitle>}
           <CardDescription>
             Language: {challenge.language} | Level: {challenge.level}
           </CardDescription>
