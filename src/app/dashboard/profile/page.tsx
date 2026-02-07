@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
@@ -171,42 +170,49 @@ export default function ProfilePage() {
           />
           <div className="space-y-2">
             <Label>Avatar</Label>
-            <div className="flex items-center gap-6 flex-wrap">
-              <button
-                type="button"
-                onClick={() => fileInputRef.current?.click()}
-                className="group relative h-24 w-24 rounded-full ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-              >
-                <Avatar className="h-24 w-24">
-                  <AvatarImage src={avatarUrl} alt="Your Avatar" />
-                  <AvatarFallback className="text-3xl">
-                    {name?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U'}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
-                  <Camera className="h-8 w-8 text-white" />
+            <div className="flex items-start gap-6 flex-wrap">
+              <div className="flex flex-col items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="group relative h-24 w-24 rounded-full ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                >
+                  <Avatar className="h-24 w-24">
+                    <AvatarImage src={avatarUrl} alt="Your Avatar" />
+                    <AvatarFallback className="text-3xl">
+                      {name?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U'}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/50 opacity-0 transition-opacity group-hover:opacity-100">
+                    <Camera className="h-8 w-8 text-white" />
+                  </div>
+                </button>
+                <p className="text-xs text-muted-foreground">Upload new</p>
+              </div>
+
+              <div className="flex-1">
+                <Label className="text-muted-foreground">Or choose an avatar</Label>
+                <div className="mt-2 flex flex-wrap items-center gap-4">
+                  {avatarPlaceholders.map((avatar) => (
+                    <button
+                      type="button"
+                      key={avatar.id}
+                      onClick={() => setAvatarUrl(avatar.imageUrl)}
+                      className={cn(
+                        'rounded-full ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
+                        { 'ring-2 ring-primary': avatarUrl === avatar.imageUrl }
+                      )}
+                    >
+                      <Image
+                        src={avatar.imageUrl}
+                        alt={avatar.description}
+                        width={64}
+                        height={64}
+                        className="rounded-full border-2 border-transparent transition-colors hover:border-primary"
+                      />
+                    </button>
+                  ))}
                 </div>
-              </button>
-              <div className="flex flex-wrap gap-4 items-center">
-                {avatarPlaceholders.map((avatar) => (
-                  <button
-                    type="button"
-                    key={avatar.id}
-                    onClick={() => setAvatarUrl(avatar.imageUrl)}
-                    className={cn(
-                      'rounded-full ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
-                      { 'ring-2 ring-primary': avatarUrl === avatar.imageUrl }
-                    )}
-                  >
-                    <Image
-                      src={avatar.imageUrl}
-                      alt={avatar.description}
-                      width={64}
-                      height={64}
-                      className="rounded-full border-2 border-transparent transition-colors hover:border-primary"
-                    />
-                  </button>
-                ))}
               </div>
             </div>
           </div>
