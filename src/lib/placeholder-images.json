@@ -45,25 +45,25 @@
     {
       "id": "achievement-1",
       "description": "First Code Badge",
-      "imageUrl": "https://api.dicebear.com/8.x/lorelei/svg?seed=ach1&backgroundColor=ffd700",
+      "imageUrl": "https://api.dicebear.com/8.x/lorelei/png?seed=ach1&backgroundColor=ffd700",
       "imageHint": "gold medal"
     },
     {
       "id": "achievement-2",
       "description": "JavaScript Novice Badge",
-      "imageUrl": "https://api.dicebear.com/8.x/lorelei/svg?seed=ach2&backgroundColor=c0c0c0",
+      "imageUrl": "https://api.dicebear.com/8.x/lorelei/png?seed=ach2&backgroundColor=c0c0c0",
       "imageHint": "silver medal"
     },
     {
       "id": "achievement-3",
       "description": "Pythonista Badge",
-      "imageUrl": "https://api.dicebear.com/8.x/lorelei/svg?seed=ach3&backgroundColor=cd7f32",
+      "imageUrl": "https://api.dicebear.com/8.x/lorelei/png?seed=ach3&backgroundColor=cd7f32",
       "imageHint": "bronze medal"
     },
     {
       "id": "achievement-4",
       "description": "Perfect Score Badge",
-      "imageUrl": "https://api.dicebear.com/8.x/lorelei/svg?seed=ach4&backgroundColor=b9f2ff",
+      "imageUrl": "https://api.dicebear.com/8.x/lorelei/png?seed=ach4&backgroundColor=b9f2ff",
       "imageHint": "trophy"
     },
     {
