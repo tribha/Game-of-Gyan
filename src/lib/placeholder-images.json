@@ -55,22 +55,40 @@
       "imageHint": "trophy"
     },
     {
-      "id": "course-js",
+      "id": "course-javascript",
       "description": "JavaScript Course Image",
-      "imageUrl": "https://images.unsplash.com/photo-1546980129-6d518dbb51b1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb2RlJTIwYWJzdHJhY3R8ZW58MHx8fHwxNzcwMTc1ODUwfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "code abstract"
+      "imageUrl": "https://images.unsplash.com/photo-1542831371-29b0f74f9713?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxIVE1MJTIwY29kZXxlbnwwfHx8fDE3NzEyNzcwNTV8MA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageHint": "web code"
     },
     {
       "id": "course-python",
       "description": "Python Course Image",
-      "imageUrl": "https://images.unsplash.com/photo-1651340550839-3b295d930048?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjaXJjdWl0JTIwYm9hcmR8ZW58MHx8fHwxNzcwMTkzMDYyfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "circuit board"
+      "imageUrl": "https://images.unsplash.com/photo-1581092921462-684033b9a5a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxyb2JvdGljcyUyMGFybXxlbnwwfHx8fDE3NzEyNzcxMzJ8MA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageHint": "robotics arm"
     },
     {
       "id": "course-sql",
       "description": "SQL Course Image",
-      "imageUrl": "https://images.unsplash.com/photo-1738082956233-b8f1803411d3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxkYXRhJTIwbmV0d29ya3xlbnwwfHx8fDE3NzAxODg4NTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "data network"
+      "imageUrl": "https://images.unsplash.com/photo-1529429617124-95b109e86bb8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzZXJ2ZXIlMjByb29tfGVufDB8fHx8fDE3NzEyNzcyMDF8MA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageHint": "server room"
+    },
+    {
+      "id": "course-java",
+      "description": "Java Course Image",
+      "imageUrl": "https://images.unsplash.com/photo-1614332287897-cdc485fa562d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhbmRyb2lkJTIwZGV2ZWxvcG1lbnR8ZW58MHx8fHwxNzcxMjczMDQ0fDA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageHint": "android phone"
+    },
+    {
+      "id": "course-cplusplus",
+      "description": "C++ Course Image",
+      "imageUrl": "https://images.unsplash.com/photo-1558502914-f175b48c3d89?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxnYW1lJTIwZGV2ZWxvcG1lbnR8ZW58MHx8fHwxNzcxMjczMTM5fDA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageHint": "game development"
+    },
+    {
+      "id": "course-html-css",
+      "description": "HTML/CSS Course Image",
+      "imageUrl": "https://images.unsplash.com/photo-1621839673705-6617adf9e890?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxIVE1MJTIwY29kZXxlbnwwfHx8fDE3NzEyNzcwNTV8MA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageHint": "web design"
     }
   ]
 }

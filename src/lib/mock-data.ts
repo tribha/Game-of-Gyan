@@ -12,25 +12,25 @@ export const userProfile = {
 
 export const courseProgress = [
   {
-    id: 'js-101',
+    id: 'javascript',
     name: 'JavaScript Basics',
     progress: 75,
-    imageUrl: PlaceHolderImages.find(p => p.id === 'course-js')?.imageUrl || '',
-    imageHint: 'code abstract',
+    imageUrl: PlaceHolderImages.find(p => p.id === 'course-javascript')?.imageUrl || '',
+    imageHint: 'web code',
   },
   {
-    id: 'py-101',
+    id: 'python',
     name: 'Python for Beginners',
     progress: 40,
     imageUrl: PlaceHolderImages.find(p => p.id === 'course-python')?.imageUrl || '',
-    imageHint: 'circuit board',
+    imageHint: 'robotics arm',
   },
    {
-    id: 'sql-101',
+    id: 'sql',
     name: 'SQL Fundamentals',
     progress: 90,
     imageUrl: PlaceHolderImages.find(p => p.id === 'course-sql')?.imageUrl || '',
-    imageHint: 'data network',
+    imageHint: 'server room',
   },
 ];
 
