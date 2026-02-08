@@ -1,3 +1,4 @@
+
 /**
  * This ruleset enforces a hybrid security model for the Code Conqueror application.
  * It strictly separates private user data from public application content to ensure
@@ -135,6 +136,21 @@ service cloud.firestore {
         allow update: if isValidCertificateUpdate(userId);
         allow delete: if isExistingOwner(userId);
       }
+    }
+    
+    /**
+     * @description Secures extended user profiles with game data. Only the owner can read or write their own profile.
+     * @path /userProfiles/{userId}
+     * @allow (get) A user with auth.uid 'user123' can read their profile at '/userProfiles/user123'.
+     * @deny (get) A user with auth.uid 'user456' cannot read the profile at '/userProfiles/user123'.
+     * @principle Restricts access to a user's own data.
+     */
+    match /userProfiles/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if false;
+      allow create: if isOwner(userId) && request.resource.data.id == userId;
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
     }
 
     // ------------------------------------------------------------------------

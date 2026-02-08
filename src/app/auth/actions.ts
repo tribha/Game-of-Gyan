@@ -1,3 +1,4 @@
+
 'use server';
 
 import { redirect } from 'next/navigation';
@@ -61,6 +62,12 @@ export async function signup(formData: FormData) {
       completedLevels: [],
       completedCourses: [],
       completedExpertChallenges: [],
+      name: '',
+      school: '',
+      city: '',
+      phone: '',
+      skills: [],
+      avatarUrl: '',
     });
 
   } catch (e: any) {
