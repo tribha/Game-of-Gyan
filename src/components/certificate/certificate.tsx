@@ -15,7 +15,7 @@ export function Certificate({
 }: CertificateProps) {
   return (
     <div className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-lg shadow-2xl p-8 max-w-4xl mx-auto border-4 border-primary">
-      <div className="border-2 border-primary p-6 relative">
+      <div className="p-6 relative">
         <div className="flex justify-center mb-8">
           <h1 className="text-5xl font-bold text-primary tracking-widest">
             TRIBHA
