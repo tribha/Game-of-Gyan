@@ -18,7 +18,14 @@ const SignupSchema = z.object({
   username: z.string().min(3, 'Username must be at least 3 characters long.'),
 });
 
+function ensureFirebaseInitialized() {
+  if (!firebaseAuth || !firestore) {
+    throw new Error("Firebase has not been initialized. Please check your server environment variables.");
+  }
+}
+
 export async function signup(formData: FormData) {
+  ensureFirebaseInitialized();
   const result = SignupSchema.safeParse(Object.fromEntries(formData));
 
   if (!result.success) {
@@ -70,6 +77,7 @@ export async function signup(formData: FormData) {
 }
 
 export async function login(formData: FormData) {
+  ensureFirebaseInitialized();
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
 
@@ -91,6 +99,7 @@ export async function login(formData: FormData) {
 }
 
 export async function logout() {
+  ensureFirebaseInitialized();
   await signOut(firebaseAuth);
   redirect('/');
 }

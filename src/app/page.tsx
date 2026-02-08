@@ -17,7 +17,7 @@ import { Label } from '@/components/ui/label';
 import { GameOfGyanLogo } from '@/components/icons';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertCircle, Eye, EyeOff, Loader2 } from 'lucide-react';
-import { useAuth } from '@/firebase';
+import { useFirebase } from '@/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
@@ -28,12 +28,18 @@ export default function LoginPage() {
   const [hasInteracted, setHasInteracted] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
-  const auth = useAuth();
+  const { auth, areServicesAvailable } = useFirebase();
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
     setError(null);
+
+    if (!areServicesAvailable || !auth) {
+      setError('Firebase is not configured correctly. Please check your setup.');
+      setLoading(false);
+      return;
+    }
 
     const formData = new FormData(event.currentTarget);
     const email = formData.get('email') as string;
@@ -170,6 +176,7 @@ export default function LoginPage() {
                   placeholder="m@example.com"
                   required
                   onChange={(e) => setHasInteracted(!!e.target.value)}
+                  disabled={!areServicesAvailable}
                 />
               </div>
               <div className="grid gap-2">
@@ -189,6 +196,7 @@ export default function LoginPage() {
                     name="password"
                     required
                     className="pr-10"
+                    disabled={!areServicesAvailable}
                   />
                   <Button
                     type="button"
@@ -197,6 +205,7 @@ export default function LoginPage() {
                     className="absolute inset-y-0 right-0 h-full w-10 text-muted-foreground"
                     onClick={() => setShowPassword((prev) => !prev)}
                     aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    disabled={!areServicesAvailable}
                   >
                     {showPassword ? (
                       <EyeOff className="h-4 w-4" />
@@ -206,9 +215,9 @@ export default function LoginPage() {
                   </Button>
                 </div>
               </div>
-              <Button type="submit" className="w-full" disabled={loading}>
+              <Button type="submit" className="w-full" disabled={loading || !areServicesAvailable}>
                 {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Login
+                {!areServicesAvailable ? 'Firebase not configured' : 'Login'}
               </Button>
             </form>
             <div className="mt-4 text-center text-sm">

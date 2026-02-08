@@ -8,9 +8,9 @@ import { FirebaseErrorListener } from '@/components/FirebaseErrorListener'
 
 interface FirebaseProviderProps {
   children: ReactNode;
-  firebaseApp: FirebaseApp;
-  firestore: Firestore;
-  auth: Auth;
+  firebaseApp: FirebaseApp | null;
+  firestore: Firestore | null;
+  auth: Auth | null;
 }
 
 // Internal state for user authentication
@@ -105,52 +105,65 @@ export const FirebaseProvider: React.FC<FirebaseProviderProps> = ({
 
   return (
     <FirebaseContext.Provider value={contextValue}>
-      <FirebaseErrorListener />
+      {contextValue.areServicesAvailable && <FirebaseErrorListener />}
       {children}
     </FirebaseContext.Provider>
   );
 };
 
+// A default, empty context state for when the provider is not available.
+const defaultContextValue: FirebaseContextState = {
+  areServicesAvailable: false,
+  firebaseApp: null,
+  firestore: null,
+  auth: null,
+  user: null,
+  isUserLoading: true, // It's loading because we don't know the state
+  userError: null,
+};
+
+
 /**
  * Hook to access core Firebase services and user authentication state.
  * Throws error if core services are not available or used outside provider.
  */
-export const useFirebase = (): FirebaseServicesAndUser => {
+export const useFirebase = (): FirebaseContextState => {
   const context = useContext(FirebaseContext);
 
   if (context === undefined) {
-    throw new Error('useFirebase must be used within a FirebaseProvider.');
+    if (process.env.NODE_ENV !== 'production') {
+        console.warn("useFirebase used outside of FirebaseProvider. Returning default (uninitialized) state. This is normal if Firebase is not configured.");
+    }
+    return defaultContextValue;
   }
 
-  if (!context.areServicesAvailable || !context.firebaseApp || !context.firestore || !context.auth) {
-    throw new Error('Firebase core services not available. Check FirebaseProvider props.');
-  }
-
-  return {
-    firebaseApp: context.firebaseApp,
-    firestore: context.firestore,
-    auth: context.auth,
-    user: context.user,
-    isUserLoading: context.isUserLoading,
-    userError: context.userError,
-  };
+  return context;
 };
 
-/** Hook to access Firebase Auth instance. */
+/** Hook to access Firebase Auth instance. Throws if not available. */
 export const useAuth = (): Auth => {
-  const { auth } = useFirebase();
+  const { auth, areServicesAvailable } = useFirebase();
+  if (!areServicesAvailable || !auth) {
+    throw new Error("Firebase Auth is not available. Check your Firebase configuration.");
+  }
   return auth;
 };
 
-/** Hook to access Firestore instance. */
+/** Hook to access Firestore instance. Throws if not available. */
 export const useFirestore = (): Firestore => {
-  const { firestore } = useFirebase();
+  const { firestore, areServicesAvailable } = useFirebase();
+  if (!areServicesAvailable || !firestore) {
+    throw new Error("Firestore is not available. Check your Firebase configuration.");
+  }
   return firestore;
 };
 
-/** Hook to access Firebase App instance. */
+/** Hook to access Firebase App instance. Throws if not available. */
 export const useFirebaseApp = (): FirebaseApp => {
-  const { firebaseApp } = useFirebase();
+  const { firebaseApp, areServicesAvailable } = useFirebase();
+  if (!areServicesAvailable || !firebaseApp) {
+    throw new Error("Firebase App is not available. Check your Firebase configuration.");
+  }
   return firebaseApp;
 };
 
@@ -170,7 +183,7 @@ export function useMemoFirebase<T>(factory: () => T, deps: DependencyList): T | 
  * This provides the User object, loading status, and any auth errors.
  * @returns {UserHookResult} Object with user, isUserLoading, userError.
  */
-export const useUser = (): UserHookResult => { // Renamed from useAuthUser
-  const { user, isUserLoading, userError } = useFirebase(); // Leverages the main hook
+export const useUser = (): UserHookResult => {
+  const { user, isUserLoading, userError } = useFirebase();
   return { user, isUserLoading, userError };
 };

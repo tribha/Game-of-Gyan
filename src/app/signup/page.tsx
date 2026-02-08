@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -17,7 +16,7 @@ import { Label } from '@/components/ui/label';
 import { GameOfGyanLogo } from '@/components/icons';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertCircle, Loader2 } from 'lucide-react';
-import { useAuth, useFirestore } from '@/firebase';
+import { useFirebase } from '@/firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { z } from 'zod';
@@ -32,13 +31,18 @@ export default function SignupPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const auth = useAuth();
-  const firestore = useFirestore();
+  const { auth, firestore, areServicesAvailable } = useFirebase();
 
   const handleSignup = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
     setError(null);
+
+    if (!areServicesAvailable || !auth || !firestore) {
+      setError('Firebase is not configured correctly. Please check your setup.');
+      setLoading(false);
+      return;
+    }
 
     const formData = new FormData(event.currentTarget);
     const signupData = Object.fromEntries(formData);
@@ -125,7 +129,7 @@ export default function SignupPage() {
           <form onSubmit={handleSignup} className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="username">Username</Label>
-              <Input id="username" name="username" required />
+              <Input id="username" name="username" required disabled={!areServicesAvailable} />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
@@ -135,15 +139,16 @@ export default function SignupPage() {
                 name="email"
                 placeholder="m@example.com"
                 required
+                disabled={!areServicesAvailable}
               />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" name="password" required minLength={6} />
+              <Input id="password" type="password" name="password" required minLength={6} disabled={!areServicesAvailable} />
             </div>
-            <Button type="submit" className="w-full" disabled={loading}>
+            <Button type="submit" className="w-full" disabled={loading || !areServicesAvailable}>
               {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Sign Up
+              {!areServicesAvailable ? 'Firebase not configured' : 'Sign Up'}
             </Button>
           </form>
           <div className="mt-4 text-center text-sm">
