@@ -236,18 +236,20 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
         </CardContent>
       </Card>
       
-      <div className="flex justify-center items-center h-32">
-        <Image
-          src="https://api.dicebear.com/8.x/adventurer/svg?seed=Felix"
-          alt="Character"
-          width={128}
-          height={128}
-          className={cn(
-            'transition-all duration-500',
-            isCelebrating && 'animate-celebrate'
-          )}
-        />
-      </div>
+      {isExpertChallenge && challenge.language === 'javascript' && (
+        <div className="flex justify-center items-center h-32">
+          <Image
+            src="https://api.dicebear.com/8.x/adventurer/svg?seed=Felix"
+            alt="Character"
+            width={128}
+            height={128}
+            className={cn(
+              'transition-all duration-500',
+              isCelebrating && 'animate-celebrate'
+            )}
+          />
+        </div>
+      )}
 
       <Card>
         <CardHeader>
