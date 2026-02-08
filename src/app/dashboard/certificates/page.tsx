@@ -12,7 +12,7 @@ import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
 import { doc } from 'firebase/firestore';
 import { mockData } from '@/lib/mock-data';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Trophy, ArrowRight } from 'lucide-react';
+import { Trophy, ArrowRight, Award } from 'lucide-react';
 
 export default function CertificatesPage() {
   const { user } = useUser();
@@ -26,12 +26,6 @@ export default function CertificatesPage() {
   const { data: userProfile, isLoading: isProfileLoading } = useDoc(profileRef);
 
   const completedCoursesIds = userProfile?.completedCourses || [];
-  
-  // For now, we will add a sample completed course if there are none.
-  // This ensures there's always a sample certificate to view.
-  if (userProfile && completedCoursesIds.length === 0) {
-      completedCoursesIds.push('javascript');
-  }
 
   const completedCourses = mockData.courses.filter(course =>
     completedCoursesIds.includes(course.id)
@@ -82,19 +76,29 @@ export default function CertificatesPage() {
             ))}
         </div>
       ) : (
-        <Card>
-          <CardHeader>
-            <CardTitle>No Certificates Yet</CardTitle>
-            <CardDescription>
-              Complete a course to earn your first certificate!
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild>
-                <Link href="/dashboard/courses">Explore Courses</Link>
-            </Button>
-          </CardContent>
-        </Card>
+        <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2">
+          <Card>
+            <CardHeader>
+              <div className="flex items-start justify-between">
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    <Award className="h-6 w-6 text-muted-foreground" />
+                    <span>Sample Certificate</span>
+                  </CardTitle>
+                  <CardDescription className="mt-2">
+                    Complete a course to earn a real certificate. View a sample
+                    below.
+                  </CardDescription>
+                </div>
+                <Button asChild>
+                  <Link href="/dashboard/certificates/sample">
+                    View Sample <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </CardHeader>
+          </Card>
+        </div>
       )}
     </div>
   );
