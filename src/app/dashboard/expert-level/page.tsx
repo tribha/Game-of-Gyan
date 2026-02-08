@@ -27,7 +27,14 @@ export default function ExpertLevelPage() {
             description: 'Live a day as a Java developer. Solve real-world problems with your code.',
             href: '/dashboard/expert-level/series/java',
             image: PlaceHolderImages.find(p => p.id === 'course-java')
-        }
+        },
+        {
+            language: 'javascript',
+            name: 'Helper Route',
+            description: 'Navigate your day with JavaScript. A series of real-life coding scenarios.',
+            href: '/dashboard/expert-level/series/javascript',
+            image: PlaceHolderImages.find(p => p.id === 'expert-helper-route'),
+        },
     ]
   return (
     <div className="space-y-6">

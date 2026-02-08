@@ -662,7 +662,7 @@ export const expertChallenges = [
       question: 'Which is the correct lambda expression to sort `employees` list by name?',
       options: [
         'Collections.sort(employees, (e1, e2) -> e1.getName().compareTo(e2.getName()));',
-        'employees.sort((e1, e2) => e1.name == e2.name);',
+        'employees.sort((e1, e2) -> e1.name == e2.name);',
         'sort(employees, (e1, e2) -> e1 > e2);',
         'employees.sortByName();'
       ],
@@ -903,6 +903,373 @@ export const expertChallenges = [
       answer: 0
     }
   },
+  // JavaScript Helper Route Game
+  {
+    id: 'expert-js-routine-1',
+    type: 'mcq' as const,
+    language: 'javascript',
+    level: 'advanced' as const,
+    title: 'Helper Route: Morning Alarm',
+    description: "Level 1: Your alarm is ringing. It's an object. How do you turn it off?",
+    content: {
+      question: "You have `let smartAlarm = { isOn: true, time: '07:00' };`. How do you turn the alarm off?",
+      options: [
+        'smartAlarm.isOn = false;',
+        'smartAlarm(isOn, false);',
+        'set smartAlarm.isOn = false;',
+        'smartAlarm.isOn(false);',
+      ],
+      answer: 0,
+    },
+  },
+  {
+    id: 'expert-js-routine-2',
+    type: 'mcq' as const,
+    language: 'javascript',
+    level: 'advanced' as const,
+    title: 'Helper Route: Breakfast Choice',
+    description: 'Level 2: Coffee or Tea? Decide with code.',
+    content: {
+      question:
+        "`let mood = 'sleepy'; let beverage; if (mood === 'sleepy') { beverage = 'Coffee'; } else { beverage = 'Tea'; }`. What is a shorter way to write this using a ternary operator?",
+      options: [
+        "let beverage = mood === 'sleepy' ? 'Coffee' : 'Tea';",
+        "let beverage = mood ? 'Coffee' : 'Tea';",
+        "let beverage = if (mood === 'sleepy') 'Coffee' else 'Tea';",
+        "let beverage = 'Coffee' || 'Tea';",
+      ],
+      answer: 0,
+    },
+  },
+  {
+    id: 'expert-js-routine-3',
+    type: 'mcq' as const,
+    language: 'javascript',
+    level: 'advanced' as const,
+    title: 'Helper Route: Getting Dressed',
+    description: "Level 3: Check the weather before you leave.",
+    content: {
+      question:
+        'You fetch the weather: `const weather = { isRaining: true, temp: 15 };`. How do you add an umbrella to your `items` array only if it\'s raining?',
+      options: [
+        "if (weather.isRaining) { items.push('umbrella'); }",
+        "if (weather.isRaining == true) items.add('umbrella');",
+        "if (weather) { items.push('umbrella'); }",
+        "items.push(weather.isRaining ? 'umbrella' : null);",
+      ],
+      answer: 0,
+    },
+  },
+  {
+    id: 'expert-js-routine-4',
+    type: 'mcq' as const,
+    language: 'javascript',
+    level: 'advanced' as const,
+    title: 'Helper Route: To-Do List',
+    description: "Level 4: Let's plan your day with a to-do list.",
+    content: {
+      question:
+        "You have a to-do list: `const todos = ['Work', 'Gym'];`. How do you add \"Grocery Shopping\" to the end of the list?",
+      options: [
+        "todos.add('Grocery Shopping');",
+        "todos[2] = 'Grocery Shopping';",
+        "todos.push('Grocery Shopping');",
+        "todos.append('Grocery Shopping');",
+      ],
+      answer: 2,
+    },
+  },
+  {
+    id: 'expert-js-routine-5',
+    type: 'mcq' as const,
+    language: 'javascript',
+    level: 'advanced' as const,
+    title: 'Helper Route: Morning Commute',
+    description: 'Level 5: Check traffic before you leave.',
+    content: {
+      question:
+        "`const traffic = ['heavy', 'light', 'moderate']; let myCommuteTime;`. How do you use a `switch` statement to set `myCommuteTime` to 60 for 'heavy' traffic?",
+      options: [
+        "switch(traffic[0]) { case 'heavy': myCommuteTime = 60; break; }",
+        "switch(traffic) { if 'heavy': myCommuteTime = 60; }",
+        "switch('heavy') { case traffic[0]: myCommuteTime = 60; }",
+        "switch traffic[0] { case 'heavy': myCommuteTime = 60; }",
+      ],
+      answer: 0,
+    },
+  },
+  {
+    id: 'expert-js-routine-6',
+    type: 'mcq' as const,
+    language: 'javascript',
+    level: 'advanced' as const,
+    title: 'Helper Route: Grocery List',
+    description: "Level 6: You're at the market. Let's make a function to add items to your cart.",
+    content: {
+      question: 'Which is a valid arrow function `addToCart` that takes an `item` and a `cart` array and adds the item to the cart?',
+      options: [
+        'const addToCart = (item, cart) -> cart.push(item);',
+        'const addToCart = (item, cart) => cart.push(item);',
+        'function addToCart(item, cart) => cart.push(item);',
+        'const addToCart = { (item, cart) => cart.push(item) };',
+      ],
+      answer: 1,
+    },
+  },
+  {
+    id: 'expert-js-routine-7',
+    type: 'mcq' as const,
+    language: 'javascript',
+    level: 'advanced' as const,
+    title: 'Helper Route: Paying the Bill',
+    description: 'Level 7: You bought items with prices `[10, 20, 5]`. Calculate the total.',
+    content: {
+      question: '`const prices = [10, 20, 5];`. Which `reduce` function correctly sums the array?',
+      options: [
+        'prices.reduce((total, current) => total + current, 0);',
+        'prices.reduce((total, current) => total, 0);',
+        'prices.reduce(function(total, current) { total + current });',
+        'prices.reduce(total + current);',
+      ],
+      answer: 0,
+    },
+  },
+  {
+    id: 'expert-js-routine-8',
+    type: 'mcq' as const,
+    language: 'javascript',
+    level: 'advanced' as const,
+    title: 'Helper Route: Evening Plans',
+    description: 'Level 8: Find a good movie to watch from your list.',
+    content: {
+      question:
+        " `const movies = [{title: 'Inception', genre: 'Sci-Fi'}, {title: 'Joker', genre: 'Drama'}];`. How do you find the 'Inception' movie object?",
+      options: [
+        "movies.find(movie => movie.title === 'Inception');",
+        "movies.filter(movie => movie.title === 'Inception');",
+        "movies.search(movie => movie.title === 'Inception');",
+        "movies.get(movie => movie.title === 'Inception');",
+      ],
+      answer: 0,
+    },
+  },
+  {
+    id: 'expert-js-routine-9',
+    type: 'mcq' as const,
+    language: 'javascript',
+    level: 'advanced' as const,
+    title: 'Helper Route: Cooking Dinner',
+    description: 'Level 9: You have a recipe as an object. Get all the ingredients.',
+    content: {
+      question:
+        "`const recipe = { name: 'Pasta', ingredients: ['Noodles', 'Sauce', 'Cheese'] };`. How do you get an array of the ingredient names?",
+      options: [
+        'Object.values(recipe.ingredients)',
+        'recipe.ingredients',
+        'Object.keys(recipe.ingredients)',
+        "recipe.get('ingredients')",
+      ],
+      answer: 1,
+    },
+  },
+  {
+    id: 'expert-js-routine-10',
+    type: 'mcq' as const,
+    language: 'javascript',
+    level: 'advanced' as const,
+    title: 'Helper Route: Good Night',
+    description: 'Level 10: Set a timer to turn off the lights after 30 minutes.',
+    content: {
+      question: 'Which function executes `turnOffLights()` after 1000 milliseconds?',
+      options: [
+        'setInterval(turnOffLights, 1000);',
+        'setTimeout(turnOffLights, 1000);',
+        'wait(1000, turnOffLights);',
+        'sleep(1000, turnOffLights);',
+      ],
+      answer: 1,
+    },
+  },
+  {
+    id: 'expert-js-routine-11',
+    type: 'mcq' as const,
+    language: 'javascript',
+    level: 'advanced' as const,
+    title: 'Helper Route: Weekend Plan',
+    description: 'Level 11: Create a copy of your weekend plans array so you can modify it.',
+    content: {
+      question: '`const weekendPlans = ["Hike", "Read"];` How do you create a *new* array `myPlans` with the same items?',
+      options: [
+        'const myPlans = weekendPlans;',
+        'const myPlans = [...weekendPlans];',
+        'const myPlans = weekendPlans.copy();',
+        'const myPlans = Object.assign({}, weekendPlans);'
+      ],
+      answer: 1
+    }
+  },
+  {
+    id: 'expert-js-routine-12',
+    type: 'mcq' as const,
+    language: 'javascript',
+    level: 'advanced' as const,
+    title: 'Helper Route: Check Mail',
+    description: 'Level 12: You have an array of mail objects. Find if you have any unread mail.',
+    content: {
+      question: '`const mail = [{id: 1, read: true}, {id: 2, read: false}];` Which method returns `true` if at least one mail item is unread?',
+      options: [
+        'mail.some(m => m.read === false)',
+        'mail.every(m => m.read === false)',
+        'mail.includes({read: false})',
+        'mail.find(m => m.read === false)'
+      ],
+      answer: 0
+    }
+  },
+  {
+    id: 'expert-js-routine-13',
+    type: 'mcq' as const,
+    language: 'javascript',
+    level: 'advanced' as const,
+    title: 'Helper Route: Organizing Desk',
+    description: 'Level 13: Your desk has items as properties. Remove the "clutter" property.',
+    content: {
+      question: '`let desk = { books: 5, clutter: "papers", laptop: 1 };` How do you remove the `clutter` property?',
+      options: [
+        'desk.clutter = null;',
+        'delete desk.clutter;',
+        'desk.remove("clutter");',
+        'desk.clutter.delete();'
+      ],
+      answer: 1
+    }
+  },
+  {
+    id: 'expert-js-routine-14',
+    type: 'mcq' as const,
+    language: 'javascript',
+    level: 'advanced' as const,
+    title: 'Helper Route: Asynchronous Call',
+    description: 'Level 14: You call a friend, but they might not pick up immediately.',
+    content: {
+      question: 'A function `callFriend()` returns a Promise. How do you handle the successful response?',
+      options: [
+        'callFriend().then(response => { ... });',
+        'callFriend().success(response => { ... });',
+        'on(callFriend(), response => { ... });',
+        'try { callFriend() } then (response => { ... });'
+      ],
+      answer: 0
+    }
+  },
+  {
+    id: 'expert-js-routine-15',
+    type: 'mcq' as const,
+    language: 'javascript',
+    level: 'advanced' as const,
+    title: 'Helper Route: Baking a Cake',
+    description: 'Level 15: You must wait for the oven to preheat before putting the cake in.',
+    content: {
+      question: '`async function bake() { await preheatOven(); putInCake(); }` What does `await` do?',
+      options: [
+        'It runs `preheatOven` in the background.',
+        'It pauses the `bake` function until `preheatOven` promise is settled.',
+        'It cancels the `preheatOven` function.',
+        'It returns the `preheatOven` function immediately.'
+      ],
+      answer: 1
+    }
+  },
+  {
+    id: 'expert-js-routine-16',
+    type: 'mcq' as const,
+    language: 'javascript',
+    level: 'advanced' as const,
+    title: 'Helper Route: Packing a Suitcase',
+    description: 'Level 16: Combine your clothes and toiletries into one list for your trip.',
+    content: {
+      question: '`const clothes = ["shirt", "pants"]; const toiletries = ["toothbrush"];` How do you combine these into a single array `suitcase`?',
+      options: [
+        'const suitcase = clothes + toiletries;',
+        'const suitcase = [clothes, toiletries];',
+        'const suitcase = clothes.concat(toiletries);',
+        'const suitcase = clothes.join(toiletries);'
+      ],
+      answer: 2
+    }
+  },
+  {
+    id: 'expert-js-routine-17',
+    type: 'mcq' as const,
+    language: 'javascript',
+    level: 'advanced' as const,
+    title: 'Helper Route: Pet Feeder',
+    description: 'Level 17: Feed your pet. This is a class `Pet` with a method `feed`.',
+    content: {
+      question: '`class Pet { constructor(name) { this.name = name; } feed() { return `${this.name} is fed.`; } }` How do you create a pet and feed it?',
+      options: [
+        'Pet.feed("doggy");',
+        'let myPet = new Pet("doggy"); myPet.feed();',
+        'new Pet().feed("doggy");',
+        'let myPet = Pet("doggy"); myPet.feed();'
+      ],
+      answer: 1
+    }
+  },
+  {
+    id: 'expert-js-routine-18',
+    type: 'mcq' as const,
+    language: 'javascript',
+    level: 'advanced' as const,
+    title: 'Helper Route: Library Books',
+    description: 'Level 18: Get the titles of all your borrowed books.',
+    content: {
+      question: '`const books = [{title: "1984"}, {title: "Brave New World"}];` How do you get an array `["1984", "Brave New World"]`?',
+      options: [
+        'books.map(book => book.title)',
+        'books.forEach(book => book.title)',
+        'books.filter(book => book.title)',
+        'books.reduce(book => book.title)'
+      ],
+      answer: 0
+    }
+  },
+  {
+    id: 'expert-js-routine-19',
+    type: 'mcq' as const,
+    language: 'javascript',
+    level: 'advanced' as const,
+    title: 'Helper Route: JSON Data',
+    description: 'Level 19: You receive your contacts as a JSON string. You need to use it as an object.',
+    content: {
+      question: '`const json = \'{"name": "John"}\';` How do you convert this string into a JavaScript object?',
+      options: [
+        'JSON.parse(json)',
+        'JSON.stringify(json)',
+        'json.toObject()',
+        'new Object(json)'
+      ],
+      answer: 0
+    }
+  },
+  {
+    id: 'expert-js-routine-20',
+    type: 'mcq' as const,
+    language: 'javascript',
+    level: 'advanced' as const,
+    title: 'Helper Route: Error Handling',
+    description: 'Level 20: The smart fridge might be offline. You need to handle this error.',
+    content: {
+      question: 'A function `getGroceries()` might throw an error. How do you catch it?',
+      options: [
+        'if(getGroceries()) { ... } else { ... }',
+        'try { getGroceries(); } catch (error) { ... }',
+        'getGroceries().onError(error => { ... });',
+        'when(getGroceries()).failed(error => { ... });'
+      ],
+      answer: 1
+    }
+  }
 ];
 
     
