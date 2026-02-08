@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -17,6 +16,7 @@ import Link from 'next/link';
 import { mockData } from '@/lib/mock-data';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 // Define the shape of the MCQ challenge
 type MCQChallengeType = {
@@ -56,6 +56,7 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
   }, [firestore, user]);
 
   const isExpertChallenge = challenge.id?.startsWith('expert-');
+  const characterImage = PlaceHolderImages.find(p => p.id === 'expert-helper-character');
 
   useEffect(() => {
     const checkCompletion = async () => {
@@ -236,11 +237,12 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
         </CardContent>
       </Card>
       
-      {isExpertChallenge && challenge.language === 'javascript' && (
+      {isExpertChallenge && challenge.language === 'javascript' && characterImage && (
         <div className="flex justify-center items-center h-32">
           <Image
-            src="https://api.dicebear.com/8.x/adventurer/svg?seed=Felix"
-            alt="Character"
+            src={characterImage.imageUrl}
+            alt={characterImage.description}
+            data-ai-hint={characterImage.imageHint}
             width={128}
             height={128}
             className={cn(
