@@ -2,7 +2,33 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { CheckCircle, XCircle, Loader2, ChevronLeft } from 'lucide-react';
+import { 
+  CheckCircle, 
+  XCircle, 
+  Loader2, 
+  ChevronLeft,
+  AlarmClockOff,
+  Coffee,
+  Umbrella,
+  ClipboardList,
+  Car,
+  ShoppingCart,
+  CreditCard,
+  Film,
+  BookMarked,
+  Moon,
+  Mountain,
+  Mail,
+  Trash2,
+  Phone,
+  Cake,
+  Briefcase,
+  Bone,
+  Library,
+  Braces,
+  ShieldAlert,
+  type LucideIcon,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -38,6 +64,29 @@ type MCQChallengeProps = {
   levelId?: string;
 };
 
+const challengeIcons: { [key: string]: LucideIcon } = {
+  'expert-js-routine-1': AlarmClockOff,
+  'expert-js-routine-2': Coffee,
+  'expert-js-routine-3': Umbrella,
+  'expert-js-routine-4': ClipboardList,
+  'expert-js-routine-5': Car,
+  'expert-js-routine-6': ShoppingCart,
+  'expert-js-routine-7': CreditCard,
+  'expert-js-routine-8': Film,
+  'expert-js-routine-9': BookMarked,
+  'expert-js-routine-10': Moon,
+  'expert-js-routine-11': Mountain,
+  'expert-js-routine-12': Mail,
+  'expert-js-routine-13': Trash2,
+  'expert-js-routine-14': Phone,
+  'expert-js-routine-15': Cake,
+  'expert-js-routine-16': Briefcase,
+  'expert-js-routine-17': Bone,
+  'expert-js-routine-18': Library,
+  'expert-js-routine-19': Braces,
+  'expert-js-routine-20': ShieldAlert,
+};
+
 export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps) {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -57,6 +106,7 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
 
   const isExpertChallenge = challenge.id?.startsWith('expert-');
   const characterImage = PlaceHolderImages.find(p => p.id === 'expert-helper-character');
+  const IconForChallenge = challenge.id ? challengeIcons[challenge.id] : null;
 
   useEffect(() => {
     const checkCompletion = async () => {
@@ -238,7 +288,7 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
       </Card>
       
       {isExpertChallenge && challenge.language === 'javascript' && characterImage && (
-        <div className="flex justify-center items-center h-32">
+        <div className="relative flex justify-center items-center h-32 gap-4">
           <Image
             src={characterImage.imageUrl}
             alt={characterImage.description}
@@ -246,10 +296,15 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
             width={128}
             height={128}
             className={cn(
-              'transition-all duration-500',
+              'transition-all duration-500 w-24 h-24',
               isCelebrating && 'animate-celebrate'
             )}
           />
+          {IconForChallenge && (
+             <div className="transition-all duration-300">
+                <IconForChallenge size={48} className={cn("text-muted-foreground", isCelebrating && "text-primary animate-pulse")} />
+            </div>
+           )}
         </div>
       )}
 
