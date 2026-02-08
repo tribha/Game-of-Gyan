@@ -151,6 +151,21 @@ service cloud.firestore {
       allow create: if isOwner(userId) && request.resource.data.id == userId;
       allow update: if isExistingOwner(userId);
       allow delete: if isExistingOwner(userId);
+
+      /**
+       * @description Secures a user's XP history. Only the owner can read and create entries.
+       * @path /userProfiles/{userId}/xpHistory/{historyId}
+       * @allow (list) A user can list their own XP history.
+       * @allow (create) A user can add to their own XP history.
+       * @deny (update, delete) XP history is immutable for users.
+       */
+      match /xpHistory/{historyId} {
+        allow list: if isOwner(userId);
+        allow get: if isOwner(userId);
+        allow create: if isOwner(userId) && request.resource.data.userId == userId;
+        allow update: if false;
+        allow delete: if false;
+      }
     }
 
     // ------------------------------------------------------------------------
