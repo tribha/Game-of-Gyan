@@ -15,6 +15,8 @@ import { doc, updateDoc, arrayUnion, increment, collection, addDoc, serverTimest
 import { expertChallenges } from '@/lib/expert-challenges';
 import Link from 'next/link';
 import { mockData } from '@/lib/mock-data';
+import Image from 'next/image';
+import { cn } from '@/lib/utils';
 
 // Define the shape of the MCQ challenge
 type MCQChallengeType = {
@@ -41,6 +43,7 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionStatus, setSubmissionStatus] = useState<'correct' | 'incorrect' | null>(null);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [isCelebrating, setIsCelebrating] = useState(false);
 
   const { user } = useUser();
   const firestore = useFirestore();
@@ -52,7 +55,7 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
     return doc(firestore, 'userProfiles', user.uid);
   }, [firestore, user]);
 
-  const isExpertChallenge = challenge?.id?.startsWith('expert-');
+  const isExpertChallenge = challenge.id?.startsWith('expert-');
 
   useEffect(() => {
     const checkCompletion = async () => {
@@ -113,6 +116,7 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
 
     if (isCorrect) {
       setSubmissionStatus('correct');
+      setIsCelebrating(true);
       try {
         const xpAmount = isExpertChallenge ? 75 : 25;
         const completionId = isExpertChallenge ? challenge.id! : levelId!;
@@ -232,6 +236,19 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
         </CardContent>
       </Card>
       
+      <div className="flex justify-center items-center h-32">
+        <Image
+          src="https://api.dicebear.com/8.x/adventurer/svg?seed=Felix"
+          alt="Character"
+          width={128}
+          height={128}
+          className={cn(
+            'transition-all duration-500',
+            isCelebrating && 'animate-celebrate'
+          )}
+        />
+      </div>
+
       <Card>
         <CardHeader>
           <CardTitle>Your Answer</CardTitle>

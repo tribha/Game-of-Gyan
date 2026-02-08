@@ -1,3 +1,4 @@
+
 import type {Config} from 'tailwindcss';
 
 export default {
@@ -96,10 +97,17 @@ export default {
             height: '0',
           },
         },
+        celebrate: {
+          '0%, 100%': { transform: 'translateY(0) scale(1)' },
+          '25%': { transform: 'translateY(-15px) rotate(-5deg) scale(1.1)'},
+          '50%': { transform: 'translateY(0) rotate(0deg) scale(1)' },
+          '75%': { transform: 'translateY(-15px) rotate(5deg) scale(1.1)'},
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        celebrate: 'celebrate 0.6s ease-in-out',
       },
     },
   },
