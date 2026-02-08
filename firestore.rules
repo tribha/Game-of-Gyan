@@ -1,55 +1,201 @@
-
+/**
+ * This ruleset enforces a hybrid security model for the Code Conqueror application.
+ * It strictly separates private user data from public application content to ensure
+ * security and scalability.
+ *
+ * Core Philosophy:
+ * - User Data Privacy: All data directly related to a user (profile, certificates) is
+ *   private and accessible only by that authenticated user.
+ * - Public Content: Core application content (courses, levels, games, badges) is
+ *   globally readable by any authenticated user but is not writable by them. This
+ *   creates a secure read-only content repository.
+ *
+ * Data Structure:
+ * - /users/{userId}: This path contains all private data for a specific user.
+ *   - /users/{userId}/certificates/{certificateId}: A subcollection for user-specific
+ *     certificates, inheriting the parent's ownership model.
+ * - /courses/{courseId}: A top-level collection for public course data.
+ * - /badges/{badgeId}: A top-level collection for public badge data.
+ *
+ * Key Security Decisions:
+ * - No User Listing: It is impossible to list all documents in the `/users` collection,
+ *   preventing user enumeration attacks.
+ * - Admin-Managed Content: All writes to public content collections (/courses, /badges)
+ *   are disabled. This assumes that content is managed by developers or admins
+ *   using a privileged environment (e.g., Admin SDK, Firebase Console).
+ * - Path-Based Security: Ownership is determined by the `userId` in the document path,
+ *   which is a highly performant and secure method that avoids extra database reads.
+ * - Relational Integrity: On creation, rules validate that ownership fields within
+ *   a document (e.g., `userProfileId`) match the ownership defined in the path.
+ *   These fields are then enforced as immutable on update.
+ */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    // ------------------------------------------------------------------------
+    // Helper Functions
+    // ------------------------------------------------------------------------
+
+    /**
+     * Checks if the user is authenticated.
+     */
     function isSignedIn() {
       return request.auth != null;
     }
 
+    /**
+     * Checks if the authenticated user's UID matches the provided userId.
+     * This is the foundation of the ownership model.
+     */
     function isOwner(userId) {
       return isSignedIn() && request.auth.uid == userId;
     }
+    
+    /**
+     * Checks if a document currently exists.
+     * Crucial for protecting against writes to non-existent documents.
+     */
+    function isExistingDoc() {
+      return resource != null;
+    }
 
-    match /users/{userId} {
-      // Users can create their own user document, and can only read/update/delete their own.
-      allow read, update, delete: if isOwner(userId);
-      allow create: if request.auth.uid == userId;
+    /**
+     * Combines ownership and existence checks for update/delete operations.
+     */
+    function isExistingOwner(userId) {
+      return isOwner(userId) && isExistingDoc();
     }
     
-    match /userProfiles/{userId} {
-      // Users can manage their own profile.
-      allow read, write: if isOwner(userId);
+    /**
+     * Validates a new UserProfile document on creation.
+     * Ensures the creator is the owner and the internal 'id' matches the path.
+     */
+    function isValidUserProfileCreate(userId) {
+      return isOwner(userId) && request.resource.data.id == userId;
+    }
+    
+    /**
+     * Validates a UserProfile document on update.
+     * Ensures the owner is making the change and that the 'id' is immutable.
+     */
+    function isValidUserProfileUpdate(userId) {
+      return isExistingOwner(userId) && request.resource.data.id == resource.data.id;
+    }
+    
+    /**
+     * Validates a new Certificate document on creation.
+     * Ensures the creator owns the parent profile and the 'userProfileId' is correct.
+     */
+    function isValidCertificateCreate(userId) {
+      return isOwner(userId) && request.resource.data.userProfileId == userId;
+    }
 
-      // Certificates are a sub-collection of a user's profile
+    /**
+     * Validates a Certificate document on update.
+     * Ensures the owner is making the change and that the 'userProfileId' is immutable.
+     */
+    function isValidCertificateUpdate(userId) {
+      return isExistingOwner(userId) && request.resource.data.userProfileId == resource.data.userProfileId;
+    }
+
+
+    // ------------------------------------------------------------------------
+    // User Data Collections
+    // ------------------------------------------------------------------------
+
+    /**
+     * @description Secures user profiles. Only the owner can read or write their own profile. Listing all users is forbidden.
+     * @path /users/{userId}
+     * @allow (get) A user with auth.uid 'user123' can read their own profile at '/users/user123'.
+     * @allow (create) A new user with auth.uid 'user123' can create their profile at '/users/user123'.
+     * @deny (get) A user with auth.uid 'user456' cannot read the profile at '/users/user123'.
+     * @deny (list) No user can list all documents in the '/users' collection.
+     * @principle Restricts access to a user's own data tree and prevents user enumeration.
+     */
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if false;
+      allow create: if isValidUserProfileCreate(userId);
+      allow update: if isValidUserProfileUpdate(userId);
+      allow delete: if isExistingOwner(userId);
+
+      /**
+       * @description Secures user-earned certificates. Inherits ownership from the parent user profile.
+       * @path /users/{userId}/certificates/{certificateId}
+       * @allow (list) A user with auth.uid 'user123' can list their certificates at '/users/user123/certificates'.
+       * @allow (create) User 'user123' can add a new certificate under their own profile.
+       * @deny (get) A user with auth.uid 'user456' cannot read a certificate at '/users/user123/certificates/cert999'.
+       * @principle Enforces inherited ownership for data in a user-specific subcollection.
+       */
       match /certificates/{certificateId} {
-        allow read, write: if isOwner(userId);
-      }
-
-      // XP history is a sub-collection of a user's profile
-      match /xpHistory/{xpEntryId} {
-        allow read, list: if isOwner(userId);
-        // Users can only create their own xp entries. Updates and deletes are disallowed to prevent tampering.
-        allow create: if isOwner(userId);
-        allow update, delete: if false;
+        allow get: if isOwner(userId);
+        allow list: if isOwner(userId);
+        allow create: if isValidCertificateCreate(userId);
+        allow update: if isValidCertificateUpdate(userId);
+        allow delete: if isExistingOwner(userId);
       }
     }
 
-    // Publicly readable course content
+    // ------------------------------------------------------------------------
+    // Public Content Collections
+    // ------------------------------------------------------------------------
+
+    /**
+     * @description Makes course content readable by any authenticated user but prevents all client-side writes.
+     * @path /courses/{courseId}
+     * @allow (get) Any signed-in user can read a course document.
+     * @allow (list) Any signed-in user can list all courses.
+     * @deny (create) No user can create a new course document from the client.
+     * @deny (update, delete) No user can modify or delete existing course content.
+     * @principle Provides public read access for application content while locking down writes to prevent unauthorized changes.
+     */
     match /courses/{courseId} {
-      allow get, list: if true;
-      // Course content should be managed through a backend/admin interface, not by clients.
-      allow create, update, delete: if false; 
+      allow get: if isSignedIn();
+      allow list: if isSignedIn();
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
 
+      /**
+       * @description Secures course levels. Inherits the public-read, no-write policy from the parent course.
+       * @path /courses/{courseId}/levels/{levelId}
+       */
       match /levels/{levelId} {
-        allow get, list: if true;
-        allow create, update, delete: if false;
+        allow get: if isSignedIn();
+        allow list: if isSignedIn();
+        allow create: if false;
+        allow update: if false;
+        allow delete: if false;
 
+        /**
+         * @description Secures level games. Inherits the public-read, no-write policy from the parent course.
+         * @path /courses/{courseId}/levels/{levelId}/games/{gameId}
+         */
         match /games/{gameId} {
-          allow get, list: if true;
-          allow create, update, delete: if false;
+          allow get: if isSignedIn();
+          allow list: if isSignedIn();
+          allow create: if false;
+          allow update: if false;
+          allow delete: if false;
         }
       }
+    }
+
+    /**
+     * @description Makes badge information readable by any authenticated user but prevents all client-side writes.
+     * @path /badges/{badgeId}
+     * @allow (get) Any signed-in user can read a badge document.
+     * @allow (list) Any signed-in user can list all badges.
+     * @deny (create, update, delete) No user can create, modify, or delete badge data from the client.
+     * @principle Provides public read access for application content while locking down writes to prevent unauthorized changes.
+     */
+    match /badges/{badgeId} {
+      allow get: if isSignedIn();
+      allow list: if isSignedIn();
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
     }
   }
 }

@@ -1,15 +1,14 @@
-
 {
   "entities": {
-    "User": {
+    "UserProfile": {
       "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "User",
+      "title": "UserProfile",
       "type": "object",
-      "description": "Represents a user in the Game of Gyan platform.",
+      "description": "Represents a user's profile in the Code Conqueror application.",
       "properties": {
         "id": {
           "type": "string",
-          "description": "Unique identifier for the user."
+          "description": "Unique identifier for the UserProfile entity."
         },
         "email": {
           "type": "string",
@@ -18,51 +17,7 @@
         },
         "username": {
           "type": "string",
-          "description": "User's username for the platform."
-        }
-      },
-      "required": [
-        "email",
-        "username"
-      ]
-    },
-    "UserProfile": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "UserProfile",
-      "type": "object",
-      "description": "Stores user profile information, learning progress, and game history.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the user profile, same as user ID."
-        },
-        "name": {
-          "type": "string",
-          "description": "User's full name."
-        },
-        "school": {
-          "type": "string",
-          "description": "User's school or college name."
-        },
-        "city": {
-          "type": "string",
-          "description": "User's city."
-        },
-        "phone": {
-          "type": "string",
-          "description": "User's phone number."
-        },
-        "skills": {
-          "type": "array",
-          "description": "Array of user's skills.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "avatarUrl": {
-          "type": "string",
-          "description": "URL of the user's avatar image.",
-          "format": "uri"
+          "description": "User's username."
         },
         "level": {
           "type": "number",
@@ -70,75 +25,73 @@
         },
         "xp": {
           "type": "number",
-          "description": "Total XP points of the user."
+          "description": "Experience points of the user."
         },
-        "badges": {
-          "type": "array",
-          "description": "Array of badges earned by the user.",
-          "items": {
-            "type": "string"
-          }
+        "skillLevel": {
+          "type": "string",
+          "description": "Skill level of the user (beginner, intermediate, advanced)."
         },
         "streak": {
           "type": "number",
           "description": "Current learning streak of the user."
         },
-        "completedLevels": {
+        "badgeIds": {
           "type": "array",
-          "description": "Array of level IDs that the user has completed.",
+          "description": "References to Badges earned by the user. (Relationship: UserProfile 1:N Badge)",
           "items": {
             "type": "string"
           }
         },
-        "completedCourses": {
+        "courseIds": {
           "type": "array",
-          "description": "Array of course IDs that the user has completed.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "completedExpertChallenges": {
-          "type": "array",
-          "description": "Array of expert challenge IDs that the user has completed.",
+          "description": "References to Courses completed by the user. (Relationship: UserProfile 1:N Course)",
           "items": {
             "type": "string"
           }
         }
       },
       "required": [
+        "id",
+        "email",
+        "username",
         "level",
         "xp",
-        "badges",
-        "streak",
-        "completedLevels",
-        "completedCourses",
-        "completedExpertChallenges"
+        "skillLevel",
+        "streak"
       ]
     },
     "Course": {
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Course",
       "type": "object",
-      "description": "Represents a coding course available on the platform.",
+      "description": "Represents a coding course offered on the platform.",
       "properties": {
         "id": {
           "type": "string",
-          "description": "Unique identifier for the course."
+          "description": "Unique identifier for the Course entity."
         },
         "name": {
           "type": "string",
-          "description": "Name of the course."
+          "description": "Name of the course (e.g., Python Basics)."
         },
         "description": {
           "type": "string",
-          "description": "Description of the course content."
+          "description": "Brief description of the course."
         },
         "language": {
           "type": "string",
-          "description": "Programming language taught in the course (e.g., Python, Java)."
+          "description": "Programming language covered by the course (e.g., Python, Java)."
+        },
+        "levelIds": {
+          "type": "array",
+          "description": "References to Levels within the course. (Relationship: Course 1:N Level)",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
+        "id",
         "name",
         "description",
         "language"
@@ -148,53 +101,107 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Level",
       "type": "object",
-      "description": "Represents a level within a coding course.",
+      "description": "Represents a level within a specific coding course.",
       "properties": {
         "id": {
           "type": "string",
-          "description": "Unique identifier for the level."
+          "description": "Unique identifier for the Level entity."
         },
         "courseId": {
           "type": "string",
-          "description": "Reference to Course."
+          "description": "Reference to the Course this level belongs to. (Relationship: Course 1:N Level)"
         },
-        "levelNumber": {
+        "name": {
+          "type": "string",
+          "description": "Name of the level (e.g., Level 1, Introduction)."
+        },
+        "order": {
           "type": "number",
-          "description": "The number of the level within the course."
+          "description": "Order of the level within the course."
+        },
+        "gameIds": {
+          "type": "array",
+          "description": "References to Games within this level. (Relationship: Level 1:N Game)",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
+        "id",
         "courseId",
-        "levelNumber"
+        "name",
+        "order"
       ]
     },
     "Game": {
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Game",
       "type": "object",
-      "description": "Represents a game within a level.",
+      "description": "Represents a game or exercise within a coding level.",
       "properties": {
         "id": {
           "type": "string",
-          "description": "Unique identifier for the game."
+          "description": "Unique identifier for the Game entity."
         },
         "levelId": {
           "type": "string",
-          "description": "Reference to Level."
+          "description": "Reference to the Level this game belongs to. (Relationship: Level 1:N Game)"
         },
         "type": {
           "type": "string",
-          "description": "Type of game (e.g., MCQ, fill-in-the-blank, drag-and-drop)."
+          "description": "Type of the game (e.g., MCQ, Fill-in-the-blanks, Drag-and-drop)."
         },
         "content": {
           "type": "string",
-          "description": "The actual data/content of the game, likely serialized as JSON."
+          "description": "The data/content of the game."
+        },
+        "correctAnswer": {
+          "type": "string",
+          "description": "The correct answer to the game"
+        },
+        "xpReward": {
+          "type": "number",
+          "description": "XP points awarded for completing the game."
         }
       },
       "required": [
+        "id",
         "levelId",
         "type",
-        "content"
+        "content",
+        "xpReward"
+      ]
+    },
+    "Badge": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Badge",
+      "type": "object",
+      "description": "Represents a badge earned by a user.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Badge entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the badge (e.g., First Steps, Code Master)."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the badge and how to earn it."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the badge image.",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "imageUrl"
       ]
     },
     "Certificate": {
@@ -205,118 +212,157 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "Unique identifier for the certificate."
+          "description": "Unique identifier for the Certificate entity."
         },
-        "userId": {
+        "userProfileId": {
           "type": "string",
-          "description": "Reference to User."
+          "description": "Reference to the UserProfile who earned the certificate. (Relationship: UserProfile 1:N Certificate)"
         },
         "courseId": {
           "type": "string",
-          "description": "Reference to Course."
+          "description": "Reference to the Course completed to earn the certificate. (Relationship: Course 1:N Certificate)"
         },
         "completionDate": {
           "type": "string",
           "description": "Date when the course was completed.",
           "format": "date-time"
         },
-        "certificateURL": {
+        "certificateUrl": {
           "type": "string",
-          "description": "URL where the certificate can be downloaded.",
+          "description": "URL for the downloadable certificate.",
           "format": "uri"
         }
       },
       "required": [
-        "userId",
+        "id",
+        "userProfileId",
         "courseId",
         "completionDate",
-        "certificateURL"
-      ]
-    },
-    "XpEntry": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "XpEntry",
-      "type": "object",
-      "description": "Represents a single XP gain event for a user.",
-      "properties": {
-        "userId": {
-          "type": "string",
-          "description": "Reference to User."
-        },
-        "amount": {
-          "type": "number",
-          "description": "The amount of XP gained."
-        },
-        "timestamp": {
-          "type": "string",
-          "description": "The date and time the XP was earned.",
-          "format": "date-time"
-        },
-        "reason": {
-          "type": "string",
-          "description": "The reason for the XP gain (e.g., completed level)."
-        },
-        "levelId": {
-          "type": "string"
-        },
-        "courseId": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "userId",
-        "amount",
-        "timestamp"
+        "certificateUrl"
       ]
     }
   },
   "auth": {
     "providers": [
-      "password"
+      "password",
+      "anonymous"
     ]
   },
   "firestore": {
-    "/users/{userId}": {
-      "schema": {
-        "$ref": "#/entities/User"
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "UserProfile",
+          "schema": {
+            "$ref": "#/backend/entities/UserProfile"
+          },
+          "description": "Stores user profiles.  Path-based ownership for private user data.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            }
+          ]
+        }
       },
-      "description": "Stores user authentication and account information."
-    },
-    "/userProfiles/{userId}": {
-      "schema": {
-        "$ref": "#/entities/UserProfile"
+      {
+        "path": "/users/{userId}/certificates/{certificateId}",
+        "definition": {
+          "entityName": "Certificate",
+          "schema": {
+            "$ref": "#/backend/entities/Certificate"
+          },
+          "description": "Stores certificates earned by users. Inherits ownership from the user profile.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "certificateId",
+              "description": "The unique identifier for the certificate."
+            }
+          ]
+        }
       },
-      "description": "Stores user profile information, learning progress, and game history."
-    },
-    "/userProfiles/{userId}/xpHistory/{xpEntryId}": {
-      "schema": {
-        "$ref": "#/entities/XpEntry"
+      {
+        "path": "/courses/{courseId}",
+        "definition": {
+          "entityName": "Course",
+          "schema": {
+            "$ref": "#/backend/entities/Course"
+          },
+          "description": "Stores course information. Globally accessible to all users.",
+          "params": [
+            {
+              "name": "courseId",
+              "description": "The unique identifier for the course."
+            }
+          ]
+        }
       },
-      "description": "Stores the history of XP points earned by a user."
-    },
-    "/courses/{courseId}": {
-      "schema": {
-        "$ref": "#/entities/Course"
+      {
+        "path": "/courses/{courseId}/levels/{levelId}",
+        "definition": {
+          "entityName": "Level",
+          "schema": {
+            "$ref": "#/backend/entities/Level"
+          },
+          "description": "Stores levels within a course, reflecting the course-level hierarchy.",
+          "params": [
+            {
+              "name": "courseId",
+              "description": "The unique identifier for the course."
+            },
+            {
+              "name": "levelId",
+              "description": "The unique identifier for the level."
+            }
+          ]
+        }
       },
-      "description": "Stores information about available coding courses."
-    },
-    "/courses/{courseId}/levels/{levelId}": {
-      "schema": {
-        "$ref": "#/entities/Level"
+      {
+        "path": "/courses/{courseId}/levels/{levelId}/games/{gameId}",
+        "definition": {
+          "entityName": "Game",
+          "schema": {
+            "$ref": "#/backend/entities/Game"
+          },
+          "description": "Stores games within a level, reflecting the hierarchical course-level-game relationship.",
+          "params": [
+            {
+              "name": "courseId",
+              "description": "The unique identifier for the course."
+            },
+            {
+              "name": "levelId",
+              "description": "The unique identifier for the level."
+            },
+            {
+              "name": "gameId",
+              "description": "The unique identifier for the game."
+            }
+          ]
+        }
       },
-      "description": "Stores details about levels within a course."
-    },
-    "/courses/{courseId}/levels/{levelId}/games/{gameId}": {
-      "schema": {
-        "$ref": "#/entities/Game"
-      },
-      "description": "Stores information about individual games within a level."
-    },
-    "/userProfiles/{userId}/certificates/{certificateId}": {
-      "schema": {
-        "$ref": "#/entities/Certificate"
-      },
-      "description": "Stores certificates earned by users upon course completion."
-    }
+      {
+        "path": "/badges/{badgeId}",
+        "definition": {
+          "entityName": "Badge",
+          "schema": {
+            "$ref": "#/backend/entities/Badge"
+          },
+          "description": "Stores badge information. Globally accessible to all users.",
+          "params": [
+            {
+              "name": "badgeId",
+              "description": "The unique identifier for the badge."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore data structure is designed to support the Code Conqueror application, prioritizing security, scalability, and debuggability by adhering to the principles of Authorization Independence, Clarity of Intent, DBAC (Database-Based Access Control), and QAPs (Rules are not Filters). Authorization Independence is achieved through denormalization, copying relevant authorization data (e.g., roles) into subcollections to avoid `get()` calls in security rules. Structural Segregation ensures that each collection has a homogeneous security posture, simplifying rules. Access Modeling employs consistent patterns like path-based ownership for private user data and membership maps for collaborative data.\n\nSpecifically:\n\n*   User profiles are stored under `/users/{userId}`, ensuring private data is easily secured using path-based rules. Certificates are stored in a subcollection `/users/{userId}/certificates/{certificateId}`, inheriting ownership from the user profile.\n*   Courses and Badges are stored in root-level collections `/courses` and `/badges` respectively, as they are globally accessible entities.\n*   Levels and Games are nested under Courses to reflect their hierarchical relationship, enabling structured data access and management.\n\nQAPs (Rules are not Filters) is addressed through structural segregation. List operations are secured based on path-based ownership for user-specific data and by granting read access to all authenticated users for global data such as Courses and Badges."
   }
 }
