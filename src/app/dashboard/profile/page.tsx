@@ -28,7 +28,7 @@ export default function ProfilePage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const profileRef = useMemoFirebase(() => {
-    if (!user) return null;
+    if (!user || !firestore) return null;
     return doc(firestore, 'userProfiles', user.uid);
   }, [firestore, user]);
 
@@ -82,7 +82,7 @@ export default function ProfilePage() {
   };
 
   const handleSave = async () => {
-    if (!user) {
+    if (!user || !profileRef) {
       toast({
         variant: 'destructive',
         title: 'Error',
@@ -93,7 +93,7 @@ export default function ProfilePage() {
     setIsSaving(true);
     try {
       const skillsArray = skills.split(',').map(s => s.trim()).filter(Boolean);
-      await updateDoc(profileRef!, {
+      await updateDoc(profileRef, {
         name,
         school,
         city,

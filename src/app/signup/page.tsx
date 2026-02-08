@@ -67,7 +67,6 @@ export default function SignupPage() {
       );
       const user = userCredential.user;
 
-      // Create user document in Firestore
       const userRef = doc(firestore, 'users', user.uid);
       await setDoc(userRef, {
         id: user.uid,
@@ -75,7 +74,6 @@ export default function SignupPage() {
         username: username,
       });
 
-      // Create user profile document in Firestore
       const profileRef = doc(firestore, 'userProfiles', user.uid);
       await setDoc(profileRef, {
         id: user.uid,

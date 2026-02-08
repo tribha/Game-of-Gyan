@@ -1,4 +1,3 @@
-
 'use client';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -28,17 +27,18 @@ export function UserNav() {
   const router = useRouter();
 
   const handleLogout = async () => {
+    if (!auth) return;
     await signOut(auth);
     router.push('/');
   };
 
   const userRef = useMemoFirebase(() => {
-    if (!user) return null;
+    if (!user || !firestore) return null;
     return doc(firestore, 'users', user.uid);
   }, [firestore, user]);
 
   const profileRef = useMemoFirebase(() => {
-    if(!user) return null;
+    if(!user || !firestore) return null;
     return doc(firestore, 'userProfiles', user.uid);
   }, [firestore, user]);
 

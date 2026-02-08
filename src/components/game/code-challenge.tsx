@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useActionState } from 'react';
@@ -104,7 +103,7 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
   const [runCodeState, runCodeFormAction] = useActionState(runCodeAction, initialRunCodeState);
 
   const profileRef = useMemoFirebase(() => {
-    if (!user) return null;
+    if (!user || !firestore) return null;
     return doc(firestore, 'userProfiles', user.uid);
   }, [firestore, user]);
 
@@ -116,7 +115,7 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
   }
 
   const handleSubmit = async () => {
-    if (!user || !profileRef) {
+    if (!user || !profileRef || !firestore) {
       toast({ variant: 'destructive', title: 'Not logged in' });
       return;
     }
@@ -207,6 +206,7 @@ export function CodeChallenge({ challenge, courseId, levelId }: CodeChallengePro
                     // Last level, complete the course
                     if (profileRef) {
                          (async () => {
+                            if (!firestore) return;
                             const profileSnap = await getDoc(profileRef);
                             const courseIsCompleted = profileSnap.data()?.completedCourses?.includes(courseId);
                             if (!courseIsCompleted) {

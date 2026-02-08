@@ -19,7 +19,7 @@ export default function CertificatesPage() {
   const firestore = useFirestore();
 
   const profileRef = useMemoFirebase(() => {
-    if (!user) return null;
+    if (!user || !firestore) return null;
     return doc(firestore, 'userProfiles', user.uid);
   }, [firestore, user]);
 

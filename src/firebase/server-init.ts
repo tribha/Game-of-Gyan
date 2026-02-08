@@ -1,9 +1,15 @@
 import { initializeApp, getApps, getApp, type FirebaseApp } from 'firebase/app';
-import { getAuth }from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { getAuth, Auth } from 'firebase/auth';
+import { getFirestore, Firestore } from 'firebase/firestore';
 import { firebaseConfig } from '@/firebase/config';
 
-function getSdks(firebaseApp: FirebaseApp) {
+interface FirebaseServerServices {
+  firebaseApp: FirebaseApp | null;
+  auth: Auth | null;
+  firestore: Firestore | null;
+}
+
+function getSdks(firebaseApp: FirebaseApp): FirebaseServerServices {
   return {
     firebaseApp,
     auth: getAuth(firebaseApp),
@@ -12,7 +18,7 @@ function getSdks(firebaseApp: FirebaseApp) {
 }
 
 // This function is for server-side only.
-export function initializeFirebaseServer() {
+export function initializeFirebaseServer(): FirebaseServerServices {
   if (getApps().length) {
     return getSdks(getApp());
   }

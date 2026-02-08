@@ -1,4 +1,3 @@
-
 'use client';
 import React, { useMemo } from 'react';
 import {
@@ -26,12 +25,12 @@ export default function DashboardPage() {
   const firestore = useFirestore();
 
   const userRef = useMemoFirebase(() => {
-    if (!user) return null;
+    if (!user || !firestore) return null;
     return doc(firestore, 'users', user.uid);
   }, [firestore, user]);
 
   const profileRef = useMemoFirebase(() => {
-    if(!user) return null;
+    if(!user || !firestore) return null;
     return doc(firestore, 'userProfiles', user.uid);
   }, [firestore, user]);
 
@@ -46,7 +45,7 @@ export default function DashboardPage() {
   }, []);
 
   const xpHistoryQuery = useMemoFirebase(() => {
-      if (!user) return null;
+      if (!user || !firestore) return null;
       return query(
         collection(firestore, 'userProfiles', user.uid, 'xpHistory'),
         where('timestamp', '>=', sevenDaysAgo)

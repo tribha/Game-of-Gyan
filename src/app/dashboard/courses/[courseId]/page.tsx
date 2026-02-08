@@ -1,4 +1,3 @@
-
 'use client';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
@@ -19,7 +18,7 @@ export default function CoursePage() {
   const firestore = useFirestore();
 
   const profileRef = useMemoFirebase(() => {
-    if (!user) return null;
+    if (!user || !firestore) return null;
     return doc(firestore, 'userProfiles', user.uid);
   }, [firestore, user]);
 

@@ -100,7 +100,7 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
   const { toast } = useToast();
 
   const profileRef = useMemoFirebase(() => {
-    if (!user) return null;
+    if (!user || !firestore) return null;
     return doc(firestore, 'userProfiles', user.uid);
   }, [firestore, user]);
 
@@ -110,7 +110,7 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
 
   useEffect(() => {
     const checkCompletion = async () => {
-      if (profileRef) {
+      if (profileRef && firestore) {
         const profileSnap = await getDoc(profileRef);
         const profileData = profileSnap.data();
         const completedItems = isExpertChallenge 
@@ -124,7 +124,7 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
       }
     };
     checkCompletion();
-  }, [profileRef, levelId, challenge.id, isExpertChallenge]);
+  }, [profileRef, firestore, levelId, challenge.id, isExpertChallenge]);
 
 
   const handleOptionChange = (value: string) => {
@@ -142,7 +142,7 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
       return;
     }
     
-    if (!user || !profileRef) {
+    if (!user || !profileRef || !firestore) {
       toast({
         variant: 'destructive',
         title: 'Not logged in',
@@ -232,6 +232,7 @@ export function MCQChallenge({ challenge, courseId, levelId }: MCQChallengeProps
                     // Last level, complete the course
                     if (profileRef) {
                          (async () => {
+                            if (!firestore) return;
                             const profileSnap = await getDoc(profileRef);
                             const courseIsCompleted = profileSnap.data()?.completedCourses?.includes(courseId);
                             if (!courseIsCompleted) {

@@ -20,7 +20,7 @@ const SignupSchema = z.object({
 
 function ensureFirebaseInitialized() {
   if (!firebaseAuth || !firestore) {
-    throw new Error("Firebase has not been initialized. Please check your server environment variables.");
+    throw new Error("Firebase has not been initialized. Please check your server configuration.");
   }
 }
 
@@ -44,7 +44,6 @@ export async function signup(formData: FormData) {
     );
     const user = userCredential.user;
 
-    // Create user document in Firestore
     const userRef = doc(firestore, 'users', user.uid);
     await setDoc(userRef, {
       id: user.uid,
@@ -52,7 +51,6 @@ export async function signup(formData: FormData) {
       username: username,
     });
 
-    // Create user profile document in Firestore
     const profileRef = doc(firestore, 'userProfiles', user.uid);
     await setDoc(profileRef, {
       id: user.uid,
