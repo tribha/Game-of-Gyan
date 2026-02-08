@@ -1165,7 +1165,7 @@ export const expertChallenges = [
     title: 'Chapter 15: Baking a Cake',
     description: "It's time to bake! The oven must preheat before the cake goes in. Your code will use `async/await` to make the character wait for the oven.",
     content: {
-      question: 'Inside the `async function bake()`, you have two steps: `preheatOven()` and `putInCake()`. Which keyword do you place before `preheatOven()` to `await` its completion and pause the character\'s actions until the oven is ready?',
+      question: 'Inside an `async` function, what is the effect of placing the `await` keyword before a function call that returns a Promise (like `await preheatOven()`)?',
       options: [
         'It runs `preheatOven` in the background without stopping the function.',
         "It pauses the `bake` function's execution until the `preheatOven` promise is settled.",
@@ -1271,3 +1271,4 @@ export const expertChallenges = [
 
 
     
+
