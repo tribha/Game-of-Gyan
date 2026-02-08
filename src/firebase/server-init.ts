@@ -4,9 +4,9 @@ import { getFirestore, Firestore } from 'firebase/firestore';
 import { firebaseConfig } from '@/firebase/config';
 
 interface FirebaseServerServices {
-  firebaseApp: FirebaseApp | null;
-  auth: Auth | null;
-  firestore: Firestore | null;
+  firebaseApp: FirebaseApp;
+  auth: Auth;
+  firestore: Firestore;
 }
 
 function getSdks(firebaseApp: FirebaseApp): FirebaseServerServices {
@@ -25,11 +25,9 @@ export function initializeFirebaseServer(): FirebaseServerServices {
   
   // Prevent initialization if config is missing to avoid crashes during server-side rendering.
   if (!firebaseConfig.apiKey) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.error("Firebase apiKey is missing on the server. Please check your environment variables.");
-    }
-    // Return null services. The code using this must handle this case.
-    return { firebaseApp: null, auth: null, firestore: null };
+    // This will throw an error on the server if config is missing.
+    // It's better to fail loudly on the server than to have silent failures.
+    throw new Error("Firebase apiKey is missing on the server. Please check your firebase/config.ts file.");
   }
   
   const firebaseApp = initializeApp(firebaseConfig);

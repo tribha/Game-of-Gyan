@@ -6,18 +6,19 @@ import { getAuth, Auth } from 'firebase/auth';
 import { getFirestore, Firestore } from 'firebase/firestore';
 
 // Helper to get all SDKs
-function getSdks(firebaseApp: FirebaseApp): { firebaseApp: FirebaseApp; auth: Auth | null; firestore: Firestore | null; areServicesAvailable: boolean } {
+function getSdks(firebaseApp: FirebaseApp): { firebaseApp: FirebaseApp; auth: Auth; firestore: Firestore; areServicesAvailable: boolean } {
   try {
     const auth = getAuth(firebaseApp);
     const firestore = getFirestore(firebaseApp);
     return { firebaseApp, auth, firestore, areServicesAvailable: true };
   } catch (error) {
     console.error("Firebase service initialization failed:", error);
-    return { firebaseApp, auth: null, firestore: null, areServicesAvailable: false };
+    // In a hardcoded config scenario, this is unlikely but good practice.
+    return { firebaseApp, auth: null as any, firestore: null as any, areServicesAvailable: false };
   }
 }
 
-export function initializeFirebase(): { firebaseApp: FirebaseApp | null; auth: Auth | null; firestore: Firestore | null; areServicesAvailable: boolean } {
+export function initializeFirebase(): { firebaseApp: FirebaseApp; auth: Auth; firestore: Firestore; areServicesAvailable: boolean } {
   // If the app is already initialized, return the existing services
   if (getApps().length) {
     const app = getApp();
@@ -26,8 +27,8 @@ export function initializeFirebase(): { firebaseApp: FirebaseApp | null; auth: A
 
   // Ensure config is present before initializing
   if (!firebaseConfig || !firebaseConfig.apiKey) {
-    console.error("Firebase apiKey is missing. Please check your firebase/config.ts file. Firebase features will be disabled.");
-    return { firebaseApp: null, auth: null, firestore: null, areServicesAvailable: false };
+    console.error("Firebase apiKey is missing. Please check your firebase/config.ts file.");
+    return { firebaseApp: null as any, auth: null as any, firestore: null as any, areServicesAvailable: false };
   }
 
   try {
@@ -35,7 +36,7 @@ export function initializeFirebase(): { firebaseApp: FirebaseApp | null; auth: A
     return getSdks(firebaseApp);
   } catch (error) {
     console.error("Firebase initialization failed:", error);
-    return { firebaseApp: null, auth: null, firestore: null, areServicesAvailable: false };
+    return { firebaseApp: null as any, auth: null as any, firestore: null as any, areServicesAvailable: false };
   }
 }
 

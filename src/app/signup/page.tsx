@@ -31,14 +31,14 @@ export default function SignupPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { auth, firestore, areServicesAvailable } = useFirebase();
+  const { auth, firestore } = useFirebase();
 
   const handleSignup = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
     setError(null);
 
-    if (!areServicesAvailable || !auth || !firestore) {
+    if (!auth || !firestore) {
       setError('Firebase is not configured correctly. Please check your setup.');
       setLoading(false);
       return;
@@ -127,7 +127,7 @@ export default function SignupPage() {
           <form onSubmit={handleSignup} className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="username">Username</Label>
-              <Input id="username" name="username" required disabled={!areServicesAvailable} />
+              <Input id="username" name="username" required />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
@@ -137,16 +137,15 @@ export default function SignupPage() {
                 name="email"
                 placeholder="m@example.com"
                 required
-                disabled={!areServicesAvailable}
               />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" name="password" required minLength={6} disabled={!areServicesAvailable} />
+              <Input id="password" type="password" name="password" required minLength={6} />
             </div>
-            <Button type="submit" className="w-full" disabled={loading || !areServicesAvailable}>
+            <Button type="submit" className="w-full" disabled={loading}>
               {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              {!areServicesAvailable ? 'Firebase not configured' : 'Sign Up'}
+              Sign Up
             </Button>
           </form>
           <div className="mt-4 text-center text-sm">

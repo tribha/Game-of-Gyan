@@ -28,14 +28,14 @@ export default function LoginPage() {
   const [hasInteracted, setHasInteracted] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
-  const { auth, areServicesAvailable } = useFirebase();
+  const { auth } = useFirebase();
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
     setError(null);
 
-    if (!areServicesAvailable || !auth) {
+    if (!auth) {
       setError('Firebase is not configured correctly. Please check your setup.');
       setLoading(false);
       return;
@@ -176,7 +176,6 @@ export default function LoginPage() {
                   placeholder="m@example.com"
                   required
                   onChange={(e) => setHasInteracted(!!e.target.value)}
-                  disabled={!areServicesAvailable}
                 />
               </div>
               <div className="grid gap-2">
@@ -196,7 +195,6 @@ export default function LoginPage() {
                     name="password"
                     required
                     className="pr-10"
-                    disabled={!areServicesAvailable}
                   />
                   <Button
                     type="button"
@@ -205,7 +203,6 @@ export default function LoginPage() {
                     className="absolute inset-y-0 right-0 h-full w-10 text-muted-foreground"
                     onClick={() => setShowPassword((prev) => !prev)}
                     aria-label={showPassword ? 'Hide password' : 'Show password'}
-                    disabled={!areServicesAvailable}
                   >
                     {showPassword ? (
                       <EyeOff className="h-4 w-4" />
@@ -215,9 +212,9 @@ export default function LoginPage() {
                   </Button>
                 </div>
               </div>
-              <Button type="submit" className="w-full" disabled={loading || !areServicesAvailable}>
+              <Button type="submit" className="w-full" disabled={loading}>
                 {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {!areServicesAvailable ? 'Firebase not configured' : 'Login'}
+                Login
               </Button>
             </form>
             <div className="mt-4 text-center text-sm">
