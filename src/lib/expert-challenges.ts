@@ -911,9 +911,9 @@ export const expertChallenges = [
     language: 'javascript',
     level: 'advanced' as const,
     title: 'Chapter 1: The Morning Alarm',
-    description: "The first rays of sunlight peek through your window, but the insistent beep of your smart alarm is what really pulls you from your dreams. Time to start the day. Your smart home is controlled by JavaScript objects. First task: silence that alarm!",
+    description: "Your character is trying to sleep, but their smart alarm is beeping. You must write the code to turn it off. The alarm's state is controlled by a JavaScript object.",
     content: {
-      question: "Your alarm is represented by the object `let smartAlarm = { isOn: true, time: '07:00' };`. Which line of code will set the `isOn` property to `false`, finally giving you peace?",
+      question: "The alarm is represented by `let smartAlarm = { isOn: true };`. Your code needs to change `isOn` to `false` to make the character's alarm stop. Which line of code accomplishes this?",
       options: [
         'smartAlarm.isOn = false;',
         'smartAlarm(isOn, false);',
@@ -929,9 +929,9 @@ export const expertChallenges = [
     language: 'javascript',
     level: 'advanced' as const,
     title: 'Chapter 2: The Essential Brew',
-    description: "With the alarm silenced, the next logical step is coffee. Your choice of beverage depends entirely on your mood. Today, you're feeling sleepy. You need to write a quick line of code to decide your morning drink.",
+    description: "Now that they're awake, your character needs coffee. Their choice of drink is determined by their mood. Your code will decide what they drink.",
     content: {
-      question: "You have `let mood = 'sleepy';`. Use a ternary operator to set the `beverage` variable to 'Coffee' if the mood is 'sleepy', and 'Tea' otherwise.",
+      question: "Your character's mood is `'sleepy'`. Use a ternary operator to write the code that sets their `beverage` to 'Coffee'. If their mood was anything else, it would be 'Tea'. Which code does this?",
       options: [
         "let beverage = mood === 'sleepy' ? 'Coffee' : 'Tea';",
         "let beverage = mood ? 'Coffee' : 'Tea';",
@@ -947,9 +947,9 @@ export const expertChallenges = [
     language: 'javascript',
     level: 'advanced' as const,
     title: 'Chapter 3: The Weather Check',
-    description: "Before getting dressed, a wise person checks the weather. Your home automation system has fetched the latest weather data for you. It looks like rain. You'll need to use your coding skills to remember to grab an umbrella.",
+    description: "Before getting dressed, your character needs to check the weather. The result of your code will determine if they remember to take an umbrella.",
     content: {
-      question: "You have a weather object: `const weather = { isRaining: true, temp: 15 };` and an empty array `let items = [];`. Which `if` statement correctly adds 'umbrella' to your `items` array?",
+      question: "The weather report is `const weather = { isRaining: true };`. Your character has an empty `items` array. Write the `if` statement that adds 'umbrella' to their items because it's raining.",
       options: [
         "if (weather.isRaining) { items.push('umbrella'); }",
         "if (weather.isRaining == true) items.add('umbrella');",
@@ -965,9 +965,9 @@ export const expertChallenges = [
     language: 'javascript',
     level: 'advanced' as const,
     title: 'Chapter 4: The Daily Plan',
-    description: "Coffee in hand, it's time to plan the day. You keep your tasks in a simple array. Today, you need to add \"Grocery Shopping\" to your list.",
+    description: "Your character needs to plan their day. Your code will add a new task to their to-do list.",
     content: {
-      question: "Your to-do list is `const todos = ['Work', 'Gym'];`. How do you add \"Grocery Shopping\" to the end of this list?",
+      question: "The to-do list is `const todos = ['Work', 'Gym'];`. Which line of code will you use to `push` 'Grocery Shopping' onto the end of their list?",
       options: [
         "todos.add('Grocery Shopping');",
         "todos[2] = 'Grocery Shopping';",
@@ -983,9 +983,9 @@ export const expertChallenges = [
     language: 'javascript',
     level: 'advanced' as const,
     title: 'Chapter 5: The Morning Commute',
-    description: "Time to head to work. You check your traffic app, which reports that traffic is 'heavy' today. Your commute time will vary based on this report. Let's write the logic.",
+    description: "Time to head out. Traffic is bad. Your code will calculate how long the commute will take for the character based on the traffic report.",
     content: {
-      question: "You have `const trafficStatus = 'heavy';` and an unassigned variable `let myCommuteTime;`. How do you use a `switch` statement to set `myCommuteTime` to 60 when `trafficStatus` is 'heavy'?",
+      question: "The `trafficStatus` is 'heavy'. Use a `switch` statement to set `myCommuteTime` to 60, representing the character's 60-minute commute.",
       options: [
         "switch(trafficStatus) { case 'heavy': myCommuteTime = 60; break; }",
         "switch(myCommuteTime) { case 'heavy': myCommuteTime = 60; }",
@@ -1001,9 +1001,9 @@ export const expertChallenges = [
     language: 'javascript',
     level: 'advanced' as const,
     title: 'Chapter 6: The Grocery Run',
-    description: "Later in the day, you're at the market. To keep track of your shopping, you've decided to write a helper function that adds items to your digital cart.",
+    description: "At the store, your character needs a way to add items to their digital cart. You'll write the function that makes this possible.",
     content: {
-      question: 'Which is a valid arrow function `addToCart` that takes an `item` and a `cart` array and correctly adds the item to the cart?',
+      question: 'Which is a valid arrow function `addToCart` that takes an `item` and a `cart` array, allowing the character to add items by executing `cart.push(item)`?',
       options: [
         'const addToCart = (item, cart) -> cart.push(item);',
         'const addToCart = (item, cart) => cart.push(item);',
@@ -1019,9 +1019,9 @@ export const expertChallenges = [
     language: 'javascript',
     level: 'advanced' as const,
     title: 'Chapter 7: Checking Out',
-    description: "You've got your items, and now you're at the checkout. The prices are scanned into an array. You need to write a line of code to calculate the total bill.",
+    description: "The character is at the checkout with a cart full of items. Your code will calculate their total bill.",
     content: {
-      question: 'The prices are in an array: `const prices = [10, 20, 5];`. Which `reduce` function correctly sums the array to get your total cost?',
+      question: 'The item prices are in an array: `const prices = [10, 20, 5];`. Which `reduce` function correctly sums the array, telling the character their total cost?',
       options: [
         'prices.reduce((total, current) => total + current, 0);',
         'prices.reduce((total, current) => total, 0);',
@@ -1037,9 +1037,9 @@ export const expertChallenges = [
     language: 'javascript',
     level: 'advanced' as const,
     title: 'Chapter 8: Evening Entertainment',
-    description: "The day is winding down. Time to relax with a movie. You have a list of available movies as an array of objects. Your task is to find the movie object for 'Inception'.",
+    description: "Back home, it's movie night. Your character wants to watch 'Inception'. Your code will find it in their movie library.",
     content: {
-      question: "Your movie list is `const movies = [{title: 'Inception', genre: 'Sci-Fi'}, {title: 'Joker', genre: 'Drama'}];`. How do you find and return the specific movie object for 'Inception'?",
+      question: "The library is `const movies = [{title: 'Inception', genre: 'Sci-Fi'}, {title: 'Joker', genre: 'Drama'}];`. Which code will correctly `find` and return the object for 'Inception' so your character can watch it?",
       options: [
         "movies.find(movie => movie.title === 'Inception');",
         "movies.filter(movie => movie.title === 'Inception');",
@@ -1055,9 +1055,9 @@ export const expertChallenges = [
     language: 'javascript',
     level: 'advanced' as const,
     title: 'Chapter 9: Dinner Time',
-    description: "You've decided to make pasta for dinner. The recipe is stored as a JavaScript object. You need to get just the list of ingredients to make sure you have everything.",
+    description: "Your character is hungry and wants to make pasta. Your code will access the recipe to get the list of ingredients they need.",
     content: {
-      question: "The recipe object is `const recipe = { name: 'Pasta', ingredients: ['Noodles', 'Sauce', 'Cheese'] };`. How do you get just the array of ingredients?",
+      question: "The recipe is `const recipe = { name: 'Pasta', ingredients: ['Noodles', 'Sauce', 'Cheese'] };`. Which code will access the `ingredients` property so your character knows what to get out?",
       options: [
         'Object.values(recipe.ingredients)',
         'recipe.ingredients',
@@ -1073,9 +1073,9 @@ export const expertChallenges = [
     language: 'javascript',
     level: 'advanced' as const,
     title: 'Chapter 10: Lights Out',
-    description: "You're heading to bed, but you want the lights to turn off automatically in 30 minutes. You need to use a JavaScript timer to schedule this action.",
+    description: "The character is going to bed. You need to write the code that schedules their smart lights to turn off automatically.",
     content: {
-      question: 'You have a function called `turnOffLights()`. Which code snippet correctly schedules it to run once after 1000 milliseconds (1 second)?',
+      question: 'You have a function `turnOffLights()`. Which code will you use to `setTimeout` and schedule the lights to turn off for the character in 1 second (1000ms)?',
       options: [
         'setInterval(turnOffLights, 1000);',
         'setTimeout(turnOffLights, 1000);',
@@ -1091,9 +1091,9 @@ export const expertChallenges = [
     language: 'javascript',
     level: 'advanced' as const,
     title: 'Chapter 11: Planning the Weekend',
-    description: "The work week is over! It's time to plan the weekend. You have a template for your plans, and you want to make a copy that you can modify without changing the original.",
+    description: "It's the weekend! Your character has a default set of plans but wants to make a separate, modifiable copy for this specific weekend. Your code will create that copy.",
     content: {
-      question: 'You have an array `const weekendPlans = ["Hike", "Read"];`. How do you create a completely separate new array, `myPlans`, that contains the same items?',
+      question: 'The template is `const weekendPlans = ["Hike", "Read"];`. How do you use the spread operator to create a completely new array, `myPlans`, that your character can change without affecting the original?',
       options: [
         'const myPlans = weekendPlans;',
         'const myPlans = [...weekendPlans];',
@@ -1109,9 +1109,9 @@ export const expertChallenges = [
     language: 'javascript',
     level: 'advanced' as const,
     title: 'Chapter 12: Checking the Mailbox',
-    description: "You open your email client and see a list of new messages. You need to write a quick piece of code to see if there's *any* unread mail that needs your attention.",
+    description: "Your character opens their email client. Your code will quickly scan the inbox to see if there's any new mail for them to read.",
     content: {
-      question: 'Your inbox is an array of objects: `const mail = [{id: 1, read: true}, {id: 2, read: false}];`. Which method efficiently returns `true` if at least one email has its `read` property set to `false`?',
+      question: 'The inbox is an array of objects: `const mail = [{id: 1, read: true}, {id: 2, read: false}];`. Which method will you use to check if `some` of the emails have `read: false` and return `true` to alert the character?',
       options: [
         'mail.some(m => m.read === false)',
         'mail.every(m => m.read === false)',
@@ -1127,9 +1127,9 @@ export const expertChallenges = [
     language: 'javascript',
     level: 'advanced' as const,
     title: 'Chapter 13: Tidying Up',
-    description: "Your desk is getting a bit messy. It's represented as an object, and you want to get rid of the \"clutter\" property entirely.",
+    description: "The character's virtual desk is messy. Your code will help them clean up by removing an unnecessary property from their desk object.",
     content: {
-      question: 'Your desk object is `let desk = { books: 5, clutter: "papers", laptop: 1 };`. Which command completely removes the `clutter` property from the object?',
+      question: 'The desk is `let desk = { books: 5, clutter: "papers" };`. Which command will you use to `delete` the `clutter` property, cleaning up the character\'s workspace?',
       options: [
         'desk.clutter = null;',
         'delete desk.clutter;',
@@ -1145,9 +1145,9 @@ export const expertChallenges = [
     language: 'javascript',
     level: 'advanced' as const,
     title: 'Chapter 14: Calling a Friend',
-    description: "You decide to call a friend. In JavaScript, making a call is an asynchronous operation—it returns a Promise that will resolve when your friend answers. You need to be ready to handle their response.",
+    description: "Your character wants to call a friend. This action is asynchronous. Your code needs to handle the connection when the friend finally answers.",
     content: {
-      question: 'A function `callFriend()` returns a Promise. How do you correctly specify a callback function to handle the successful response when the Promise resolves?',
+      question: 'The `callFriend()` function returns a Promise. How do you use `.then()` to specify what the character should do (the callback function) once the call is successfully connected?',
       options: [
         'callFriend().then(response => { ... });',
         'callFriend().success(response => { ... });',
@@ -1163,9 +1163,9 @@ export const expertChallenges = [
     language: 'javascript',
     level: 'advanced' as const,
     title: 'Chapter 15: Baking a Cake',
-    description: "It's a special occasion! You're baking a cake. The recipe says you must wait for the oven to preheat before you put the cake batter in. This is a perfect use case for async/await.",
+    description: "It's time to bake! The oven must preheat before the cake goes in. Your code will use `async/await` to make the character wait for the oven.",
     content: {
-      question: 'Inside an `async function bake()`, you call `await preheatOven();` before `putInCake();`. What is the primary role of the `await` keyword here?',
+      question: 'Inside the `async function bake()`, you have two steps: `preheatOven()` and `putInCake()`. Which keyword do you place before `preheatOven()` to `await` its completion and pause the character\'s actions until the oven is ready?',
       options: [
         'It runs `preheatOven` in the background without stopping the function.',
         "It pauses the `bake` function's execution until the `preheatOven` promise is settled.",
@@ -1181,9 +1181,9 @@ export const expertChallenges = [
     language: 'javascript',
     level: 'advanced' as const,
     title: 'Chapter 16: Packing for a Trip',
-    description: "You're going on a trip! You have your clothes in one list and your toiletries in another. You need to combine them into a single 'suitcase' list.",
+    description: "Your character is going on a trip and needs to pack. Your code will combine their `clothes` list and their `toiletries` list into one `suitcase`.",
     content: {
-      question: 'You have `const clothes = ["shirt", "pants"];` and `const toiletries = ["toothbrush"];`. How do you combine these into a single new array called `suitcase`?',
+      question: 'You have `const clothes = ["shirt"];` and `const toiletries = ["toothbrush"];`. How do you `concat` these two arrays into a single `suitcase` array for your character?',
       options: [
         'const suitcase = clothes + toiletries;',
         'const suitcase = [clothes, toiletries];',
@@ -1199,9 +1199,9 @@ export const expertChallenges = [
     language: 'javascript',
     level: 'advanced' as const,
     title: 'Chapter 17: Feeding the Pet',
-    description: "Your pet is giving you 'the look'. It's dinner time. Your pet is an object created from a `Pet` class. You need to create your pet and then call its `feed` method.",
+    description: "The character's pet is hungry! The pet is an object created from a class. Your code will instantiate the pet and then call the method to feed it.",
     content: {
-      question: 'You have a class `class Pet { constructor(name) { ... } feed() { ... } }`. How do you correctly create a new pet named "doggy" and then call its `feed()` method?',
+      question: 'You have a `Pet` class. How do you correctly create a `new Pet` named "doggy" and then call its `feed()` method to make the character feed their pet?',
       options: [
         'Pet.feed("doggy");',
         'let myPet = new Pet("doggy"); myPet.feed();',
@@ -1217,9 +1217,9 @@ export const expertChallenges = [
     language: 'javascript',
     level: 'advanced' as const,
     title: 'Chapter 18: A Trip to the Library',
-    description: "You have an array of book objects that you've borrowed from the library. You want to create a simple list containing only the titles of the books.",
+    description: "Your character has a list of book objects. They just want a simple list of the book titles. Your code will extract these titles for them.",
     content: {
-      question: 'Given `const books = [{title: "1984"}, {title: "Brave New World"}];`, which code uses the `map` method to produce an array of just the titles: `["1984", "Brave New World"]`?',
+      question: 'Given `const books = [{title: "1984"}, {title: "Brave New World"}];`, which code will `map` over the array to create a new array containing just the `title` of each book for your character to read?',
       options: [
         'books.map(book => book.title)',
         'books.forEach(book => book.title)',
@@ -1235,9 +1235,9 @@ export const expertChallenges = [
     language: 'javascript',
     level: 'advanced' as const,
     title: 'Chapter 19: Checking Your Contacts',
-    description: "A friend sent you their contact info as a JSON string. To use it in your JavaScript code, you first need to parse it into a JavaScript object.",
+    description: "A friend sends your character their contact info as a JSON string. Your code must parse this string into a usable object so the character can save the contact.",
     content: {
-      question: 'You have the string `const json = \'{"name": "John"}\';`. How do you convert this string into a usable JavaScript object?',
+      question: 'You receive `const json = \'{"name": "John"}\';`. How do you use `JSON.parse()` to turn this string into an object that your character\'s address book can understand?',
       options: [
         'JSON.parse(json)',
         'JSON.stringify(json)',
@@ -1253,9 +1253,9 @@ export const expertChallenges = [
     language: 'javascript',
     level: 'advanced' as const,
     title: 'Chapter 20: The Smart Fridge',
-    description: "You try to get a list of groceries from your smart fridge, but it might be offline. You need to write code that can handle this potential error without crashing your whole home system.",
+    description: "Your character wants to know what's in their smart fridge, but the fridge's API might be offline. Your code must be robust enough to handle a potential network error without crashing.",
     content: {
-      question: 'A function `getGroceries()` might throw an error if the network is down. How do you safely call this function and handle any potential error?',
+      question: 'The `getGroceries()` function might throw an error. How do you use a `try...catch` block to safely attempt the call and handle any error, preventing the character\'s smart home system from crashing?',
       options: [
         'if(getGroceries()) { ... } else { ... }',
         'try { getGroceries(); } catch (error) { ... }',
