@@ -32,7 +32,7 @@ export default function CoursesPage() {
   };
 
   const hardModeLanguages: HardModeLanguage[] = uniqueLanguages.map(lang => {
-    const imageName = `course-${lang === 'html-css' ? 'html-css' : lang}`;
+    const imageName = `course-${lang === 'html' ? 'html-css' : lang}`;
     return {
         language: lang,
         name: getLanguageName(lang),
@@ -115,5 +115,3 @@ export default function CoursesPage() {
     </div>
   );
 }
-
-    
