@@ -36,7 +36,7 @@ export default function CoursesPage({ searchParams }: { searchParams?: { tab?: s
     let imageName = '';
     switch (lang) {
         case 'javascript':
-            imageName = 'course-javascript-v2';
+            imageName = 'course-javascript';
             break;
         case 'python':
             imageName = 'course-python';
