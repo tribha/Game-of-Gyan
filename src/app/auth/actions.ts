@@ -62,6 +62,7 @@ export async function signup(formData: FormData) {
       completedLevels: [],
       completedCourses: [],
       completedExpertChallenges: [],
+      completedHardChallenges: [],
       name: '',
       school: '',
       city: '',
@@ -108,3 +109,5 @@ export async function logout() {
   await signOut(firebaseAuth);
   redirect('/');
 }
+
+    
