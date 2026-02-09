@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { mockData } from '@/lib/mock-data';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Lock } from 'lucide-react';
+import { ArrowRight, Lock, ChevronLeft } from 'lucide-react';
 import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
 import { doc } from 'firebase/firestore';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -48,9 +48,17 @@ export default function CoursePage() {
   if (isProfileLoading) {
     return (
       <div className="space-y-6">
-        <h1 className="text-3xl font-bold tracking-tight">
-          Course: <span className="capitalize">{course.name}</span>
-        </h1>
+        <div className="flex items-center gap-4">
+            <Button asChild variant="outline" size="icon">
+                <Link href="/dashboard/courses">
+                <ChevronLeft className="h-4 w-4" />
+                <span className="sr-only">Back to Courses</span>
+                </Link>
+            </Button>
+            <h1 className="text-3xl font-bold tracking-tight">
+              Course: <span className="capitalize">{course.name}</span>
+            </h1>
+        </div>
         <div className="space-y-4">
           {[...Array(3)].map((_, i) => (
             <Card key={i}>
@@ -72,9 +80,17 @@ export default function CoursePage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold tracking-tight">
-        Course: <span className="capitalize">{course.name}</span>
-      </h1>
+      <div className="flex items-center gap-4">
+          <Button asChild variant="outline" size="icon">
+              <Link href="/dashboard/courses">
+              <ChevronLeft className="h-4 w-4" />
+              <span className="sr-only">Back to Courses</span>
+              </Link>
+          </Button>
+          <h1 className="text-3xl font-bold tracking-tight">
+              Course: <span className="capitalize">{course.name}</span>
+          </h1>
+      </div>
       
       {course.levels.length > 0 ? (
         <div className="space-y-4">
