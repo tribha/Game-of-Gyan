@@ -69,8 +69,8 @@
     {
       "id": "course-javascript",
       "description": "JavaScript Course Image",
-      "imageUrl": "https://images.unsplash.com/photo-1526498460520-4c246339d10a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3ZWIlMjBjb2RlfGVufDB8fHx8MTc3MDQ1ODg1Mnww&ixlib=rb-4.0.3&q=80&w=1080",
-      "imageHint": "web code"
+      "imageUrl": "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxqYXZhc2NyaXB0JTIwY29kZXxlbnwwfHx8fDE3NzA1ODg3OTd8MA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageHint": "javascript code"
     },
     {
       "id": "course-python",
