@@ -15,7 +15,8 @@ type HardModeLanguage = {
   image: (typeof PlaceHolderImages)[0] | undefined;
 };
 
-export default function CoursesPage() {
+export default function CoursesPage({ searchParams }: { searchParams?: { tab?: string } }) {
+  const defaultTab = searchParams?.tab === 'hard' ? 'hard' : 'medium';
   const uniqueLanguages = [...new Set(hardChallenges.map(c => c.language))];
   
   const getLanguageName = (lang: string) => {
@@ -35,7 +36,7 @@ export default function CoursesPage() {
     let imageName = '';
     switch (lang) {
         case 'javascript':
-            imageName = 'course-javascript';
+            imageName = 'course-javascript-v2';
             break;
         case 'python':
             imageName = 'course-python';
@@ -71,7 +72,7 @@ export default function CoursesPage() {
         </p>
       </div>
 
-      <Tabs defaultValue="medium">
+      <Tabs defaultValue={defaultTab}>
         <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="medium">Medium</TabsTrigger>
             <TabsTrigger value="hard">Hard</TabsTrigger>

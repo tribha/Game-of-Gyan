@@ -79,7 +79,7 @@ export default function HardLanguagePage() {
         <div className="space-y-6">
         <div className="flex items-center gap-4">
             <Button asChild variant="outline" size="icon">
-                <Link href="/dashboard/courses">
+                <Link href="/dashboard/courses?tab=hard">
                 <ChevronLeft className="h-4 w-4" />
                 <span className="sr-only">Back to Courses</span>
                 </Link>
@@ -123,5 +123,3 @@ export default function HardLanguagePage() {
         </div>
     );
 }
-
-    
