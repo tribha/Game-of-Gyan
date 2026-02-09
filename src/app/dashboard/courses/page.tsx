@@ -32,7 +32,29 @@ export default function CoursesPage() {
   };
 
   const hardModeLanguages: HardModeLanguage[] = uniqueLanguages.map(lang => {
-    const imageName = `course-${lang === 'html' ? 'html-css' : lang}`;
+    let imageName = '';
+    switch (lang) {
+        case 'javascript':
+            imageName = 'course-javascript';
+            break;
+        case 'python':
+            imageName = 'course-python';
+            break;
+        case 'sql':
+            imageName = 'course-sql';
+            break;
+        case 'java':
+            imageName = 'course-java';
+            break;
+        case 'cplusplus':
+            imageName = 'course-cplusplus';
+            break;
+        case 'html':
+            imageName = 'course-html-css';
+            break;
+        default:
+            imageName = `course-${lang}`;
+    }
     return {
         language: lang,
         name: getLanguageName(lang),
