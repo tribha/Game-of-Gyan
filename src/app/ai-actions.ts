@@ -2,7 +2,7 @@
 
 import { getSmartHint } from '@/ai/flows/smart-hint-system';
 import { runCode } from '@/ai/flows/run-code';
-import { chatWithBot } from '@/ai/flows/chatbot';
+import { chatWithBot, type ChatbotInput } from '@/ai/flows/chatbot';
 import { z } from 'zod';
 
 // Hint Action
@@ -108,27 +108,12 @@ export async function runCodeAction(
 }
 
 // Chatbot Action
-const ChatbotActionSchema = z.object({
-  message: z.string(),
-  history: z.preprocess(
-    (h) => {
-        try {
-            return JSON.parse(z.string().parse(h));
-        } catch {
-            return [];
-        }
-    },
-    z.array(z.object({
-      role: z.enum(['user', 'model']),
-      content: z.string(),
-    }))
-  ),
-});
+const ChatbotMessageSchema = z.string().min(1, 'Message cannot be empty.');
 
 export type ChatState = {
   response?: string | null;
   error?: string;
-  history: {role: 'user' | 'model', content: string}[];
+  history: ChatbotInput['history'];
   userMessage?: string;
 };
 
@@ -136,30 +121,40 @@ export async function chatWithBotAction(
   prevState: ChatState,
   formData: FormData
 ): Promise<ChatState> {
-  const userMessage = formData.get('message') as string;
+  const userMessage = (formData.get('message') as string) || '';
+
+  const validation = ChatbotMessageSchema.safeParse(userMessage);
+  if (!validation.success) {
+      return { ...prevState, error: validation.error.flatten().formErrors[0] };
+  }
+
+  let history: ChatState['history'] = [];
   try {
-    const validatedDataResult = ChatbotActionSchema.safeParse({
-      message: userMessage,
-      history: formData.get('history'),
-    });
+      history = JSON.parse(formData.get('history') as string);
+  } catch {
+      // Start with empty history on parse error
+  }
 
-    if (!validatedDataResult.success) {
-      console.error(validatedDataResult.error);
-      return { ...prevState, error: 'Invalid input for chatbot.', userMessage };
-    }
+  const newHistoryWithUserMessage = [...history, { role: 'user' as const, content: userMessage }];
 
-    const { message, history } = validatedDataResult.data;
-
-    const result = await chatWithBot({ message, history });
+  try {
+    const { response } = await chatWithBot({ message: userMessage, history });
+    
+    const finalHistory = [...newHistoryWithUserMessage, { role: 'model' as const, content: response }];
 
     return {
-      response: result.response,
-      history: [...history, { role: 'user', content: message }, {role: 'model', content: result.response}],
-      userMessage: message,
+      history: finalHistory,
+      userMessage: userMessage,
+      response: response,
       error: undefined,
     };
   } catch (e) {
     console.error('Chatbot action failed:', e);
-    return { ...prevState, error: 'Failed to get response from AI.', userMessage };
+    // Return history with user message and an error to display
+    return { 
+      history: newHistoryWithUserMessage,
+      userMessage: userMessage,
+      error: 'Failed to get response from AI.',
+    };
   }
 }

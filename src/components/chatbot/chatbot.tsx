@@ -16,11 +16,6 @@ import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback } from '../ui/avatar';
 import { useUser } from '@/firebase';
 
-type Message = {
-  role: 'user' | 'model';
-  content: string;
-};
-
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
@@ -36,8 +31,9 @@ function SubmitButton() {
 
 export function Chatbot() {
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const { user } = useUser();
 
   const initialState: ChatState = {
@@ -49,6 +45,15 @@ export function Chatbot() {
 
   const [state, formAction] = useActionState(chatWithBotAction, initialState);
 
+  // When form action completes, reset and focus the input field
+  useEffect(() => {
+    if (formRef.current && (state.response || state.error)) {
+      formRef.current.reset();
+      inputRef.current?.focus();
+    }
+  }, [state]);
+  
+
   // Scroll to bottom when new messages are added
   useEffect(() => {
     if (scrollAreaRef.current) {
@@ -57,23 +62,7 @@ export function Chatbot() {
         behavior: 'smooth',
       });
     }
-  }, [messages]);
-  
-  useEffect(() => {
-    if (state.response) {
-      setMessages((prev) => [
-        ...prev,
-        { role: 'user', content: state.userMessage! },
-        { role: 'model', content: state.response! },
-      ]);
-    } else if (state.error) {
-       setMessages((prev) => [
-        ...prev,
-        { role: 'user', content: state.userMessage! },
-        { role: 'model', content: "Sorry, I'm having trouble connecting right now. Please try again later." },
-      ]);
-    }
-  }, [state]);
+  }, [state.history, state.error]);
 
 
   return (
@@ -120,7 +109,7 @@ export function Chatbot() {
                   </p>
                 </div>
               </div>
-              {messages.map((message, index) => (
+              {state.history.map((message, index) => (
                 <div
                   key={index}
                   className={cn(
@@ -145,12 +134,25 @@ export function Chatbot() {
                   </div>
                 </div>
               ))}
+               {state.error && (
+                <div className="flex items-start gap-3">
+                  <Avatar className="w-8 h-8">
+                    <AvatarFallback>🤖</AvatarFallback>
+                  </Avatar>
+                  <div className="bg-destructive/10 border border-destructive/20 text-destructive p-3 rounded-lg max-w-[80%]">
+                    <p className="text-sm">
+                      Sorry, I'm having trouble connecting right now. Please try again later.
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           </ScrollArea>
           <div className="p-4 border-t">
-            <form action={formAction} className="flex items-center gap-2">
-              <input type="hidden" name="history" value={JSON.stringify(messages)} />
+            <form ref={formRef} action={formAction} className="flex items-center gap-2">
+              <input type="hidden" name="history" value={JSON.stringify(state.history)} />
               <Input
+                ref={inputRef}
                 name="message"
                 placeholder="Ask a question..."
                 className="flex-1"
