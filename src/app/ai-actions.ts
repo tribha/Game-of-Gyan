@@ -134,17 +134,17 @@ export async function chatbotAction(
   ];
 
   try {
-    const { response } = await chatWithBot({ history: newHistory });
-    if (!response) {
+    const modelResponse = await chatWithBot({ history: newHistory });
+    if (!modelResponse || !modelResponse.content) {
       throw new Error('AI returned an empty response.');
     }
     return {
-      history: [...newHistory, { role: 'model', content: response }],
+      history: [...newHistory, modelResponse],
     };
   } catch (e: any) {
     console.error('Chatbot action failed:', e);
     return {
-      history: prevState.history, // Revert to old history on error
+      history: newHistory, // Keep user's message on error
       error: `Sorry, I'm having trouble connecting. The underlying error is: ${e.message}`,
     };
   }

@@ -21,10 +21,7 @@ const ChatbotInputSchema = z.object({
   history: z.array(MessageSchema).describe('The full conversation history including the latest user message.'),
 });
 
-export type ChatbotOutput = z.infer<typeof ChatbotOutputSchema>;
-const ChatbotOutputSchema = z.object({
-  response: z.string().describe("The AI's response to the user."),
-});
+export type ChatbotOutput = z.infer<typeof MessageSchema>;
 
 const systemPrompt = `You are Gyan, a friendly, encouraging, and slightly playful AI tutor for the "Game of Gyan" coding application. Your personality is that of a wise but fun guide in a game. Your goal is to help users conquer the world of code.
 
@@ -60,5 +57,5 @@ export async function chatWithBot(input: ChatbotInput): Promise<ChatbotOutput> {
     throw new Error('AI did not return a valid response.');
   }
 
-  return {response: responseText};
+  return { role: 'model', content: responseText };
 }
