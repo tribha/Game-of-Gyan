@@ -1,11 +1,11 @@
-
 'use server';
 
-import { getSmartHint, type SmartHintInput } from '@/ai/flows/smart-hint-system';
+import { getSmartHint } from '@/ai/flows/smart-hint-system';
 import { runCode } from '@/ai/flows/run-code';
+import { chatWithBot } from '@/ai/flows/chatbot';
 import { z } from 'zod';
-import { redirect } from 'next/navigation';
 
+// Hint Action
 const SmartHintActionSchema = z.object({
   language: z.string(),
   level: z.enum(['beginner', 'intermediate', 'advanced']),
@@ -47,8 +47,6 @@ export async function getHintAction(
     if (result.hint) {
         return { hint: result.hint };
     } else {
-        // The model returns null if it thinks the user hasn't tried enough.
-        // We can provide a generic encouraging message.
         const attempts = validatedData.attempts;
         if (validatedData.studentCode.trim() === validatedData.initialCode.trim() || !validatedData.studentCode.trim()) {
           return { hint: "It looks like you haven't written any code yet. Give it a try before asking for a hint!" };
@@ -66,6 +64,7 @@ export async function getHintAction(
   }
 }
 
+// Run Code Action
 const RunCodeActionSchema = z.object({
   language: z.string(),
   question: z.string(),
@@ -105,5 +104,62 @@ export async function runCodeAction(
   } catch (e) {
     console.error('Code execution simulation failed:', e);
     return { error: 'Failed to run code. Please try again later.' };
+  }
+}
+
+// Chatbot Action
+const ChatbotActionSchema = z.object({
+  message: z.string(),
+  history: z.preprocess(
+    (h) => {
+        try {
+            return JSON.parse(z.string().parse(h));
+        } catch {
+            return [];
+        }
+    },
+    z.array(z.object({
+      role: z.enum(['user', 'model']),
+      content: z.string(),
+    }))
+  ),
+});
+
+export type ChatState = {
+  response?: string | null;
+  error?: string;
+  history: {role: 'user' | 'model', content: string}[];
+  userMessage?: string;
+};
+
+export async function chatWithBotAction(
+  prevState: ChatState,
+  formData: FormData
+): Promise<ChatState> {
+  const userMessage = formData.get('message') as string;
+  try {
+    const validatedDataResult = ChatbotActionSchema.safeParse({
+      message: userMessage,
+      history: formData.get('history'),
+    });
+
+    if (!validatedDataResult.success) {
+      console.error(validatedDataResult.error);
+      return { ...prevState, error: 'Invalid input for chatbot.', userMessage };
+    }
+
+    const { message, history } = validatedDataResult.data;
+
+    const result = await chatWithBot({ message, history });
+
+    return {
+      response: result.response,
+      history: [...history, { role: 'user', content: message }, {role: 'model', content: result.response}],
+      userMessage: message,
+      error: undefined,
+    };
+  } catch (e) {
+    console.error('Chatbot action failed:', e);
+    return { ...prevState, error: 'Failed to get response from AI.', userMessage };
   }
 }
