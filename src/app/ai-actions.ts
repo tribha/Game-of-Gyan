@@ -114,7 +114,6 @@ export type ChatState = {
   response?: string | null;
   error?: string;
   history: ChatbotInput['history'];
-  userMessage?: string;
 };
 
 export async function chatWithBotAction(
@@ -138,13 +137,12 @@ export async function chatWithBotAction(
   const newHistoryWithUserMessage = [...history, { role: 'user' as const, content: userMessage }];
 
   try {
-    const { response } = await chatWithBot({ message: userMessage, history });
+    const { response } = await chatWithBot({ history: newHistoryWithUserMessage });
     
     const finalHistory = [...newHistoryWithUserMessage, { role: 'model' as const, content: response }];
 
     return {
       history: finalHistory,
-      userMessage: userMessage,
       response: response,
       error: undefined,
     };
@@ -153,7 +151,6 @@ export async function chatWithBotAction(
     // Return history with user message and an error to display
     return { 
       history: newHistoryWithUserMessage,
-      userMessage: userMessage,
       error: 'Failed to get response from AI.',
     };
   }

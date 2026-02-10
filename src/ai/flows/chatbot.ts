@@ -18,8 +18,7 @@ const MessageSchema = z.object({
 
 export type ChatbotInput = z.infer<typeof ChatbotInputSchema>;
 const ChatbotInputSchema = z.object({
-  message: z.string().describe('The latest message from the user.'),
-  history: z.array(MessageSchema).describe('The conversation history.'),
+  history: z.array(MessageSchema).describe('The full conversation history including the latest user message.'),
 });
 
 export type ChatbotOutput = z.infer<typeof ChatbotOutputSchema>;
@@ -47,11 +46,10 @@ const systemPrompt = `You are Gyan, a friendly and encouraging AI tutor for the 
   `;
 
 export async function chatWithBot(input: ChatbotInput): Promise<ChatbotOutput> {
-  const { history, message } = input;
+  const { history } = input;
 
   const result = await ai.generate({
     system: systemPrompt,
-    prompt: message,
     history: history,
   });
 

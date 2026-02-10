@@ -40,7 +40,6 @@ export function Chatbot() {
     response: undefined,
     error: undefined,
     history: [],
-    userMessage: '',
   };
 
   const [state, formAction] = useActionState(chatWithBotAction, initialState);
