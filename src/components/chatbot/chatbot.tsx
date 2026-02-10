@@ -64,6 +64,10 @@ export function Chatbot() {
     }
   }, [state.history, state.error]);
 
+  // If the last action resulted in an error, the history for the *next* form submission
+  // should not include the user message that failed. This prevents an error loop.
+  const historyForForm = state.error ? state.history.slice(0, -1) : state.history;
+
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -150,7 +154,7 @@ export function Chatbot() {
           </ScrollArea>
           <div className="p-4 border-t">
             <form ref={formRef} action={formAction} className="flex items-center gap-2">
-              <input type="hidden" name="history" value={JSON.stringify(state.history)} />
+              <input type="hidden" name="history" value={JSON.stringify(historyForForm)} />
               <Input
                 ref={inputRef}
                 name="message"
