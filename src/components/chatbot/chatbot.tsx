@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { useFormStatus, useActionState } from 'react-dom';
 import { Button } from '@/components/ui/button';
 import {
   Popover,
@@ -10,22 +11,33 @@ import {
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Bot, Loader2, Send, X } from 'lucide-react';
-import { getChatbotResponse } from '@/app/ai-actions';
+import { chatbotAction, type ChatState } from '@/app/ai-actions';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback } from '../ui/avatar';
 import { useUser } from '@/firebase';
-import { type ChatbotInput } from '@/ai/flows/chatbot';
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" size="icon" disabled={pending}>
+      {pending ? (
+        <Loader2 className="h-4 w-4 animate-spin" />
+      ) : (
+        <Send className="h-4 w-4" />
+      )}
+    </Button>
+  );
+}
 
 export function Chatbot() {
   const [open, setOpen] = useState(false);
-  const [history, setHistory] = useState<ChatbotInput['history']>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [pending, setPending] = useState(false);
-  
   const formRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const { user } = useUser();
+
+  const initialState: ChatState = { history: [], error: undefined };
+  const [state, formAction, isPending] = useActionState(chatbotAction, initialState);
 
   useEffect(() => {
     if (scrollAreaRef.current) {
@@ -34,33 +46,14 @@ export function Chatbot() {
             behavior: 'smooth',
         });
     }
-  }, [history, error, pending]);
+  }, [state]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const userMessage = (formData.get('message') as string) || '';
-    if (!userMessage.trim() || pending) return;
-
-    setPending(true);
-    setError(null);
-    formRef.current?.reset();
-    inputRef.current?.focus();
-
-    const newHistory = [...history, { role: 'user' as const, content: userMessage }];
-    setHistory(newHistory);
-
-    try {
-      const response = await getChatbotResponse(newHistory);
-      setHistory(prev => [...prev, { role: 'model' as const, content: response }]);
-    } catch (e: any) {
-      setError(e.message || 'Failed to get response from AI.');
-      // Revert history to remove the user message that caused the error
-      setHistory(history);
-    } finally {
-      setPending(false);
+  useEffect(() => {
+    if (!isPending) {
+        formRef.current?.reset();
+        inputRef.current?.focus();
     }
-  };
+  }, [isPending]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -107,7 +100,7 @@ export function Chatbot() {
                           </p>
                       </div>
                   </div>
-                  {history.map((message, index) => (
+                  {state.history.map((message, index) => (
                       <div
                           key={index}
                           className={cn(
@@ -132,7 +125,7 @@ export function Chatbot() {
                           </div>
                       </div>
                   ))}
-                  {pending && (
+                  {isPending && (
                        <div className="flex items-start gap-3">
                           <Avatar className="w-8 h-8">
                               <AvatarFallback>🤖</AvatarFallback>
@@ -142,14 +135,14 @@ export function Chatbot() {
                           </div>
                       </div>
                   )}
-                  {error && (
+                  {state.error && (
                       <div className="flex items-start gap-3">
                           <Avatar className="w-8 h-8">
                               <AvatarFallback>🤖</AvatarFallback>
                           </Avatar>
                           <div className="bg-destructive/10 border border-destructive/20 text-destructive p-3 rounded-lg max-w-[80%]">
                               <p className="text-sm">
-                                  Sorry, I'm having trouble connecting right now. Please try again later.
+                                  {state.error}
                               </p>
                           </div>
                       </div>
@@ -158,22 +151,16 @@ export function Chatbot() {
             </ScrollArea>
             
             <div className="p-4 border-t">
-              <form ref={formRef} onSubmit={handleSubmit} className="flex items-center gap-2">
+              <form ref={formRef} action={formAction} className="flex items-center gap-2">
                   <Input
                       ref={inputRef}
                       name="message"
                       placeholder="Ask a question..."
                       className="flex-1"
                       autoComplete="off"
-                      disabled={pending}
+                      disabled={isPending}
                   />
-                  <Button type="submit" size="icon" disabled={pending}>
-                    {pending ? (
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                    ) : (
-                      <Send className="h-4 w-4" />
-                    )}
-                  </Button>
+                  <SubmitButton />
               </form>
             </div>
         </div>

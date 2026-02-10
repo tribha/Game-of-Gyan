@@ -108,20 +108,44 @@ export async function runCodeAction(
 }
 
 // Chatbot Action
-export async function getChatbotResponse(history: ChatbotInput['history']): Promise<string> {
-  if (!history || history.length === 0) {
-    throw new Error('History cannot be empty.');
+const MessageSchema = z.object({
+  role: z.enum(['user', 'model']),
+  content: z.string(),
+});
+export type Message = z.infer<typeof MessageSchema>;
+
+export type ChatState = {
+  history: Message[];
+  error?: string;
+};
+
+export async function chatbotAction(
+  prevState: ChatState,
+  formData: FormData
+): Promise<ChatState> {
+  const userMessage = formData.get('message') as string;
+  if (!userMessage.trim()) {
+    return prevState;
   }
 
+  const newHistory: Message[] = [
+    ...prevState.history,
+    { role: 'user', content: userMessage },
+  ];
+
   try {
-    const { response } = await chatWithBot({ history });
+    const { response } = await chatWithBot({ history: newHistory });
     if (!response) {
       throw new Error('AI returned an empty response.');
     }
-    return response;
+    return {
+      history: [...newHistory, { role: 'model', content: response }],
+    };
   } catch (e: any) {
     console.error('Chatbot action failed:', e);
-    // Throw a more descriptive error to help with debugging.
-    throw new Error(`Sorry, I'm having trouble connecting to the AI service. The underlying error is: ${e.message}`);
+    return {
+      history: prevState.history, // Revert to old history on error
+      error: `Sorry, I'm having trouble connecting. The underlying error is: ${e.message}`,
+    };
   }
 }
