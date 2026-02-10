@@ -108,50 +108,19 @@ export async function runCodeAction(
 }
 
 // Chatbot Action
-const ChatbotMessageSchema = z.string().min(1, 'Message cannot be empty.');
-
-export type ChatState = {
-  response?: string | null;
-  error?: string;
-  history: ChatbotInput['history'];
-};
-
-export async function chatWithBotAction(
-  prevState: ChatState,
-  formData: FormData
-): Promise<ChatState> {
-  const userMessage = (formData.get('message') as string) || '';
-
-  const validation = ChatbotMessageSchema.safeParse(userMessage);
-  if (!validation.success) {
-      return { ...prevState, error: validation.error.flatten().formErrors[0] };
+export async function getChatbotResponse(history: ChatbotInput['history']): Promise<string> {
+  if (!history || history.length === 0) {
+    throw new Error('History cannot be empty.');
   }
 
-  let history: ChatState['history'] = [];
   try {
-      history = JSON.parse(formData.get('history') as string);
-  } catch {
-      // Start with empty history on parse error
-  }
-
-  const newHistoryWithUserMessage = [...history, { role: 'user' as const, content: userMessage }];
-
-  try {
-    const { response } = await chatWithBot({ history: newHistoryWithUserMessage });
-    
-    const finalHistory = [...newHistoryWithUserMessage, { role: 'model' as const, content: response }];
-
-    return {
-      history: finalHistory,
-      response: response,
-      error: undefined,
-    };
-  } catch (e) {
+    const { response } = await chatWithBot({ history });
+    if (!response) {
+      throw new Error('AI returned an empty response.');
+    }
+    return response;
+  } catch (e: any) {
     console.error('Chatbot action failed:', e);
-    // Return history with user message and an error to display
-    return { 
-      history: newHistoryWithUserMessage,
-      error: 'Failed to get response from AI.',
-    };
+    throw new Error('Failed to get response from AI.');
   }
 }
