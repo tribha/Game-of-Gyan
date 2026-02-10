@@ -121,6 +121,7 @@ export async function getChatbotResponse(history: ChatbotInput['history']): Prom
     return response;
   } catch (e: any) {
     console.error('Chatbot action failed:', e);
-    throw new Error('Failed to get response from AI.');
+    // Throw a more descriptive error to help with debugging.
+    throw new Error(`Sorry, I'm having trouble connecting to the AI service. The underlying error is: ${e.message}`);
   }
 }
