@@ -27,16 +27,7 @@ const ChatbotOutputSchema = z.object({
   response: z.string().describe("The AI's response to the user."),
 });
 
-export async function chatWithBot(input: ChatbotInput): Promise<ChatbotOutput> {
-  const {output} = await chatBotPrompt(input);
-  return {response: output!.response};
-}
-
-const chatBotPrompt = ai.definePrompt({
-  name: 'chatBotPrompt',
-  input: {schema: ChatbotInputSchema},
-  output: {schema: ChatbotOutputSchema},
-  prompt: `You are Gyan, a friendly and encouraging AI tutor for the "Game of Gyan" coding application. Your goal is to help users learn, answer their questions about programming concepts, and guide them through the app's features.
+const systemPrompt = `You are Gyan, a friendly and encouraging AI tutor for the "Game of Gyan" coding application. Your goal is to help users learn, answer their questions about programming concepts, and guide them through the app's features.
 
   Here's what you need to know about the app:
   - It's a gamified learning platform called "Game of Gyan".
@@ -52,14 +43,22 @@ const chatBotPrompt = ai.definePrompt({
   - If a user asks for something outside of coding or the app, politely steer them back to learning.
   - You can ask clarifying questions to better understand what the user needs.
   
-  Conversation History:
-  {{#each history}}
-  {{role}}: {{content}}
-  {{/each}}
-
-  User's latest message:
-  {{message}}
-  
   Your response should be just the text answer to the user.
-  `,
-});
+  `;
+
+export async function chatWithBot(input: ChatbotInput): Promise<ChatbotOutput> {
+  const { history, message } = input;
+
+  const result = await ai.generate({
+    system: systemPrompt,
+    prompt: message,
+    history: history,
+  });
+
+  const responseText = result.text;
+  if (!responseText || responseText.trim() === '') {
+    throw new Error('AI did not return a valid response.');
+  }
+
+  return {response: responseText};
+}
