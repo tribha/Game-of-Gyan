@@ -32,6 +32,13 @@ export default function CoursesPage({ searchParams }: { searchParams?: { tab?: s
     }
   };
 
+  const mediumCourses = mockData.courses.map(course => {
+    return {
+        ...course,
+        image: PlaceHolderImages.find(p => p.id === `course-${course.id}`)
+    }
+  });
+
   const hardModeLanguages: HardModeLanguage[] = uniqueLanguages.map(lang => {
     let imageName = '';
     switch (lang) {
@@ -66,7 +73,7 @@ export default function CoursesPage({ searchParams }: { searchParams?: { tab?: s
   return (
     <div className="space-y-6">
        <div>
-        <h1 className="text-3xl font-bold tracking-tight">Courses</h1>
+        <h1 className="text-3xl font-bold tracking-tight font-headline">Courses</h1>
         <p className="text-muted-foreground">
           Choose a learning path or test your skills by finding the error.
         </p>
@@ -79,8 +86,19 @@ export default function CoursesPage({ searchParams }: { searchParams?: { tab?: s
         </TabsList>
         <TabsContent value="medium" className="mt-6">
             <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {mockData.courses.map((course) => (
-            <Card key={course.name} className="flex flex-col">
+            {mediumCourses.map((course) => (
+            <Card key={course.name} className="flex flex-col group hover:border-primary/70 transition-colors">
+                {course.image && (
+                    <div className="relative h-40 w-full overflow-hidden rounded-t-lg">
+                        <Image
+                        src={course.image.imageUrl}
+                        alt={course.image.description}
+                        data-ai-hint={course.image.imageHint}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                    </div>
+                )}
                 <CardHeader>
                 <CardTitle>{course.name}</CardTitle>
                 <CardDescription>{course.description}</CardDescription>
@@ -102,15 +120,15 @@ export default function CoursesPage({ searchParams }: { searchParams?: { tab?: s
         <TabsContent value="hard" className="mt-6">
             <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {hardModeLanguages.map((lang) => (
-                <Card key={lang.language} className="flex flex-col">
+                <Card key={lang.language} className="flex flex-col group hover:border-primary/70 transition-colors">
                     {lang.image && (
-                        <div className="relative h-40 w-full">
+                        <div className="relative h-40 w-full overflow-hidden rounded-t-lg">
                             <Image
                             src={lang.image.imageUrl}
                             alt={lang.image.description}
                             data-ai-hint={lang.image.imageHint}
                             fill
-                            className="object-cover rounded-t-lg"
+                            className="object-cover group-hover:scale-105 transition-transform duration-300"
                             />
                         </div>
                     )}
@@ -123,7 +141,7 @@ export default function CoursesPage({ searchParams }: { searchParams?: { tab?: s
                             Test your debugging skills by spotting the error in code snippets.
                         </CardDescription>
                     </CardHeader>
-                    <CardContent className="mt-auto">
+                    <CardContent className="mt-auto p-6 pt-0">
                     <Button asChild className="w-full">
                         <Link href={`/dashboard/courses/hard/${lang.language}`}>
                         Start Challenge <ArrowRight className="ml-2 h-4 w-4" />

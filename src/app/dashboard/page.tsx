@@ -1,3 +1,4 @@
+
 'use client';
 import React, { useMemo } from 'react';
 import {
@@ -9,11 +10,11 @@ import {
 } from '@/components/ui/card';
 import { StatsCard } from '@/components/dashboard/stats-card';
 import { InProgressCourses } from '@/components/dashboard/in-progress-courses';
-import { RecentAchievements } from '@/components/dashboard/recent-achievements';
+import { Leaderboard } from '@/components/dashboard/leaderboard';
 import { OverviewChart } from '@/components/dashboard/overview-chart';
-import { courses as allCourses, achievements } from '@/lib/mock-data';
+import { courses as allCourses } from '@/lib/mock-data';
 import { expertChallenges } from '@/lib/expert-challenges';
-import { Activity, BarChart, CheckCircle, Clock, Rocket } from 'lucide-react';
+import { Activity, Award, Flame, Rocket, ShieldCheck } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 import { useUser, useDoc, useMemoFirebase, useFirestore, useCollection } from '@/firebase';
 import { doc, query, collection, where, orderBy, Timestamp } from 'firebase/firestore';
@@ -114,10 +115,10 @@ export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold tracking-tight">
+        <h1 className="text-4xl font-bold tracking-tight font-headline">
           Welcome back, {userProfile?.name || userData?.username || user?.email}!
         </h1>
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground text-lg">
           Here&apos;s a summary of your journey so far. Keep conquering!
         </p>
       </div>
@@ -132,39 +133,42 @@ export default function DashboardPage() {
           </>
         ) : (
           <>
-            <StatsCard title="Level" value={currentLevel} icon={BarChart} />
+            <StatsCard title="Level" value={currentLevel} icon={ShieldCheck} />
             <StatsCard
               title="XP Points"
               value={userProfile?.xp.toLocaleString() ?? 0}
-              icon={Activity}
+              icon={Flame}
             />
             <StatsCard
               title="Courses Completed"
               value={userProfile?.completedCourses.length ?? 0}
-              icon={CheckCircle}
+              icon={Award}
             />
             <StatsCard
               title="Coding Streak"
               value={`${userProfile?.streak ?? 0} days`}
-              icon={Clock}
+              icon={Activity}
             />
           </>
         )}
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-5">
-        <Card className="lg:col-span-3">
-          <CardHeader>
-            <CardTitle>XP Overview</CardTitle>
-            <CardDescription>
-              Your XP gains over the last 7 days.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="pl-2">
-            <OverviewChart data={overviewChartData} isLoading={isXpHistoryLoading} />
-          </CardContent>
-        </Card>
+      <div className="grid gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2 space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>XP Overview</CardTitle>
+              <CardDescription>
+                Your XP gains over the last 7 days.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="pl-2">
+              <OverviewChart data={overviewChartData} isLoading={isXpHistoryLoading} />
+            </CardContent>
+          </Card>
+          <Leaderboard />
+        </div>
+        <div className="lg:col-span-1 space-y-6">
            <Card>
             <CardHeader>
               <CardTitle>Next Level</CardTitle>
@@ -211,7 +215,6 @@ export default function DashboardPage() {
           <InProgressCourses courses={inProgressCourses} />
         </div>
       </div>
-       <RecentAchievements achievements={achievements} />
     </div>
   );
 }
