@@ -1,12 +1,6 @@
 {
   "placeholderImages": [
     {
-      "id": "game-of-gyan-logo",
-      "description": "Game of Gyan Logo",
-      "imageUrl": "https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxyZXRybyUyMGdhbWluZ3xlbnwwfHx8fDE3NzA0MTg5NjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "retro gaming"
-    },
-    {
       "id": "user-avatar-1",
       "description": "Robot avatar",
       "imageUrl": "https://api.dicebear.com/8.x/bottts/png?seed=1",
