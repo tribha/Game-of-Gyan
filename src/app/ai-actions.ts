@@ -2,7 +2,6 @@
 
 import { getSmartHint } from '@/ai/flows/smart-hint-system';
 import { runCode } from '@/ai/flows/run-code';
-import { chatWithBot, type ChatbotInput } from '@/ai/flows/chatbot';
 import { z } from 'zod';
 
 // Hint Action
@@ -104,48 +103,5 @@ export async function runCodeAction(
   } catch (e) {
     console.error('Code execution simulation failed:', e);
     return { error: 'Failed to run code. Please try again later.' };
-  }
-}
-
-// Chatbot Action
-const MessageSchema = z.object({
-  role: z.enum(['user', 'model']),
-  content: z.string(),
-});
-export type Message = z.infer<typeof MessageSchema>;
-
-export type ChatState = {
-  history: Message[];
-  error?: string;
-};
-
-export async function chatbotAction(
-  prevState: ChatState,
-  formData: FormData
-): Promise<ChatState> {
-  const userMessage = formData.get('message') as string;
-  if (!userMessage.trim()) {
-    return prevState;
-  }
-
-  const newHistory: Message[] = [
-    ...prevState.history,
-    { role: 'user', content: userMessage },
-  ];
-
-  try {
-    const modelResponse = await chatWithBot({ history: newHistory });
-    if (!modelResponse || !modelResponse.content) {
-      throw new Error('AI returned an empty response.');
-    }
-    return {
-      history: [...newHistory, modelResponse],
-    };
-  } catch (e: any) {
-    console.error('Chatbot action failed:', e);
-    return {
-      history: newHistory, // Keep user's message on error
-      error: `Sorry, I'm having trouble connecting. The underlying error is: ${e.message}`,
-    };
   }
 }

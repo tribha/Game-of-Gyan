@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -27,7 +26,6 @@ import {
 import { Header } from '@/components/layout/header';
 import { GameOfGyanLogo } from '@/components/icons';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Chatbot } from '@/components/chatbot/chatbot';
 
 const navItems = [
   { href: '/dashboard', icon: Gamepad2, label: 'Dashboard' },
@@ -99,7 +97,6 @@ export default function DashboardLayout({
       <SidebarInset>
         <Header />
         <div className="flex-1 p-4 sm:p-6 lg:p-8">{children}</div>
-        <Chatbot />
       </SidebarInset>
     </SidebarProvider>
   );
