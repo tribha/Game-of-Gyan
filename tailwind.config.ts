@@ -103,11 +103,16 @@ export default {
           '50%': { transform: 'translateY(0) rotate(0deg) scale(1)' },
           '75%': { transform: 'translateY(-15px) rotate(5deg) scale(1.1)'},
         },
+        'content-show': {
+          from: { opacity: '0', transform: 'translateY(1rem)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         celebrate: 'celebrate 0.6s ease-in-out',
+        'content-show': 'content-show 0.4s ease-out',
       },
     },
   },
