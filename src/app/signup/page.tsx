@@ -111,7 +111,7 @@ export default function SignupPage() {
       <Card className="mx-auto w-full max-w-sm">
         <CardHeader className="text-center">
           <div className="mb-4 flex justify-center">
-            <GameOfGyanLogo className="h-12 w-12" />
+            <GameOfGyanLogo className="relative h-20 w-64" />
           </div>
           <CardTitle className="text-2xl font-bold">Create an Account</CardTitle>
           <CardDescription>

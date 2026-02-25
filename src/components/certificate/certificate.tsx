@@ -1,6 +1,7 @@
 'use client';
 
 import { format } from 'date-fns';
+import { GameOfGyanLogo } from '../icons';
 
 type CertificateProps = {
   studentName: string;
@@ -17,9 +18,7 @@ export function Certificate({
     <div className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-lg shadow-2xl p-8 max-w-4xl mx-auto border-4 border-primary">
       <div className="p-6 relative">
         <div className="flex justify-center mb-8">
-          <h1 className="text-5xl font-bold text-primary tracking-widest">
-            TRIBHA
-          </h1>
+          <GameOfGyanLogo className="relative h-20 w-64" />
         </div>
         <h2 className="text-2xl font-semibold text-center text-gray-600 dark:text-gray-300 mb-6">
           Certificate of Completion
@@ -49,7 +48,7 @@ export function Certificate({
             <p className="text-lg font-semibold border-t-2 border-gray-400 px-4 pt-2">
               Signature
             </p>
-            <p className="text-md text-gray-600 dark:text-gray-300 font-headline">The Tribha Team</p>
+            <p className="text-md text-gray-600 dark:text-gray-300 font-headline">The Game of Gyan Team</p>
           </div>
         </div>
         <div className="absolute top-0 left-0 w-24 h-24 border-t-4 border-l-4 border-primary"></div>
@@ -60,3 +59,5 @@ export function Certificate({
     </div>
   );
 }
+
+    
