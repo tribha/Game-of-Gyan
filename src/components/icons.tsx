@@ -23,7 +23,7 @@ export function GameOfGyanLogo({ className }: { className?: string }) {
       </g>
 
       {/* Text */}
-      <text x="65" y="42" fontFamily="Poppins, sans-serif" fontSize="32" fontWeight="700" fill="currentColor">
+      <text x="65" y="42" fontFamily="Poppins, sans-serif" fontSize="32" fontWeight="700" fill="url(#logoGradient)">
         Game of Gyan
       </text>
     </svg>
