@@ -68,9 +68,9 @@ export default function DashboardLayout({
         <SidebarHeader className="p-4">
           <Link
             href="/dashboard"
-            className="flex items-center gap-2 text-sidebar-foreground"
+            className="flex items-center gap-2"
           >
-            <GameOfGyanLogo className="relative h-12 w-40" />
+            <GameOfGyanLogo className="text-sidebar-foreground" />
           </Link>
         </SidebarHeader>
         <SidebarContent>
@@ -100,5 +100,3 @@ export default function DashboardLayout({
     </SidebarProvider>
   );
 }
-
-    
