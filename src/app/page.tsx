@@ -116,7 +116,7 @@ export default function LoginPage() {
         )}
         <div className="absolute inset-0 bg-primary/80" />
         <div className="relative z-20 flex items-center text-lg font-medium">
-           <GameOfGyanLogo className="text-white" />
+          <GameOfGyanLogo className="text-white" />
         </div>
         <div className="relative z-20 mt-auto">
           <div className="mb-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-4">
@@ -144,7 +144,7 @@ export default function LoginPage() {
       <div className="flex min-h-screen items-center justify-center bg-background p-4 lg:min-h-0 lg:p-0">
         <Card className="mx-auto w-full max-w-sm">
           <CardHeader className="text-center">
-            <div className="mb-4 flex items-center justify-center gap-2 font-bold">
+            <div className="mb-4 flex justify-center">
               <GameOfGyanLogo />
             </div>
             <CardTitle className="text-3xl font-bold">
@@ -198,7 +198,9 @@ export default function LoginPage() {
                     size="icon"
                     className="absolute inset-y-0 right-0 h-full w-10 text-muted-foreground"
                     onClick={() => setShowPassword((prev) => !prev)}
-                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    aria-label={
+                      showPassword ? 'Hide password' : 'Show password'
+                    }
                   >
                     {showPassword ? (
                       <EyeOff className="h-4 w-4" />

@@ -54,8 +54,8 @@ export default function DashboardLayout({
     return (
       <div className="flex h-screen w-screen items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-           <GameOfGyanLogo className="relative h-24 w-72 animate-pulse" />
-           <p className="text-lg font-semibold">Loading your realm...</p>
+          <GameOfGyanLogo className="relative h-24 w-72 animate-pulse" />
+          <p className="text-lg font-semibold">Loading your realm...</p>
           <Skeleton className="h-4 w-64" />
         </div>
       </div>
@@ -68,7 +68,7 @@ export default function DashboardLayout({
         <SidebarHeader className="p-4">
           <Link
             href="/dashboard"
-            className="flex items-center gap-2"
+            className="flex items-center"
           >
             <GameOfGyanLogo className="text-sidebar-foreground" />
           </Link>
