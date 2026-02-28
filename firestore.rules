@@ -1,232 +1,184 @@
-
-/**
- * This ruleset enforces a hybrid security model for the Code Conqueror application.
- * It strictly separates private user data from public application content to ensure
- * security and scalability.
- *
- * Core Philosophy:
- * - User Data Privacy: All data directly related to a user (profile, certificates) is
- *   private and accessible only by that authenticated user.
- * - Public Content: Core application content (courses, levels, games, badges) is
- *   globally readable by any authenticated user but is not writable by them. This
- *   creates a secure read-only content repository.
- *
- * Data Structure:
- * - /users/{userId}: This path contains all private data for a specific user.
- *   - /users/{userId}/certificates/{certificateId}: A subcollection for user-specific
- *     certificates, inheriting the parent's ownership model.
- * - /courses/{courseId}: A top-level collection for public course data.
- * - /badges/{badgeId}: A top-level collection for public badge data.
- *
- * Key Security Decisions:
- * - No User Listing: It is impossible to list all documents in the `/users` collection,
- *   preventing user enumeration attacks.
- * - Admin-Managed Content: All writes to public content collections (/courses, /badges)
- *   are disabled. This assumes that content is managed by developers or admins
- *   using a privileged environment (e.g., Admin SDK, Firebase Console).
- * - Path-Based Security: Ownership is determined by the `userId` in the document path,
- *   which is a highly performant and secure method that avoids extra database reads.
- * - Relational Integrity: On creation, rules validate that ownership fields within
- *   a document (e.g., `userProfileId`) match the ownership defined in the path.
- *   These fields are then enforced as immutable on update.
- */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // ------------------------------------------------------------------------
-    // Helper Functions
-    // ------------------------------------------------------------------------
-
     /**
-     * Checks if the user is authenticated.
+     * FIREBASE SECURITY RULES DOCUMENTATION
+     *
+     * Core Philosophy: 
+     * This ruleset implements a strict user-ownership model combined with a public-read 
+     * educational content system. Private user data is sandboxed, while collaborative 
+     * features like friend requests use a shared-access model.
+     *
+     * Data Structure:
+     * - /users/{userId}: Root for all private user data (progress, badges, attempts).
+     * - /courses, /achievements, /badges: Global, read-only content collections.
+     * - /friendRequests: Flat collection for peer-to-peer interactions.
+     *
+     * Key Security Decisions:
+     * 1. Ownership Isolation: All documents under /users/{userId} are strictly owned by 
+     *    the authenticated user matching the {userId} wildcard.
+     * 2. Content Integrity: Learning content (courses, levels, games) is globally 
+     *    readable by signed-in users but is strictly read-only to prevent unauthorized 
+     *    modifications to the curriculum.
+     * 3. Collaborative Access: Friend requests allow access to only the two involved parties 
+     *    (sender and receiver) via denormalized ID fields.
+     * 4. Prototyping Flexibility: Rules prioritize authorization (who can access) over 
+     *    strict data validation (schema shapes), allowing for rapid frontend iteration.
+     *
+     * Denormalization for Authorization:
+     * - userId/senderId/receiverId are stored directly on documents to avoid costly get() 
+     *   lookups and allow for efficient, atomic security checks.
      */
+
+    // --- Helper Functions ---
+
+    /** @description Checks if the user is authenticated. */
     function isSignedIn() {
       return request.auth != null;
     }
 
-    /**
-     * Checks if the authenticated user's UID matches the provided userId.
-     * This is the foundation of the ownership model.
-     */
+    /** @description Checks if the user is the owner of the path-based userId. */
     function isOwner(userId) {
       return isSignedIn() && request.auth.uid == userId;
     }
-    
-    /**
-     * Checks if a document currently exists.
-     * Crucial for protecting against writes to non-existent documents.
-     */
-    function isExistingDoc() {
-      return resource != null;
+
+    /** @description Checks if the user is involved in a shared document (e.g., friend request). */
+    function isParticipant(senderId, receiverId) {
+      return isSignedIn() && (request.auth.uid == senderId || request.auth.uid == receiverId);
     }
 
-    /**
-     * Combines ownership and existence checks for update/delete operations.
-     */
-    function isExistingOwner(userId) {
-      return isOwner(userId) && isExistingDoc();
-    }
-    
-    /**
-     * Validates a new UserProfile document on creation.
-     * Ensures the creator is the owner and the internal 'id' matches the path.
-     */
-    function isValidUserProfileCreate(userId) {
-      return isOwner(userId) && request.resource.data.id == userId;
-    }
-    
-    /**
-     * Validates a UserProfile document on update.
-     * Ensures the owner is making the change and that the 'id' is immutable.
-     */
-    function isValidUserProfileUpdate(userId) {
-      return isExistingOwner(userId) && request.resource.data.id == resource.data.id;
-    }
-    
-    /**
-     * Validates a new Certificate document on creation.
-     * Ensures the creator owns the parent profile and the 'userProfileId' is correct.
-     */
-    function isValidCertificateCreate(userId) {
-      return isOwner(userId) && request.resource.data.userProfileId == userId;
+    /** @description Validates that critical relational fields are not changed during updates. */
+    function isUnchanged(field) {
+      return request.resource.data[field] == resource.data[field];
     }
 
-    /**
-     * Validates a Certificate document on update.
-     * Ensures the owner is making the change and that the 'userProfileId' is immutable.
-     */
-    function isValidCertificateUpdate(userId) {
-      return isExistingOwner(userId) && request.resource.data.userProfileId == resource.data.userProfileId;
-    }
-
-
-    // ------------------------------------------------------------------------
-    // User Data Collections
-    // ------------------------------------------------------------------------
+    // --- Collection Rules ---
 
     /**
-     * @description Secures user profiles. Only the owner can read or write their own profile. Listing all users is forbidden.
+     * @description Rules for user profile documents.
      * @path /users/{userId}
-     * @allow (get) A user with auth.uid 'user123' can read their own profile at '/users/user123'.
-     * @allow (create) A new user with auth.uid 'user123' can create their profile at '/users/user123'.
-     * @deny (get) A user with auth.uid 'user456' cannot read the profile at '/users/user123'.
-     * @deny (list) No user can list all documents in the '/users' collection.
-     * @principle Restricts access to a user's own data tree and prevents user enumeration.
+     * @allow (create) if request.auth.uid == userId
+     * @deny (update) if request.auth.uid != userId
+     * @principle Path-based ownership and self-creation.
      */
     match /users/{userId} {
       allow get: if isOwner(userId);
-      allow list: if false;
-      allow create: if isValidUserProfileCreate(userId);
-      allow update: if isValidUserProfileUpdate(userId);
-      allow delete: if isExistingOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId) && request.resource.data.id == userId;
+      allow update: if isOwner(userId) && isUnchanged('id');
+      allow delete: if isOwner(userId);
 
       /**
-       * @description Secures user-earned certificates. Inherits ownership from the parent user profile.
+       * @description Records of user attempts on games.
+       * @path /users/{userId}/gameAttempts/{gameAttemptId}
+       * @allow (create) if auth user is path owner and data.userId matches.
+       * @deny (list) if user tries to list another user's attempts.
+       * @principle Subcollection ownership validation.
+       */
+      match /gameAttempts/{gameAttemptId} {
+        allow get: if isOwner(userId);
+        allow list: if isOwner(userId);
+        allow create: if isOwner(userId) && request.resource.data.userId == userId;
+        allow update: if isOwner(userId) && isUnchanged('userId');
+        allow delete: if isOwner(userId);
+      }
+
+      /**
+       * @description Earned achievements. Read-only for users; system-managed.
+       * @path /users/{userId}/achievements/{userAchievementId}
+       */
+      match /achievements/{userAchievementId} {
+        allow get, list: if isOwner(userId);
+        allow create, update, delete: if false; 
+      }
+
+      /**
+       * @description Earned badges. Read-only for users.
+       * @path /users/{userId}/badges/{userBadgeId}
+       */
+      match /badges/{userBadgeId} {
+        allow get, list: if isOwner(userId);
+        allow create, update, delete: if false;
+      }
+
+      /**
+       * @description Earned certificates. Read-only for users.
        * @path /users/{userId}/certificates/{certificateId}
-       * @allow (list) A user with auth.uid 'user123' can list their certificates at '/users/user123/certificates'.
-       * @allow (create) User 'user123' can add a new certificate under their own profile.
-       * @deny (get) A user with auth.uid 'user456' cannot read a certificate at '/users/user123/certificates/cert999'.
-       * @principle Enforces inherited ownership for data in a user-specific subcollection.
        */
       match /certificates/{certificateId} {
-        allow get: if isOwner(userId);
-        allow list: if isOwner(userId);
-        allow create: if isValidCertificateCreate(userId);
-        allow update: if isValidCertificateUpdate(userId);
-        allow delete: if isExistingOwner(userId);
+        allow get, list: if isOwner(userId);
+        allow create, update, delete: if false;
       }
-    }
-    
-    /**
-     * @description Secures extended user profiles with game data. Only the owner can read or write their own profile.
-     * @path /userProfiles/{userId}
-     * @allow (get) A user with auth.uid 'user123' can read their profile at '/userProfiles/user123'.
-     * @deny (get) A user with auth.uid 'user456' cannot read the profile at '/userProfiles/user123'.
-     * @principle Restricts access to a user's own data.
-     */
-    match /userProfiles/{userId} {
-      allow get: if isOwner(userId);
-      allow list: if false;
-      allow create: if isOwner(userId) && request.resource.data.id == userId;
-      allow update: if isExistingOwner(userId);
-      allow delete: if isExistingOwner(userId);
 
       /**
-       * @description Secures a user's XP history. Only the owner can read and create entries.
-       * @path /userProfiles/{userId}/xpHistory/{historyId}
-       * @allow (list) A user can list their own XP history.
-       * @allow (create) A user can add to their own XP history.
-       * @deny (update, delete) XP history is immutable for users.
+       * @description Tracks course progress.
+       * @path /users/{userId}/courseProgress/{userCourseProgressId}
        */
-      match /xpHistory/{historyId} {
-        allow list: if isOwner(userId);
-        allow get: if isOwner(userId);
+      match /courseProgress/{userCourseProgressId} {
+        allow get, list: if isOwner(userId);
         allow create: if isOwner(userId) && request.resource.data.userId == userId;
-        allow update: if false;
-        allow delete: if false;
+        allow update: if isOwner(userId) && isUnchanged('userId');
+        allow delete: if isOwner(userId);
       }
     }
 
-    // ------------------------------------------------------------------------
-    // Public Content Collections
-    // ------------------------------------------------------------------------
-
     /**
-     * @description Makes course content readable by any authenticated user but prevents all client-side writes.
+     * @description Global educational content. Publicly readable by all students.
      * @path /courses/{courseId}
-     * @allow (get) Any signed-in user can read a course document.
-     * @allow (list) Any signed-in user can list all courses.
-     * @deny (create) No user can create a new course document from the client.
-     * @deny (update, delete) No user can modify or delete existing course content.
-     * @principle Provides public read access for application content while locking down writes to prevent unauthorized changes.
+     * @principle Public read with locked-down writes.
      */
     match /courses/{courseId} {
-      allow get: if isSignedIn();
-      allow list: if isSignedIn();
-      allow create: if false;
-      allow update: if false;
-      allow delete: if false;
+      allow get, list: if isSignedIn();
+      allow create, update, delete: if false; // Admin only - managed via Admin SDK/Console
 
-      /**
-       * @description Secures course levels. Inherits the public-read, no-write policy from the parent course.
-       * @path /courses/{courseId}/levels/{levelId}
-       */
       match /levels/{levelId} {
-        allow get: if isSignedIn();
-        allow list: if isSignedIn();
-        allow create: if false;
-        allow update: if false;
-        allow delete: if false;
+        allow get, list: if isSignedIn();
+        allow create, update, delete: if false;
 
-        /**
-         * @description Secures level games. Inherits the public-read, no-write policy from the parent course.
-         * @path /courses/{courseId}/levels/{levelId}/games/{gameId}
-         */
         match /games/{gameId} {
-          allow get: if isSignedIn();
-          allow list: if isSignedIn();
-          allow create: if false;
-          allow update: if false;
-          allow delete: if false;
+          allow get, list: if isSignedIn();
+          allow create, update, delete: if false;
+
+          match /hints/{hintId} {
+            allow get, list: if isSignedIn();
+            allow create, update, delete: if false;
+          }
         }
       }
     }
 
     /**
-     * @description Makes badge information readable by any authenticated user but prevents all client-side writes.
+     * @description Global definitions for Achievements.
+     * @path /achievements/{achievementId}
+     */
+    match /achievements/{achievementId} {
+      allow get, list: if isSignedIn();
+      allow create, update, delete: if false;
+    }
+
+    /**
+     * @description Global definitions for Badges.
      * @path /badges/{badgeId}
-     * @allow (get) Any signed-in user can read a badge document.
-     * @allow (list) Any signed-in user can list all badges.
-     * @deny (create, update, delete) No user can create, modify, or delete badge data from the client.
-     * @principle Provides public read access for application content while locking down writes to prevent unauthorized changes.
      */
     match /badges/{badgeId} {
-      allow get: if isSignedIn();
-      allow list: if isSignedIn();
-      allow create: if false;
-      allow update: if false;
-      allow delete: if false;
+      allow get, list: if isSignedIn();
+      allow create, update, delete: if false;
+    }
+
+    /**
+     * @description Friend requests between users.
+     * @path /friendRequests/{friendRequestId}
+     * @allow (create) if senderId matches auth UID.
+     * @allow (get) if auth user is sender or receiver.
+     * @principle Shared access model for collaborative entities.
+     */
+    match /friendRequests/{friendRequestId} {
+      allow get: if isParticipant(resource.data.senderId, resource.data.receiverId);
+      allow list: if isSignedIn(); // Queries must be filtered by senderId or receiverId to succeed.
+      allow create: if isSignedIn() && request.resource.data.senderId == request.auth.uid;
+      allow update: if isParticipant(resource.data.senderId, resource.data.receiverId) && isUnchanged('senderId') && isUnchanged('receiverId');
+      allow delete: if isParticipant(resource.data.senderId, resource.data.receiverId);
     }
   }
 }

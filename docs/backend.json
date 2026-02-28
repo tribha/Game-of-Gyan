@@ -4,94 +4,134 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "UserProfile",
       "type": "object",
-      "description": "Represents a user's profile in the Game of Gyan application, including progress and personal information.",
+      "description": "Stores user-specific data, overall progress, and relationships with other users and game elements.",
       "properties": {
         "id": {
           "type": "string",
-          "description": "Unique identifier for the UserProfile entity, matching the Firebase Auth UID."
-        },
-        "email": {
-          "type": "string",
-          "description": "User's email address.",
-          "format": "email"
+          "description": "Unique identifier for the UserProfile entity."
         },
         "username": {
           "type": "string",
-          "description": "User's display name or username."
+          "description": "User's chosen display name, visible on dashboards and leaderboards."
         },
-        "name": {
+        "email": {
           "type": "string",
-          "description": "User's full name."
+          "description": "User's email address, primarily used for authentication (assuming an external auth system manages passwords).",
+          "format": "email"
         },
-        "level": {
+        "overallSkillLevel": {
+          "type": "string",
+          "description": "Overall skill level of the user (e.g., 'Beginner', 'Intermediate', 'Advanced')."
+        },
+        "xpPoints": {
           "type": "number",
-          "description": "Current calculated level of the user based on XP."
+          "description": "Total experience points accumulated by the user."
         },
-        "xp": {
+        "totalScore": {
           "type": "number",
-          "description": "Total experience points of the user."
+          "description": "Total score achieved by the user across all games and courses."
         },
-        "streak": {
+        "streaks": {
           "type": "number",
-          "description": "Current learning streak of the user in days."
+          "description": "Number of consecutive days the user has been active or completed a task."
         },
-        "avatarUrl": {
-            "type": "string",
-            "description": "URL of the user's chosen avatar image.",
-            "format": "uri"
+        "lastActiveAt": {
+          "type": "string",
+          "description": "Timestamp of the user's last activity, used for streak calculation.",
+          "format": "date-time"
         },
-        "school": {
-            "type": "string",
-            "description": "User's school or college."
+        "profileImageUrl": {
+          "type": "string",
+          "description": "URL to the user's profile picture.",
+          "format": "uri"
         },
-        "city": {
-            "type": "string",
-            "description": "User's city."
+        "preferredTheme": {
+          "type": "string",
+          "description": "User's preferred UI theme (e.g., 'dark', 'light')."
         },
-        "phone": {
-            "type": "string",
-            "description": "User's phone number."
-        },
-        "skills": {
-            "type": "array",
-            "description": "A list of self-reported skills.",
-            "items": { "type": "string" }
-        },
-        "completedCourses": {
+        "friendIds": {
           "type": "array",
-          "description": "An array of IDs for courses the user has completed.",
-          "items": { "type": "string" }
+          "description": "References to other UserProfile entities that are friends with this user. (Relationship: UserProfile N:N UserProfile)",
+          "items": {
+            "type": "string"
+          }
         },
-        "completedLevels": {
+        "outgoingFriendRequestIds": {
           "type": "array",
-          "description": "An array of IDs for individual course levels the user has completed.",
-          "items": { "type": "string" }
+          "description": "References to FriendRequest entities initiated by this user. (Relationship: UserProfile 1:N FriendRequest)",
+          "items": {
+            "type": "string"
+          }
         },
-        "completedExpertChallenges": {
+        "incomingFriendRequestIds": {
           "type": "array",
-          "description": "An array of IDs for expert-level challenges the user has completed.",
-          "items": { "type": "string" }
+          "description": "References to FriendRequest entities received by this user. (Relationship: UserProfile 1:N FriendRequest)",
+          "items": {
+            "type": "string"
+          }
         },
-        "completedHardChallenges": {
+        "userCourseProgressIds": {
           "type": "array",
-          "description": "An array of IDs for 'Find the Error' challenges the user has completed.",
-          "items": { "type": "string" }
+          "description": "References to UserCourseProgress entities tracking this user's progress in various courses. (Relationship: UserProfile 1:N UserCourseProgress)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "gameAttemptIds": {
+          "type": "array",
+          "description": "References to GameAttempt entities representing this user's attempts in games. (Relationship: UserProfile 1:N GameAttempt)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "userAchievementIds": {
+          "type": "array",
+          "description": "References to UserAchievement entities for achievements earned by this user. (Relationship: UserProfile 1:N UserAchievement)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "userBadgeIds": {
+          "type": "array",
+          "description": "References to UserBadge entities for badges earned by this user. (Relationship: UserProfile 1:N UserBadge)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "certificateIds": {
+          "type": "array",
+          "description": "References to Certificate entities earned by this user. (Relationship: UserProfile 1:N Certificate)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the user profile was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the user profile was last updated.",
+          "format": "date-time"
         }
       },
       "required": [
         "id",
-        "email",
         "username",
-        "level",
-        "xp",
-        "streak"
+        "email",
+        "overallSkillLevel",
+        "xpPoints",
+        "totalScore",
+        "streaks",
+        "createdAt"
       ]
     },
     "Course": {
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Course",
       "type": "object",
-      "description": "Represents a coding course offered on the platform.",
+      "description": "Represents a distinct programming language learning course (e.g., Python Fundamentals).",
       "properties": {
         "id": {
           "type": "string",
@@ -99,36 +139,57 @@
         },
         "name": {
           "type": "string",
-          "description": "Name of the course (e.g., Python Basics)."
+          "description": "The name of the course (e.g., 'Python Fundamentals')."
         },
         "description": {
           "type": "string",
-          "description": "Brief description of the course."
+          "description": "A brief description of the course content."
         },
         "language": {
           "type": "string",
-          "description": "Programming language covered by the course (e.g., Python, Java)."
+          "description": "The programming language associated with this course (e.g., 'Python', 'Java')."
         },
         "levelIds": {
           "type": "array",
-          "description": "References to Levels within the course. (Relationship: Course 1:N Level)",
+          "description": "References to Level entities belonging to this course, in their progressive order. (Relationship: Course 1:N Level)",
           "items": {
             "type": "string"
           }
+        },
+        "totalLevels": {
+          "type": "number",
+          "description": "Total number of levels in this course."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL to an image representing the course (e.g., a course thumbnail).",
+          "format": "uri"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the course was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the course was last updated.",
+          "format": "date-time"
         }
       },
       "required": [
         "id",
         "name",
+        "language",
         "description",
-        "language"
+        "totalLevels",
+        "createdAt"
       ]
     },
     "Level": {
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Level",
       "type": "object",
-      "description": "Represents a level within a specific coding course.",
+      "description": "Represents a specific learning stage or module within a Course.",
       "properties": {
         "id": {
           "type": "string",
@@ -138,34 +199,66 @@
           "type": "string",
           "description": "Reference to the Course this level belongs to. (Relationship: Course 1:N Level)"
         },
-        "name": {
+        "title": {
           "type": "string",
-          "description": "Name of the level (e.g., Level 1, Introduction)."
+          "description": "The title of the level (e.g., 'Variables and Data Types')."
         },
-        "order": {
+        "description": {
+          "type": "string",
+          "description": "A brief description of the level's content and learning objectives."
+        },
+        "orderIndex": {
           "type": "number",
-          "description": "Order of the level within the course."
+          "description": "The sequential order of this level within its course."
+        },
+        "difficulty": {
+          "type": "string",
+          "description": "The difficulty rating of the level (e.g., 'Easy', 'Medium', 'Hard', 'Boss')."
         },
         "gameIds": {
           "type": "array",
-          "description": "References to Games within this level. (Relationship: Level 1:N Game)",
+          "description": "References to Game entities included in this level. (Relationship: Level 1:N Game)",
           "items": {
             "type": "string"
           }
+        },
+        "requiredXpToUnlock": {
+          "type": "number",
+          "description": "Experience points required to unlock this level. Can be 0 if no unlock requirement."
+        },
+        "prerequisiteLevelId": {
+          "type": "string",
+          "description": "Reference to a Level entity that must be completed before this level can be accessed. (Optional, if progression is strictly linear by orderIndex).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the level was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the level was last updated.",
+          "format": "date-time"
         }
       },
       "required": [
         "id",
         "courseId",
-        "name",
-        "order"
+        "title",
+        "description",
+        "orderIndex",
+        "difficulty",
+        "createdAt"
       ]
     },
     "Game": {
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Game",
       "type": "object",
-      "description": "Represents a game or exercise within a coding level.",
+      "description": "Represents an interactive game or exercise within a Level.",
       "properties": {
         "id": {
           "type": "string",
@@ -175,36 +268,238 @@
           "type": "string",
           "description": "Reference to the Level this game belongs to. (Relationship: Level 1:N Game)"
         },
+        "title": {
+          "type": "string",
+          "description": "The title of the game or exercise."
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description of the game's objective."
+        },
         "type": {
           "type": "string",
-          "description": "Type of the game (e.g., MCQ, Fill-in-the-blanks, Drag-and-drop)."
+          "description": "The type of interactive game (e.g., 'MCQ', 'FillInTheBlank', 'DragAndDrop', 'VisualLogic', 'CodeSimulator')."
         },
-        "content": {
+        "questionContent": {
           "type": "string",
-          "description": "The data/content of the game."
+          "description": "The main content of the game, such as question text, code snippet, or visual scenario description."
+        },
+        "options": {
+          "type": "array",
+          "description": "A list of options for games like MCQs or draggable code blocks.",
+          "items": {
+            "type": "string"
+          }
         },
         "correctAnswer": {
           "type": "string",
-          "description": "The correct answer to the game"
+          "description": "The correct answer for the game. Format depends on 'type' (e.g., option ID, filled text, ordered blocks)."
+        },
+        "expectedOutput": {
+          "type": "string",
+          "description": "The expected output for 'CodeSimulator' type games."
+        },
+        "maxAttempts": {
+          "type": "number",
+          "description": "Maximum number of attempts allowed for this game."
         },
         "xpReward": {
           "type": "number",
-          "description": "XP points awarded for completing the game."
+          "description": "Experience points awarded for successfully completing this game."
+        },
+        "hintIds": {
+          "type": "array",
+          "description": "References to Hint entities available for this game. (Relationship: Game 1:N Hint)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the game was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the game was last updated.",
+          "format": "date-time"
         }
       },
       "required": [
         "id",
         "levelId",
+        "title",
         "type",
-        "content",
-        "xpReward"
+        "questionContent",
+        "correctAnswer",
+        "xpReward",
+        "createdAt"
+      ]
+    },
+    "GameAttempt": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "GameAttempt",
+      "type": "object",
+      "description": "Records a single attempt by a user on a specific game.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the GameAttempt entity."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to the UserProfile who made this attempt. (Relationship: UserProfile 1:N GameAttempt)"
+        },
+        "gameId": {
+          "type": "string",
+          "description": "Reference to the Game that was attempted. (Relationship: Game 1:N GameAttempt)"
+        },
+        "courseId": {
+          "type": "string",
+          "description": "Reference to the Course the game belongs to, for contextual reporting. (Relationship: Course 1:N GameAttempt)"
+        },
+        "levelId": {
+          "type": "string",
+          "description": "Reference to the Level the game belongs to, for contextual reporting. (Relationship: Level 1:N GameAttempt)"
+        },
+        "attemptNumber": {
+          "type": "number",
+          "description": "The sequential number of this attempt for the given game by the user."
+        },
+        "userInput": {
+          "type": "string",
+          "description": "The input provided by the user during this attempt (e.g., chosen option, written code)."
+        },
+        "isCorrect": {
+          "type": "boolean",
+          "description": "Indicates whether the user's attempt was correct."
+        },
+        "scoreAchieved": {
+          "type": "number",
+          "description": "Score obtained in this specific attempt."
+        },
+        "xpEarned": {
+          "type": "number",
+          "description": "Experience points earned in this specific attempt."
+        },
+        "hintsUsedCount": {
+          "type": "number",
+          "description": "Number of hints used during this attempt."
+        },
+        "timeTakenSeconds": {
+          "type": "number",
+          "description": "Time taken by the user to complete this attempt in seconds."
+        },
+        "attemptedAt": {
+          "type": "string",
+          "description": "Timestamp when this game attempt was made.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "gameId",
+        "attemptNumber",
+        "userInput",
+        "isCorrect",
+        "scoreAchieved",
+        "xpEarned",
+        "attemptedAt"
+      ]
+    },
+    "Achievement": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Achievement",
+      "type": "object",
+      "description": "Defines a specific accomplishment or milestone a user can earn.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Achievement entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the achievement (e.g., 'First Code', 'Python Master')."
+        },
+        "description": {
+          "type": "string",
+          "description": "A description detailing how to earn the achievement."
+        },
+        "criteria": {
+          "type": "string",
+          "description": "Programmatic criteria for unlocking the achievement (e.g., 'Complete 1st game', 'Login 10 consecutive days')."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL to the icon or image representing the achievement.",
+          "format": "uri"
+        },
+        "xpBonus": {
+          "type": "number",
+          "description": "Bonus experience points awarded upon earning this achievement."
+        },
+        "isSecret": {
+          "type": "boolean",
+          "description": "Indicates if the achievement is hidden until earned."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the achievement definition was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the achievement definition was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "criteria",
+        "xpBonus",
+        "isSecret",
+        "createdAt"
+      ]
+    },
+    "UserAchievement": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserAchievement",
+      "type": "object",
+      "description": "Records that a specific user has earned a specific achievement. This is a junction entity for the N:N relationship between UserProfile and Achievement.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the UserAchievement entity."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to the UserProfile who earned the achievement. (Relationship: UserProfile N:N Achievement)"
+        },
+        "achievementId": {
+          "type": "string",
+          "description": "Reference to the Achievement definition that was earned. (Relationship: UserProfile N:N Achievement)"
+        },
+        "achievedAt": {
+          "type": "string",
+          "description": "Timestamp when the achievement was earned by the user.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "achievementId",
+        "achievedAt"
       ]
     },
     "Badge": {
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Badge",
       "type": "object",
-      "description": "Represents a badge earned by a user.",
+      "description": "Defines a visual award or recognition a user can earn, often tied to specific in-game actions or progress.",
       "properties": {
         "id": {
           "type": "string",
@@ -212,60 +507,319 @@
         },
         "name": {
           "type": "string",
-          "description": "Name of the badge (e.g., First Steps, Code Master)."
+          "description": "The name of the badge (e.g., 'C++ Rookie', 'Bug Squasher')."
         },
         "description": {
           "type": "string",
-          "description": "Description of the badge and how to earn it."
+          "description": "A description detailing the criteria for earning the badge."
+        },
+        "criteria": {
+          "type": "string",
+          "description": "Programmatic criteria for unlocking the badge (e.g., 'Complete 5 C++ games', 'Solve 10 bugs')."
         },
         "imageUrl": {
           "type": "string",
-          "description": "URL of the badge image.",
+          "description": "URL to the image representing the badge.",
           "format": "uri"
+        },
+        "rarity": {
+          "type": "string",
+          "description": "The rarity level of the badge (e.g., 'Common', 'Rare', 'Epic')."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the badge definition was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the badge definition was last updated.",
+          "format": "date-time"
         }
       },
       "required": [
         "id",
         "name",
         "description",
-        "imageUrl"
+        "criteria",
+        "imageUrl",
+        "rarity",
+        "createdAt"
+      ]
+    },
+    "UserBadge": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserBadge",
+      "type": "object",
+      "description": "Records that a specific user has earned a specific badge. This is a junction entity for the N:N relationship between UserProfile and Badge.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the UserBadge entity."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to the UserProfile who earned the badge. (Relationship: UserProfile N:N Badge)"
+        },
+        "badgeId": {
+          "type": "string",
+          "description": "Reference to the Badge definition that was earned. (Relationship: UserProfile N:N Badge)"
+        },
+        "earnedAt": {
+          "type": "string",
+          "description": "Timestamp when the badge was earned by the user.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "badgeId",
+        "earnedAt"
       ]
     },
     "Certificate": {
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Certificate",
       "type": "object",
-      "description": "Represents a certificate earned by a user upon completing a course.",
+      "description": "Stores details of a generated certificate awarded to a user upon course completion.",
       "properties": {
         "id": {
           "type": "string",
           "description": "Unique identifier for the Certificate entity."
         },
-        "userProfileId": {
+        "userId": {
           "type": "string",
-          "description": "Reference to the UserProfile who earned the certificate. (Relationship: UserProfile 1:N Certificate)"
+          "description": "Reference to the UserProfile who earned this certificate. (Relationship: UserProfile 1:N Certificate)"
         },
         "courseId": {
           "type": "string",
-          "description": "Reference to the Course completed to earn the certificate. (Relationship: Course 1:N Certificate)"
-        },
-        "completionDate": {
-          "type": "string",
-          "description": "Date when the course was completed.",
-          "format": "date-time"
+          "description": "Reference to the Course for which this certificate was issued. (Relationship: Course 1:N Certificate)"
         },
         "certificateUrl": {
           "type": "string",
-          "description": "URL for the downloadable certificate.",
+          "description": "URL to the downloadable PDF or image file of the certificate.",
           "format": "uri"
+        },
+        "courseName": {
+          "type": "string",
+          "description": "The name of the course as it appears on the certificate (denormalized for persistence)."
+        },
+        "studentName": {
+          "type": "string",
+          "description": "The name of the student as it appears on the certificate (denormalized for persistence)."
+        },
+        "completionDate": {
+          "type": "string",
+          "description": "The date when the course was officially completed and the certificate earned.",
+          "format": "date-time"
+        },
+        "generatedAt": {
+          "type": "string",
+          "description": "Timestamp when the certificate record was generated.",
+          "format": "date-time"
         }
       },
       "required": [
         "id",
-        "userProfileId",
+        "userId",
         "courseId",
+        "certificateUrl",
+        "courseName",
+        "studentName",
         "completionDate",
-        "certificateUrl"
+        "generatedAt"
+      ]
+    },
+    "Hint": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Hint",
+      "type": "object",
+      "description": "Stores definitions for hints available for games, providing assistance to users.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Hint entity."
+        },
+        "gameId": {
+          "type": "string",
+          "description": "Reference to the Game this hint is for. (Relationship: Game 1:N Hint)"
+        },
+        "orderIndex": {
+          "type": "number",
+          "description": "The sequential order of this hint within the available hints for a game."
+        },
+        "hintText": {
+          "type": "string",
+          "description": "The textual content of the hint."
+        },
+        "hintType": {
+          "type": "string",
+          "description": "The type of hint (e.g., 'text', 'example', 'visual')."
+        },
+        "hintContent": {
+          "type": "string",
+          "description": "Additional content for the hint, such as a code example or an image URL for visual hints.",
+          "format": "uri"
+        },
+        "difficultyLevelApplicable": {
+          "type": "string",
+          "description": "Indicates the user's skill level this hint is most applicable to (e.g., 'Beginner', 'Intermediate')."
+        },
+        "requiredFailedAttempts": {
+          "type": "number",
+          "description": "Minimum number of failed attempts before this hint becomes available."
+        },
+        "xpCost": {
+          "type": "number",
+          "description": "Experience points deducted from the user for using this hint."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the hint was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the hint was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "gameId",
+        "orderIndex",
+        "hintText",
+        "hintType",
+        "requiredFailedAttempts",
+        "xpCost",
+        "createdAt"
+      ]
+    },
+    "FriendRequest": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "FriendRequest",
+      "type": "object",
+      "description": "Manages requests from one user to another to establish a friendship.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the FriendRequest entity."
+        },
+        "senderId": {
+          "type": "string",
+          "description": "Reference to the UserProfile who sent the friend request. (Relationship: UserProfile 1:N FriendRequest)"
+        },
+        "receiverId": {
+          "type": "string",
+          "description": "Reference to the UserProfile who is the recipient of the friend request. (Relationship: UserProfile 1:N FriendRequest)"
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the friend request (e.g., 'pending', 'accepted', 'rejected', 'cancelled')."
+        },
+        "sentAt": {
+          "type": "string",
+          "description": "Timestamp when the friend request was sent.",
+          "format": "date-time"
+        },
+        "respondedAt": {
+          "type": "string",
+          "description": "Timestamp when the friend request was accepted, rejected, or cancelled. Null if status is 'pending'.",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the friend request record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the friend request record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "senderId",
+        "receiverId",
+        "status",
+        "sentAt",
+        "createdAt"
+      ]
+    },
+    "UserCourseProgress": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserCourseProgress",
+      "type": "object",
+      "description": "Tracks a user's progress within a specific course.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the UserCourseProgress entity."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to the UserProfile making progress in the course. (Relationship: UserProfile 1:N UserCourseProgress)"
+        },
+        "courseId": {
+          "type": "string",
+          "description": "Reference to the Course being taken by the user. (Relationship: Course 1:N UserCourseProgress)"
+        },
+        "currentLevelId": {
+          "type": "string",
+          "description": "Reference to the highest Level the user has reached or is currently active in within this course. (Relationship: Level 1:N UserCourseProgress)"
+        },
+        "completedLevelIds": {
+          "type": "array",
+          "description": "An array of Level IDs that the user has successfully completed in this course. (Relationship: UserCourseProgress 1:N Level)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "progressPercentage": {
+          "type": "number",
+          "description": "The calculated percentage of the course completed by the user (0-100)."
+        },
+        "xpEarnedInCourse": {
+          "type": "number",
+          "description": "Total XP earned by the user specifically within this course."
+        },
+        "isCompleted": {
+          "type": "boolean",
+          "description": "Indicates whether the user has fully completed this course."
+        },
+        "startedAt": {
+          "type": "string",
+          "description": "Timestamp when the user started this course.",
+          "format": "date-time"
+        },
+        "completedAt": {
+          "type": "string",
+          "description": "Timestamp when the user completed this course. Null if not completed.",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the course progress record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the course progress record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "courseId",
+        "currentLevelId",
+        "progressPercentage",
+        "xpEarnedInCourse",
+        "isCompleted",
+        "startedAt",
+        "createdAt"
       ]
     }
   },
@@ -284,11 +838,71 @@
           "schema": {
             "$ref": "#/backend/entities/UserProfile"
           },
-          "description": "Stores user profiles.  Path-based ownership for private user data.",
+          "description": "Stores individual user profiles. Access is restricted to the authenticated user whose UID matches the userId in the path. This collection serves as the root for all user-specific subcollections.",
           "params": [
             {
               "name": "userId",
-              "description": "The unique identifier for the user."
+              "description": "The unique identifier of the user, corresponding to Firebase Authentication UID. Used for path-based ownership."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/gameAttempts/{gameAttemptId}",
+        "definition": {
+          "entityName": "GameAttempt",
+          "schema": {
+            "$ref": "#/backend/entities/GameAttempt"
+          },
+          "description": "Records individual attempts by a user on a specific game. Documents include denormalized 'userId', 'gameId', 'courseId', and 'levelId' for authorization independence and contextual queries. Access is restricted to the owner specified by 'userId' in the path and document.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user who made the attempt."
+            },
+            {
+              "name": "gameAttemptId",
+              "description": "The unique identifier for a specific game attempt."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/achievements/{userAchievementId}",
+        "definition": {
+          "entityName": "UserAchievement",
+          "schema": {
+            "$ref": "#/backend/entities/UserAchievement"
+          },
+          "description": "Records achievements earned by a specific user. Documents include denormalized 'userId' and 'achievementId'. Access is read-only for the owner ('userId' in path and document).",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user who earned the achievement."
+            },
+            {
+              "name": "userAchievementId",
+              "description": "The unique identifier for a specific user achievement record."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/badges/{userBadgeId}",
+        "definition": {
+          "entityName": "UserBadge",
+          "schema": {
+            "$ref": "#/backend/entities/UserBadge"
+          },
+          "description": "Records badges earned by a specific user. Documents include denormalized 'userId' and 'badgeId'. Access is read-only for the owner ('userId' in path and document).",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user who earned the badge."
+            },
+            {
+              "name": "userBadgeId",
+              "description": "The unique identifier for a specific user badge record."
             }
           ]
         }
@@ -300,15 +914,35 @@
           "schema": {
             "$ref": "#/backend/entities/Certificate"
           },
-          "description": "Stores certificates earned by users. Inherits ownership from the user profile.",
+          "description": "Stores certificates earned by a specific user. Documents include denormalized 'userId' and 'courseId'. Access is read-only for the owner ('userId' in path and document).",
           "params": [
             {
               "name": "userId",
-              "description": "The unique identifier for the user."
+              "description": "The unique identifier of the user who earned the certificate."
             },
             {
               "name": "certificateId",
-              "description": "The unique identifier for the certificate."
+              "description": "The unique identifier for a specific certificate."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/courseProgress/{userCourseProgressId}",
+        "definition": {
+          "entityName": "UserCourseProgress",
+          "schema": {
+            "$ref": "#/backend/entities/UserCourseProgress"
+          },
+          "description": "Tracks a user's progress within a specific course. Documents include denormalized 'userId' and 'courseId'. Access is restricted to the owner specified by 'userId' in the path and document.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user making progress."
+            },
+            {
+              "name": "userCourseProgressId",
+              "description": "The unique identifier for a specific user's course progress record."
             }
           ]
         }
@@ -320,11 +954,11 @@
           "schema": {
             "$ref": "#/backend/entities/Course"
           },
-          "description": "Stores course information. Globally accessible to all users.",
+          "description": "Stores definitions for all programming language courses. This is a public collection; authenticated users can read, and only administrators can write.",
           "params": [
             {
               "name": "courseId",
-              "description": "The unique identifier for the course."
+              "description": "The unique identifier for a course."
             }
           ]
         }
@@ -336,15 +970,15 @@
           "schema": {
             "$ref": "#/backend/entities/Level"
           },
-          "description": "Stores levels within a course, reflecting the course-level hierarchy.",
+          "description": "Stores definitions for levels within a specific course. Documents include denormalized 'courseId' for authorization independence. Authenticated users can read, administrators can write.",
           "params": [
             {
               "name": "courseId",
-              "description": "The unique identifier for the course."
+              "description": "The unique identifier of the parent course."
             },
             {
               "name": "levelId",
-              "description": "The unique identifier for the level."
+              "description": "The unique identifier for a specific level."
             }
           ]
         }
@@ -356,19 +990,63 @@
           "schema": {
             "$ref": "#/backend/entities/Game"
           },
-          "description": "Stores games within a level, reflecting the hierarchical course-level-game relationship.",
+          "description": "Stores definitions for interactive games within a specific level. Documents include denormalized 'levelId' and 'courseId' for authorization independence. Authenticated users can read, administrators can write.",
           "params": [
             {
               "name": "courseId",
-              "description": "The unique identifier for the course."
+              "description": "The unique identifier of the grandparent course."
             },
             {
               "name": "levelId",
-              "description": "The unique identifier for the level."
+              "description": "The unique identifier of the parent level."
             },
             {
               "name": "gameId",
-              "description": "The unique identifier for the game."
+              "description": "The unique identifier for a specific game."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/courses/{courseId}/levels/{levelId}/games/{gameId}/hints/{hintId}",
+        "definition": {
+          "entityName": "Hint",
+          "schema": {
+            "$ref": "#/backend/entities/Hint"
+          },
+          "description": "Stores definitions for hints available for games. Documents include denormalized 'gameId', 'levelId', and 'courseId' for authorization independence. Authenticated users can read, administrators can write.",
+          "params": [
+            {
+              "name": "courseId",
+              "description": "The unique identifier of the great-grandparent course."
+            },
+            {
+              "name": "levelId",
+              "description": "The unique identifier of the grandparent level."
+            },
+            {
+              "name": "gameId",
+              "description": "The unique identifier of the parent game."
+            },
+            {
+              "name": "hintId",
+              "description": "The unique identifier for a specific hint."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/achievements/{achievementId}",
+        "definition": {
+          "entityName": "Achievement",
+          "schema": {
+            "$ref": "#/backend/entities/Achievement"
+          },
+          "description": "Stores definitions for all global achievements. This is a public collection; authenticated users can read, and only administrators can write.",
+          "params": [
+            {
+              "name": "achievementId",
+              "description": "The unique identifier for an achievement."
             }
           ]
         }
@@ -380,18 +1058,32 @@
           "schema": {
             "$ref": "#/backend/entities/Badge"
           },
-          "description": "Stores badge information. Globally accessible to all users.",
+          "description": "Stores definitions for all global badges. This is a public collection; authenticated users can read, and only administrators can write.",
           "params": [
             {
               "name": "badgeId",
-              "description": "The unique identifier for the badge."
+              "description": "The unique identifier for a badge."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/friendRequests/{friendRequestId}",
+        "definition": {
+          "entityName": "FriendRequest",
+          "schema": {
+            "$ref": "#/backend/entities/FriendRequest"
+          },
+          "description": "Manages requests between users to establish friendships. Documents include denormalized 'senderId' and 'receiverId' to enable authorization independence and allow both parties to access the request directly. Access is restricted to either the sender or receiver.",
+          "params": [
+            {
+              "name": "friendRequestId",
+              "description": "The unique identifier for a friend request."
             }
           ]
         }
       }
     ],
-    "reasoning": "The Firestore data structure is designed to support the Code Conqueror application, prioritizing security, scalability, and debuggability by adhering to the principles of Authorization Independence, Clarity of Intent, DBAC (Database-Based Access Control), and QAPs (Rules are not Filters). Authorization Independence is achieved through denormalization, copying relevant authorization data (e.g., roles) into subcollections to avoid `get()` calls in security rules. Structural Segregation ensures that each collection has a homogeneous security posture, simplifying rules. Access Modeling employs consistent patterns like path-based ownership for private user data and membership maps for collaborative data.\n\nSpecifically:\n\n*   User profiles are stored under `/users/{userId}`, ensuring private data is easily secured using path-based rules. Certificates are stored in a subcollection `/users/{userId}/certificates/{certificateId}`, inheriting ownership from the user profile.\n*   Courses and Badges are stored in root-level collections `/courses` and `/badges` respectively, as they are globally accessible entities.\n*   Levels and Games are nested under Courses to reflect their hierarchical relationship, enabling structured data access and management.\n\nQAPs (Rules are not Filters) is addressed through structural segregation. List operations are secured based on path-based ownership for user-specific data and by granting read access to all authenticated users for global data such as Courses and Badges."
+    "reasoning": "The Firestore structure is designed following the core principles of Authorization Independence, Structural Segregation, and Access Modeling, ensuring a secure, scalable, and debuggable system for Code Conqueror. \n\n**Authorization Independence (CRITICAL):**\nThis design meticulously avoids hierarchical authorization dependencies by denormalizing authorization-relevant fields directly into the documents. This eliminates the need for `get()` calls in security rules, allowing for atomic operations and simplifying rule logic. For instance:\n*   **User-Owned Data:** For entities like `GameAttempt`, `UserAchievement`, `UserBadge`, `Certificate`, and `UserCourseProgress`, the `userId` is included in the document's path (`/users/{userId}/...`) AND explicitly stored within the document itself (`resource.data.userId`). This allows rules to simply check `request.auth.uid == resource.data.userId` (for read/write within subcollections) or `request.auth.uid == userId` (for operations on the parent `UserProfile` document), without needing to fetch any parent document.\n*   **Collaborative Data (FriendRequest):** The `FriendRequest` entity is stored in a top-level collection (`/friendRequests/{friendRequestId}`). Each `FriendRequest` document contains both `senderId` and `receiverId`. Authorization rules can directly check `request.auth.uid == resource.data.senderId || request.auth.uid == resource.data.receiverId`, making it completely independent of any other document.\n*   **Public Definitions:** For `Course`, `Level`, `Game`, and `Hint` definitions, which are primarily public (read-only for all authenticated users), key parent IDs (`courseId`, `levelId`, `gameId`) are denormalized into their respective child documents. While these are less critical for 'public read' access rules, this denormalization ensures consistency and enables more granular, authorization-independent rules if specific write permissions (e.g., admin updates) are based on the document's context.\n\n**Querying for All Permissions (QAPs):**\nThe structural segregation and denormalization directly support QAPs, ensuring that security rules are not used as data filters, and `list` operations remain secure and efficient:\n*   **User-Specific Subcollections:** For all user-owned data (e.g., `/users/{userId}/gameAttempts`, `/users/{userId}/certificates`), `list` operations are inherently QAP-compliant because users can only query their *own* subcollections. The rule `allow list: if request.auth.uid == userId;` (where `userId` is the path wildcard) is sufficient, and every document returned by such a query will satisfy it.\n*   **Global Public Collections:** Collections like `/courses`, `/achievements`, `/badges` are public read-only. `allow read: if request.auth.uid != null;` is QAP-compliant as any authenticated user can read all documents. Write access would typically be restricted to an administrator role (e.g., checking existence in a `/roles_admin/{uid}` collection), which is also QAP-compliant.\n*   **FriendRequest (Collaborative):** For the `/friendRequests` collection, users will explicitly query for requests where they are either the `senderId` or `receiverId` (e.g., `db.collection('friendRequests').where('senderId', '==', request.auth.uid)` or `db.collection('friendRequests').where('receiverId', '==', request.auth.uid)`). The security rule `allow list: if request.auth.uid == request.query.where.senderId || request.auth.uid == request.query.where.receiverId;` can be crafted to ensure that any `list` operation must include one of these specific filters, making it QAP-compliant. This explicitly prevents a user from listing all friend requests in the database.\n\n**Structural Segregation:**\n*   Public definitions (`Course`, `Level`, `Game`, `Hint`, `Achievement`, `Badge`) are in top-level collections or subcollections that reflect their immutable, global nature, sharing a 'public read' security posture.\n*   User-specific mutable data (`UserProfile`, `GameAttempt`, `UserAchievement`, `UserBadge`, `Certificate`, `UserCourseProgress`) is strictly organized under `/users/{userId}/...`, ensuring that individual user data is kept private and accessible only by its owner.\n*   `FriendRequest` is a distinct entity with a unique collaborative access pattern, warranting its own top-level collection.\n\nThis architecture simplifies security rules, enhances debuggability, and provides a robust foundation for the Code Conqueror application."
   }
 }
-
-    
