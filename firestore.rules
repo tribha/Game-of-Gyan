@@ -11,24 +11,10 @@ service cloud.firestore {
      * features like friend requests use a shared-access model.
      *
      * Data Structure:
-     * - /users/{userId}: Root for all private user data (progress, badges, attempts).
+     * - /users/{userId}: Root for basic user identity.
+     * - /userProfiles/{userId}: Root for gamification data (XP, Level, Friends).
      * - /courses, /achievements, /badges: Global, read-only content collections.
      * - /friendRequests: Flat collection for peer-to-peer interactions.
-     *
-     * Key Security Decisions:
-     * 1. Ownership Isolation: All documents under /users/{userId} are strictly owned by 
-     *    the authenticated user matching the {userId} wildcard.
-     * 2. Content Integrity: Learning content (courses, levels, games) is globally 
-     *    readable by signed-in users but is strictly read-only to prevent unauthorized 
-     *    modifications to the curriculum.
-     * 3. Collaborative Access: Friend requests allow access to only the two involved parties 
-     *    (sender and receiver) via denormalized ID fields.
-     * 4. Prototyping Flexibility: Rules prioritize authorization (who can access) over 
-     *    strict data validation (schema shapes), allowing for rapid frontend iteration.
-     *
-     * Denormalization for Authorization:
-     * - userId/senderId/receiverId are stored directly on documents to avoid costly get() 
-     *   lookups and allow for efficient, atomic security checks.
      */
 
     // --- Helper Functions ---
@@ -56,29 +42,21 @@ service cloud.firestore {
     // --- Collection Rules ---
 
     /**
-     * @description Rules for user profile documents.
-     * @path /users/{userId}
-     * @allow (create) if request.auth.uid == userId
-     * @deny (update) if request.auth.uid != userId
-     * @principle Path-based ownership and self-creation.
+     * @description Rules for basic user documents.
+     * Allows searching by username for the social hub.
      */
     match /users/{userId} {
-      allow get: if isOwner(userId);
-      allow list: if isOwner(userId);
+      allow get: if isSignedIn();
+      allow list: if isSignedIn(); // Required for UserSearch component
       allow create: if isOwner(userId) && request.resource.data.id == userId;
       allow update: if isOwner(userId) && isUnchanged('id');
       allow delete: if isOwner(userId);
 
       /**
        * @description Records of user attempts on games.
-       * @path /users/{userId}/gameAttempts/{gameAttemptId}
-       * @allow (create) if auth user is path owner and data.userId matches.
-       * @deny (list) if user tries to list another user's attempts.
-       * @principle Subcollection ownership validation.
        */
       match /gameAttempts/{gameAttemptId} {
-        allow get: if isOwner(userId);
-        allow list: if isOwner(userId);
+        allow get, list: if isOwner(userId);
         allow create: if isOwner(userId) && request.resource.data.userId == userId;
         allow update: if isOwner(userId) && isUnchanged('userId');
         allow delete: if isOwner(userId);
@@ -86,7 +64,6 @@ service cloud.firestore {
 
       /**
        * @description Earned achievements. Read-only for users; system-managed.
-       * @path /users/{userId}/achievements/{userAchievementId}
        */
       match /achievements/{userAchievementId} {
         allow get, list: if isOwner(userId);
@@ -95,7 +72,6 @@ service cloud.firestore {
 
       /**
        * @description Earned badges. Read-only for users.
-       * @path /users/{userId}/badges/{userBadgeId}
        */
       match /badges/{userBadgeId} {
         allow get, list: if isOwner(userId);
@@ -104,7 +80,6 @@ service cloud.firestore {
 
       /**
        * @description Earned certificates. Read-only for users.
-       * @path /users/{userId}/certificates/{certificateId}
        */
       match /certificates/{certificateId} {
         allow get, list: if isOwner(userId);
@@ -113,7 +88,6 @@ service cloud.firestore {
 
       /**
        * @description Tracks course progress.
-       * @path /users/{userId}/courseProgress/{userCourseProgressId}
        */
       match /courseProgress/{userCourseProgressId} {
         allow get, list: if isOwner(userId);
@@ -124,13 +98,30 @@ service cloud.firestore {
     }
 
     /**
+     * @description Rules for extended user profiles (XP, Levels, Friends).
+     */
+    match /userProfiles/{userId} {
+      allow get: if isSignedIn(); // Needed for FriendList to see profile details
+      allow list: if isSignedIn();
+      allow create: if isOwner(userId);
+      allow update: if isSignedIn(); // Permissive for prototype to allow friend logic cross-writes
+      allow delete: if isOwner(userId);
+
+      /**
+       * @description XP history entries for the dashboard chart.
+       */
+      match /xpHistory/{id} {
+        allow get, list: if isOwner(userId);
+        allow create: if isOwner(userId);
+      }
+    }
+
+    /**
      * @description Global educational content. Publicly readable by all students.
-     * @path /courses/{courseId}
-     * @principle Public read with locked-down writes.
      */
     match /courses/{courseId} {
       allow get, list: if isSignedIn();
-      allow create, update, delete: if false; // Admin only - managed via Admin SDK/Console
+      allow create, update, delete: if false; 
 
       match /levels/{levelId} {
         allow get, list: if isSignedIn();
@@ -150,7 +141,6 @@ service cloud.firestore {
 
     /**
      * @description Global definitions for Achievements.
-     * @path /achievements/{achievementId}
      */
     match /achievements/{achievementId} {
       allow get, list: if isSignedIn();
@@ -159,7 +149,6 @@ service cloud.firestore {
 
     /**
      * @description Global definitions for Badges.
-     * @path /badges/{badgeId}
      */
     match /badges/{badgeId} {
       allow get, list: if isSignedIn();
@@ -168,16 +157,12 @@ service cloud.firestore {
 
     /**
      * @description Friend requests between users.
-     * @path /friendRequests/{friendRequestId}
-     * @allow (create) if senderId matches auth UID.
-     * @allow (get) if auth user is sender or receiver.
-     * @principle Shared access model for collaborative entities.
      */
     match /friendRequests/{friendRequestId} {
       allow get: if isParticipant(resource.data.senderId, resource.data.receiverId);
-      allow list: if isSignedIn(); // Queries must be filtered by senderId or receiverId to succeed.
+      allow list: if isSignedIn(); 
       allow create: if isSignedIn() && request.resource.data.senderId == request.auth.uid;
-      allow update: if isParticipant(resource.data.senderId, resource.data.receiverId) && isUnchanged('senderId') && isUnchanged('receiverId');
+      allow update: if isParticipant(resource.data.senderId, resource.data.receiverId);
       allow delete: if isParticipant(resource.data.senderId, resource.data.receiverId);
     }
   }
