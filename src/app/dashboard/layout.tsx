@@ -10,6 +10,7 @@ import {
   Swords,
   Target,
   UserCog,
+  Users,
 } from 'lucide-react';
 import { useUser } from '@/firebase';
 
@@ -32,6 +33,7 @@ const navItems = [
   { href: '/dashboard/courses', icon: Swords, label: 'Courses' },
   { href: '/dashboard/challenge', icon: Target, label: 'Daily Challenge' },
   { href: '/dashboard/expert-level', icon: Rocket, label: 'Expert Level' },
+  { href: '/dashboard/friends', icon: Users, label: 'Friends' },
   { href: '/dashboard/profile', icon: UserCog, label: 'Profile' },
   { href: '/dashboard/certificates', icon: Award, label: 'Certificates' },
 ];
