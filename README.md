@@ -46,49 +46,13 @@ To empower the next generation of "Code Warriors" through an interactive environ
 
 ---
 
-## 🚀 How to get this code to GitHub
-
-Follow these steps to push your project code to your own GitHub repository:
-
-1.  **Create a new repository on GitHub**: Go to [github.com/new](https://github.com/new) and create a repository (e.g., `game-of-gyan`). Do **not** initialize it with a README, license, or gitignore.
-2.  **Open the Terminal**: In your current workspace (Firebase Studio), open the terminal tab.
-3.  **Initialize Git**:
-    ```bash
-    git init
-    ```
-4.  **Add your files**:
-    ```bash
-    git add .
-    ```
-5.  **Commit your changes**:
-    ```bash
-    git commit -m "Initial commit: Game of Gyan v1.0"
-    ```
-6.  **Connect to GitHub**:
-    Replace `<YOUR_GITHUB_URL>` with the URL of the repository you just created (e.g., `https://github.com/username/game-of-gyan.git`).
-    ```bash
-    git remote add origin <YOUR_GITHUB_URL>
-    git branch -M main
-    ```
-7.  **Push to GitHub**:
-    ```bash
-    git push -u origin main
-    ```
-    *Note: You may be prompted to log in to GitHub via the terminal.*
-
----
-
 ## 💻 Local Development
 
-1.  **Clone the repository**:
-    ```bash
-    git clone <YOUR_GITHUB_URL>
-    ```
-2.  **Install dependencies**:
+1.  **Install dependencies**:
     ```bash
     npm install
     ```
-3.  **Run the development server**:
+2.  **Run the development server**:
     ```bash
     npm run dev
     ```
