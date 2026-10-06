@@ -39,7 +39,7 @@ export default function SignupPage() {
     setError(null);
 
     if (!auth || !firestore) {
-      setError('Firebase is not configured correctly. Please check your setup.');
+      setError('Firebase services are currently unavailable. Please try again later.');
       setLoading(false);
       return;
     }
@@ -99,6 +99,8 @@ export default function SignupPage() {
       let errorMessage = 'Signup failed. Please try again.';
       if (e.code === 'auth/email-already-in-use') {
           errorMessage = 'This email is already in use. Please login or use a different email.';
+      } else if (e.code === 'auth/network-request-failed') {
+          errorMessage = 'Network error. Please check your internet connection.';
       }
       setError(errorMessage);
       setLoading(false);
@@ -121,9 +123,9 @@ export default function SignupPage() {
            {!areServicesAvailable && (
              <Alert variant="destructive" className="mb-4">
                 <AlertCircle className="h-4 w-4" />
-                <AlertTitle>Firebase Not Configured</AlertTitle>
+                <AlertTitle>System Offline</AlertTitle>
                 <AlertDescription>
-                    The application is not connected to Firebase. Please configure your environment variables.
+                    We are having trouble connecting to our servers. Some features may be unavailable.
                 </AlertDescription>
             </Alert>
           )}
