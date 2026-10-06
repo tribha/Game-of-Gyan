@@ -1,4 +1,3 @@
-
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -15,8 +14,9 @@ type HardModeLanguage = {
   image: (typeof PlaceHolderImages)[0] | undefined;
 };
 
-export default function CoursesPage({ searchParams }: { searchParams?: { tab?: string } }) {
-  const defaultTab = searchParams?.tab === 'hard' ? 'hard' : 'medium';
+export default async function CoursesPage({ searchParams }: { searchParams: Promise<{ tab?: string }> }) {
+  const resolvedSearchParams = await searchParams;
+  const defaultTab = resolvedSearchParams.tab === 'hard' ? 'hard' : 'medium';
   const uniqueLanguages = [...new Set(hardChallenges.map(c => c.language))];
   
   const getLanguageName = (lang: string) => {

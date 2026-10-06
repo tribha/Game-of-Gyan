@@ -1,4 +1,3 @@
-
 import { FindTheErrorChallenge } from '@/components/game/find-the-error-challenge';
 import { hardChallenges } from '@/lib/hard-challenges';
 import { notFound } from 'next/navigation';
@@ -6,8 +5,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
 
-export default function ExpertChallengePage({ params }: { params: { challengeId: string } }) {
-  const { challengeId } = params;
+export default async function ExpertChallengePage({ params }: { params: Promise<{ challengeId: string }> }) {
+  const { challengeId } = await params;
 
   const challenge = hardChallenges.find(c => c.id === challengeId);
 
@@ -30,5 +29,3 @@ export default function ExpertChallengePage({ params }: { params: { challengeId:
     </div>
   );
 }
-
-    

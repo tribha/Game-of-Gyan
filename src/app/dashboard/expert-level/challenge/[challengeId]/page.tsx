@@ -1,4 +1,3 @@
-
 import { CodeChallenge } from '@/components/game/code-challenge';
 import { MCQChallenge } from '@/components/game/mcq-challenge';
 import { expertChallenges } from '@/lib/expert-challenges';
@@ -7,8 +6,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
 
-export default function ExpertChallengePage({ params }: { params: { challengeId: string } }) {
-  const { challengeId } = params;
+export default async function ExpertChallengePage({ params }: { params: Promise<{ challengeId: string }> }) {
+  const { challengeId } = await params;
 
   const challenge = expertChallenges.find(c => c.id === challengeId);
 

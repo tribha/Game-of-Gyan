@@ -1,5 +1,6 @@
 'use client';
 
+import * as React from 'react';
 import { Certificate } from '@/components/certificate/certificate';
 import { mockData } from '@/lib/mock-data';
 import { notFound } from 'next/navigation';
@@ -7,8 +8,8 @@ import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
 import { doc } from 'firebase/firestore';
 import { Skeleton } from '@/components/ui/skeleton';
 
-export default function CertificateDisplayPage({ params }: { params: { courseId: string } }) {
-  const { courseId } = params;
+export default function CertificateDisplayPage({ params }: { params: Promise<{ courseId: string }> }) {
+  const { courseId } = React.use(params);
   const { user } = useUser();
   const firestore = useFirestore();
 
